@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Your Name — Software Engineer</title>
+  <meta name="description" content="Portfolio of Your Name: software engineer specializing in X, Y, Z." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- NAV -->
+  <nav>
+    <div class="container nav-inner">
+      <div class="brand"><a href="index.html">Your Name</a></div>
+      <ul class="nav-links">
+        <li><a data-page="index.html" href="index.html">Home</a></li>
+        <li><a data-page="projects.html" href="projects.html">Projects</a></li>
+        <li><a data-page="about.html" href="about.html">About</a></li>
+        <li><a data-page="contact.html" href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header class="hero container">
+    <h1>Building reliable software with clean, modern tooling.</h1>
+    <p>I’m <strong>Your Name</strong>, a developer focused on <em>what you do best</em> (e.g., full-stack apps, automation, Google Apps Script, C++).</p>
+    <p>
+      <a class="btn" href="projects.html">See my projects</a>
+      &nbsp; <a class="btn" href="assets/resume.pdf">Download résumé</a>
+    </p>
+  </header>
+
+  <main class="container">
+    <section class="grid cards">
+      <article class="card">
+        <h3>Recent Work</h3>
+        <p>Short highlight with a link to a flagship repo or case study.</p>
+        <p><a href="projects.html">Browse projects →</a></p>
+      </article>
+      <article class="card">
+        <h3>Tech</h3>
+        <p>TypeScript, React/Next.js, Node, GAS, C++, SQL, etc.</p>
+      </article>
+      <article class="card">
+        <h3>Open Source</h3>
+        <p>Contributions or libraries you maintain.</p>
+      </article>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container small">© <span id="y"></span> Your Name · <a href="https://github.com/yourhandle">GitHub</a> · <a href="https://www.linkedin.com/in/yourhandle">LinkedIn</a></div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>document.getElementById('y').textContent=new Date().getFullYear()</script>
+</body>
+</html>
