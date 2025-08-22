@@ -130,16 +130,17 @@ footer {
     margin-top: 48px;
 }
 
-.img-round {
-  width: 180px;
+.img-round{
+  width: 180px;         /* your size */
   height: 180px;
   border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid #273045;
+  object-fit: cover;    /* keeps the circle filled */
+  object-position: 50% 35%; /* <— vertical bias toward the TOP */
   display: block;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 auto;       /* center in the column */
+  border: 2px solid #273045;
 }
+
 
 form {
     display: grid;
