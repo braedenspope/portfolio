@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Projects — Your Name</title>
+  <meta name="description" content="Selected projects by Your Name." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- NAV (same as above) -->
+  <nav><div class="container nav-inner"><div class="brand"><a href="index.html">Your Name</a></div><ul class="nav-links"><li><a data-page="index.html" href="index.html">Home</a></li><li><a data-page="projects.html" href="projects.html">Projects</a></li><li><a data-page="about.html" href="about.html">About</a></li><li><a data-page="contact.html" href="contact.html">Contact</a></li></ul></div></nav>
+
+  <header class="hero container">
+    <h1>Projects</h1>
+    <p>Hand-picked work demonstrating impact and craft.</p>
+  </header>
+
+  <main class="container grid cards">
+    <!-- Repeat a card per project -->
+    <article class="card">
+      <h3>Project Title</h3>
+      <p>1–2 sentence summary (stack, problem, result).</p>
+      <p><a href="https://github.com/you/repo">GitHub</a> · <a href="https://demo.example.com">Live demo</a></p>
+    </article>
+
+    <article class="card">
+      <h3>Another Project</h3>
+      <p>Brief impact statement (metrics if possible).</p>
+      <p><a href="#">GitHub</a></p>
+    </article>
+  </main>
+
+  <footer><div class="container small">© <span id="y"></span> Your Name</div></footer>
+  <script src="script.js"></script>
+  <script>document.getElementById('y').textContent=new Date().getFullYear()</script>
+</body>
+</html>
