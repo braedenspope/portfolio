@@ -1,0 +1,662 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Conspiracy Theory Game — Braeden Pope</title>
+  <meta name="description" content="Play the Waterdeep Conspiracy Theory Game - A fun D&D campaign game." />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .game-container {
+      max-width: 1200px;
+      width: 100%;
+      padding: 20px;
+      text-align: center;
+      margin: 0 auto;
+    }
+
+    .game-title {
+      font-size: 2.5em;
+      margin-bottom: 30px;
+      color: var(--brand);
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    }
+
+    .screen {
+      display: none;
+      animation: fadeIn 0.5s ease-in;
+    }
+
+    .screen.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .lobby-code {
+      font-size: 3em;
+      background: rgba(122, 162, 255, 0.2);
+      padding: 20px;
+      border-radius: 15px;
+      margin: 20px 0;
+      border: 2px solid var(--brand);
+      font-family: monospace;
+      letter-spacing: 0.2em;
+    }
+
+    .players-list {
+      background: var(--card);
+      border-radius: 10px;
+      padding: 20px;
+      margin: 20px 0;
+      min-height: 150px;
+      border: 1px solid #1b1f2a;
+    }
+
+    .player-item {
+      background: rgba(122, 162, 255, 0.2);
+      margin: 10px;
+      padding: 15px;
+      border-radius: 8px;
+      display: inline-block;
+      min-width: 150px;
+      border: 1px solid rgba(122, 162, 255, 0.3);
+    }
+
+    .prompt-display {
+      background: var(--card);
+      border-radius: 15px;
+      padding: 30px;
+      margin: 20px 0;
+      font-size: 1.3em;
+      line-height: 1.5;
+      border: 2px solid rgba(122, 162, 255, 0.3);
+    }
+
+    .timer {
+      font-size: 2em;
+      color: #ff6b6b;
+      margin: 20px 0;
+      font-weight: bold;
+      text-shadow: 0 0 10px rgba(255,107,107,0.5);
+    }
+
+    .timer.warning {
+      animation: pulse 1s infinite;
+      color: #ff4757;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    .answers-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      margin: 20px 0;
+    }
+
+    .answer-item {
+      background: var(--card);
+      border-radius: 10px;
+      padding: 20px;
+      border: 2px solid transparent;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .answer-item:hover {
+      border-color: var(--brand);
+      transform: translateY(-2px);
+      background: rgba(122, 162, 255, 0.1);
+    }
+
+    .answer-item.voted {
+      border-color: var(--accent);
+      background: rgba(24, 194, 156, 0.2);
+    }
+
+    .answer-item.non-clickable {
+      cursor: default;
+    }
+
+    .vote-count {
+      font-size: 1.5em;
+      color: var(--brand);
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
+    .game-btn {
+      background: linear-gradient(45deg, var(--brand), #5a8aff);
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      border-radius: 25px;
+      font-size: 1.1em;
+      font-weight: bold;
+      cursor: pointer;
+      margin: 10px;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .game-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(122, 162, 255, 0.3);
+    }
+
+    .game-btn:disabled {
+      background: #666;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+      opacity: 0.6;
+    }
+
+    .game-btn.success {
+      background: linear-gradient(45deg, var(--accent), #44a08d);
+      color: white;
+    }
+
+    .input-field {
+      padding: 15px;
+      border-radius: 10px;
+      border: 2px solid var(--brand);
+      background: rgba(255,255,255,0.1);
+      color: var(--text);
+      font-size: 1.1em;
+      margin: 10px;
+      width: 300px;
+      transition: border-color 0.3s ease;
+    }
+
+    .input-field:focus {
+      outline: none;
+      border-color: var(--accent);
+      background: rgba(255,255,255,0.15);
+    }
+
+    .input-field::placeholder {
+      color: rgba(232, 236, 241, 0.7);
+    }
+
+    .scoreboard {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      margin: 20px 0;
+    }
+
+    .score-item {
+      background: rgba(122, 162, 255, 0.2);
+      border-radius: 10px;
+      padding: 20px;
+      border: 2px solid var(--brand);
+      position: relative;
+    }
+
+    .score-item.winner {
+      border-color: var(--accent);
+      background: rgba(24, 194, 156, 0.3);
+    }
+
+    .score-item.winner::before {
+      content: "👑";
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      font-size: 2em;
+    }
+
+    .score-name {
+      font-size: 1.3em;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    .score-points {
+      font-size: 2em;
+      color: var(--accent);
+      font-weight: bold;
+    }
+
+    .mobile-input {
+      width: 100%;
+      max-width: 500px;
+      margin: 20px auto;
+    }
+
+    .mobile-input textarea {
+      width: 100%;
+      padding: 15px;
+      border-radius: 10px;
+      border: 2px solid var(--brand);
+      background: rgba(255,255,255,0.1);
+      color: var(--text);
+      font-size: 1.1em;
+      resize: vertical;
+      min-height: 100px;
+      font-family: inherit;
+    }
+
+    .mobile-input textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+      background: rgba(255,255,255,0.15);
+    }
+
+    .mobile-input textarea::placeholder {
+      color: rgba(232, 236, 241, 0.7);
+    }
+
+    .status-message {
+      background: rgba(24, 194, 156, 0.2);
+      border: 1px solid var(--accent);
+      border-radius: 10px;
+      padding: 15px;
+      margin: 10px 0;
+      color: var(--accent);
+    }
+
+    .error-message {
+      background: rgba(255, 107, 107, 0.2);
+      border: 1px solid #ff6b6b;
+      border-radius: 10px;
+      padding: 15px;
+      margin: 10px 0;
+      color: #ff6b6b;
+    }
+
+    .round-info {
+      background: rgba(255,255,255,0.05);
+      border-radius: 10px;
+      padding: 15px;
+      margin: 15px 0;
+      font-size: 1.2em;
+    }
+
+    .waiting-indicator {
+      display: inline-block;
+      animation: spin 1s infinite linear;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    @media (max-width: 768px) {
+      .game-title {
+        font-size: 1.8em;
+      }
+      
+      .lobby-code {
+        font-size: 2em;
+      }
+      
+      .input-field {
+        width: 250px;
+      }
+      
+      .answers-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .game-title {
+        font-size: 1.5em;
+      }
+      
+      .lobby-code {
+        font-size: 1.5em;
+        padding: 15px;
+      }
+      
+      .input-field {
+        width: 90%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- NAV -->
+  <nav><div class="container nav-inner"><div class="brand"><a href="index.html">Braeden Pope</a></div><ul class="nav-links"><li><a data-page="index.html" href="index.html">Home</a></li><li><a data-page="projects.html" href="projects.html">Projects</a></li><li><a data-page="about.html" href="about.html">About</a></li>        <li><a data-page="contact.html" href="contact.html">Contact</a></li><li><a data-page="conspiracy-game.html" href="conspiracy-game.html">Game</a></li></ul></div></nav>
+
+  <div class="container">
+    <div class="game-container">
+      <h1 class="game-title">🕵️ Waterdeep Conspiracy Theories 🕵️</h1>
+      
+      <!-- Main Menu -->
+      <div id="main-menu" class="screen active">
+        <div style="margin-bottom: 30px;">
+          <p style="font-size: 1.2em; margin-bottom: 20px;">
+            Create wild conspiracy theories about your D&D campaign!
+          </p>
+        </div>
+        <button class="game-btn" onclick="showHostView()">🎮 Host Game</button>
+        <button class="game-btn" onclick="showPlayerView()">📱 Join Game</button>
+      </div>
+
+      <!-- Host View -->
+      <div id="host-view" class="screen">
+        <!-- Lobby Setup -->
+        <div id="host-lobby" class="host-screen active">
+          <h2>🎮 Game Lobby</h2>
+          <p>Players can join using this code:</p>
+          <div class="lobby-code" id="lobby-code">ABCD</div>
+          <p style="margin: 10px 0;">Share this URL with players:<br>
+          <strong id="game-url">Loading...</strong></p>
+          
+          <div class="players-list">
+            <h3>Players in Lobby (<span id="lobby-player-count">0</span>):</h3>
+            <div id="players-container">
+              <p style="color: #888;">Waiting for players to join...</p>
+            </div>
+          </div>
+          
+          <button class="game-btn" onclick="startGame()" id="start-game-btn">Start Game</button>
+          <button class="game-btn" onclick="showMainMenu()">Back to Menu</button>
+        </div>
+
+        <!-- Game Round -->
+        <div id="host-game" class="host-screen">
+          <div class="round-info">
+            <h2>Round <span id="round-number">1</span> of 4</h2>
+          </div>
+          
+          <div class="prompt-display" id="prompt-display">
+            Loading prompt...
+          </div>
+          
+          <div class="timer" id="timer">60</div>
+          
+          <div id="waiting-message">
+            <p><span class="waiting-indicator">⏳</span> Players are writing their conspiracy theories...</p>
+            <p><strong>Submitted:</strong> <span id="submitted-count">0</span>/<span id="total-players">0</span></p>
+          </div>
+          
+          <button class="game-btn" id="skip-timer" onclick="skipTimer()">Skip Timer ⏭️</button>
+        </div>
+
+        <!-- Voting Phase -->
+        <div id="host-voting" class="host-screen">
+          <h2>🗳️ Vote for the Best Conspiracy Theory!</h2>
+          <div class="answers-grid" id="host-answers-grid"></div>
+          <div class="status-message">
+            <p><span class="waiting-indicator">⏳</span> Waiting for all players to vote...</p>
+            <p><strong>Voted:</strong> <span id="voted-count">0</span>/<span id="total-players-voting">0</span></p>
+          </div>
+        </div>
+
+        <!-- Results -->
+        <div id="host-results" class="host-screen">
+          <h2>📊 Round Results</h2>
+          <div class="answers-grid" id="results-grid"></div>
+          <button class="game-btn" id="next-round-btn" onclick="nextRound()">Next Round ➡️</button>
+        </div>
+
+        <!-- Final Scores -->
+        <div id="host-final" class="host-screen">
+          <h2>🏆 Final Results 🏆</h2>
+          <div class="scoreboard" id="final-scoreboard"></div>
+          <button class="game-btn" onclick="resetGame()">🎮 New Game</button>
+          <button class="game-btn" onclick="showMainMenu()">Main Menu</button>
+        </div>
+      </div>
+
+      <!-- Player View -->
+      <div id="player-view" class="screen">
+        <!-- Join Lobby -->
+        <div id="player-join" class="player-screen active">
+          <h2>📱 Join Game</h2>
+          <input type="text" id="room-code" class="input-field" placeholder="Enter Room Code" maxlength="4" style="text-transform: uppercase;">
+          <br>
+          <input type="text" id="player-name" class="input-field" placeholder="Enter Your Name" maxlength="20">
+          <br>
+          <button class="game-btn" onclick="joinGame()">Join Game</button>
+          <button class="game-btn" onclick="showMainMenu()">Back to Menu</button>
+          <div id="join-error" class="error-message" style="display: none;"></div>
+        </div>
+
+        <!-- Waiting in Lobby -->
+        <div id="player-waiting" class="player-screen">
+          <h2>⏳ Waiting for Game to Start</h2>
+          <div class="status-message">
+            <p><strong>Room Code:</strong> <span id="player-room-code"></span></p>
+            <p><strong>Your Name:</strong> <span id="player-display-name"></span></p>
+          </div>
+          <div class="players-list">
+            <h3>Players in Lobby (<span id="player-lobby-count">0</span>):</h3>
+            <div id="player-lobby-list"></div>
+          </div>
+        </div>
+
+        <!-- Writing Phase -->
+        <div id="player-writing" class="player-screen">
+          <div class="round-info">
+            <h2>Round <span id="player-round">1</span> of 4</h2>
+          </div>
+          
+          <div class="prompt-display" id="player-prompt"></div>
+          
+          <div class="timer" id="player-timer">60</div>
+          
+          <div class="mobile-input">
+            <textarea id="conspiracy-input" placeholder="Write your conspiracy theory here... Be creative and funny!"></textarea>
+            <br>
+            <button class="game-btn" onclick="submitConspiracy()" id="submit-btn">Submit Theory</button>
+          </div>
+        </div>
+
+        <!-- Voting Phase -->
+        <div id="player-voting" class="player-screen">
+          <h2>🗳️ Vote for the Best Theory!</h2>
+          <p><em>(You can't vote for your own theory)</em></p>
+          <div class="answers-grid" id="player-answers-grid"></div>
+          <div id="voting-status" class="status-message" style="display: none;"></div>
+        </div>
+
+        <!-- Round Results -->
+        <div id="player-results" class="player-screen">
+          <h2>📊 Round Results</h2>
+          <div class="answers-grid" id="player-results-grid"></div>
+          <div class="status-message">
+            <p><span class="waiting-indicator">⏳</span> Waiting for next round...</p>
+          </div>
+        </div>
+
+        <!-- Final Results -->
+        <div id="player-final" class="player-screen">
+          <h2>🏆 Final Results 🏆</h2>
+          <div class="scoreboard" id="player-final-scoreboard"></div>
+          <div class="status-message">
+            <p>Thanks for playing! 🎉</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer><div class="container small">© <span id="y"></span> Braeden Pope</div></footer>
+  <script src="script.js"></script>
+  <script>document.getElementById('y').textContent=new Date().getFullYear()</script>
+  
+  <!-- Socket.io will be loaded from CDN since we can't use the /socket.io/ path in a static site -->
+  <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+  <script>
+    let socket;
+    let gameState = {
+      isHost: false,
+      lobbyCode: '',
+      playerName: '',
+      playerId: '',
+      currentRound: 1,
+      maxRounds: 4,
+      currentPrompt: '',
+      hasSubmitted: false,
+      hasVoted: false,
+      connected: false
+    };
+
+    // Initialize socket connection - you'll need to replace this URL with your game server
+    function initSocket() {
+      // For now, this will just show an error message
+      // You'll need to deploy the server part separately
+      showError('Game server not configured. This is a demo of the game interface.');
+      return;
+      
+      // When you have a server, uncomment and modify this:
+      // socket = io('YOUR_GAME_SERVER_URL');
+      
+      socket.on('connect', () => {
+        console.log('Connected to server');
+        gameState.connected = true;
+        gameState.playerId = socket.id;
+      });
+
+      socket.on('disconnect', () => {
+        console.log('Disconnected from server');
+        gameState.connected = false;
+      });
+
+      // Game events would go here...
+    }
+
+    // Utility functions
+    function showScreen(screenId) {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById(screenId).classList.add('active');
+    }
+
+    function showHostScreen(screenId) {
+      document.querySelectorAll('.host-screen').forEach(s => s.classList.remove('active'));
+      document.getElementById(screenId).classList.add('active');
+    }
+
+    function showPlayerScreen(screenId) {
+      document.querySelectorAll('.player-screen').forEach(s => s.classList.remove('active'));
+      document.getElementById(screenId).classList.add('active');
+    }
+
+    function showMainMenu() {
+      showScreen('main-menu');
+      if (socket) {
+        socket.disconnect();
+      }
+      resetGameState();
+    }
+
+    function resetGameState() {
+      gameState = {
+        isHost: false,
+        lobbyCode: '',
+        playerName: '',
+        playerId: '',
+        currentRound: 1,
+        maxRounds: 4,
+        currentPrompt: '',
+        hasSubmitted: false,
+        hasVoted: false,
+        connected: false
+      };
+    }
+
+    function showError(message) {
+      const errorDiv = document.getElementById('join-error');
+      if (errorDiv) {
+        errorDiv.textContent = message;
+        errorDiv.style.display = 'block';
+      }
+    }
+
+    function hideError() {
+      const errorDiv = document.getElementById('join-error');
+      if (errorDiv) {
+        errorDiv.style.display = 'none';
+      }
+    }
+
+    // Host functions
+    function showHostView() {
+      gameState.isHost = true;
+      showScreen('host-view');
+      showHostScreen('host-lobby');
+      initSocket();
+    }
+
+    function startGame() {
+      // Demo functionality
+      showError('Demo mode - server functionality not implemented yet');
+    }
+
+    function nextRound() {
+      // Demo functionality
+    }
+
+    function skipTimer() {
+      // Demo functionality
+    }
+
+    function resetGame() {
+      showHostView();
+    }
+
+    // Player functions
+    function showPlayerView() {
+      gameState.isHost = false;
+      showScreen('player-view');
+      showPlayerScreen('player-join');
+    }
+
+    function joinGame() {
+      const code = document.getElementById('room-code').value.toUpperCase().trim();
+      const name = document.getElementById('player-name').value.trim();
+      
+      if (!code || !name) {
+        showError('Please enter both room code and your name!');
+        return;
+      }
+      
+      if (name.length > 20) {
+        showError('Name must be 20 characters or less!');
+        return;
+      }
+      
+      // Demo functionality
+      showError('Demo mode - game server not configured yet');
+    }
+
+    function submitConspiracy() {
+      const theory = document.getElementById('conspiracy-input').value.trim();
+      if (!theory) {
+        alert('Please write a conspiracy theory!');
+        return;
+      }
+      // Demo functionality
+    }
+
+    function voteForAnswer(playerId) {
+      // Demo functionality
+    }
+
+    // Auto-uppercase room code input
+    document.addEventListener('DOMContentLoaded', () => {
+      const roomCodeInput = document.getElementById('room-code');
+      if (roomCodeInput) {
+        roomCodeInput.addEventListener('input', (e) => {
+          e.target.value = e.target.value.toUpperCase();
+        });
+      }
+    });
+  </script>
+</body>
+</html>
