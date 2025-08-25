@@ -507,20 +507,17 @@
       connected: false
     };
 
-    // Initialize socket connection - you'll need to replace this URL with your game server
+    // Initialize socket connection
     function initSocket() {
-      // For now, this will just show an error message
-      // You'll need to deploy the server part separately
-      showError('Game server not configured. This is a demo of the game interface.');
-      return;
-      
-      // When you have a server, uncomment and modify this:
-      // socket = io('YOUR_GAME_SERVER_URL');
+      // Replace this URL with your deployed server URL
+      const serverUrl = 'https://your-game-server.herokuapp.com'; // Change this!
+      socket = io(serverUrl);
       
       socket.on('connect', () => {
         console.log('Connected to server');
         gameState.connected = true;
         gameState.playerId = socket.id;
+        hideError();
       });
 
       socket.on('disconnect', () => {
@@ -528,7 +525,116 @@
         gameState.connected = false;
       });
 
-      // Game events would go here...
+      // Game events
+      socket.on('gameCreated', ({ code }) => {
+        gameState.lobbyCode = code;
+        document.getElementById('lobby-code').textContent = code;
+        document.getElementById('game-url').textContent = window.location.origin + '/conspiracy-game.html';
+        updateStartButton();
+      });
+
+      socket.on('joinedGame', ({ code }) => {
+        gameState.lobbyCode = code;
+        document.getElementById('player-room-code').textContent = code;
+        showPlayerScreen('player-waiting');
+        hideError();
+      });
+
+      socket.on('playersUpdate', ({ players }) => {
+        updatePlayersDisplay(players);
+        updateStartButton(players.length);
+      });
+
+      socket.on('roundStart', ({ round, prompt, timeLeft }) => {
+        gameState.currentRound = round;
+        gameState.currentPrompt = prompt;
+        gameState.hasSubmitted = false;
+        gameState.hasVoted = false;
+        
+        document.getElementById('round-number').textContent = round;
+        document.getElementById('player-round').textContent = round;
+        document.getElementById('prompt-display').textContent = prompt;
+        document.getElementById('player-prompt').textContent = prompt;
+        
+        if (gameState.isHost) {
+          showHostScreen('host-game');
+        } else {
+          showPlayerScreen('player-writing');
+          resetWritingInterface();
+        }
+        
+        updateTimer(timeLeft);
+      });
+
+      socket.on('timerUpdate', ({ timeLeft }) => {
+        updateTimer(timeLeft);
+      });
+
+      socket.on('submissionUpdate', ({ submitted, total }) => {
+        document.getElementById('submitted-count').textContent = submitted;
+        document.getElementById('total-players').textContent = total;
+      });
+
+      socket.on('votingPhase', ({ submissions }) => {
+        if (gameState.isHost) {
+          showHostScreen('host-voting');
+        } else {
+          showPlayerScreen('player-voting');
+        }
+        displayAnswersForVoting(submissions);
+      });
+
+      socket.on('voteUpdate', ({ voted, total }) => {
+        document.getElementById('voted-count').textContent = voted;
+        document.getElementById('total-players-voting').textContent = total;
+      });
+
+      socket.on('results', ({ results, isLastRound }) => {
+        if (gameState.isHost) {
+          showHostScreen('host-results');
+          const nextBtn = document.getElementById('next-round-btn');
+          if (isLastRound) {
+            nextBtn.textContent = 'Show Final Results 🏆';
+            nextBtn.onclick = () => socket.emit('nextRound', { code: gameState.lobbyCode });
+          } else {
+            nextBtn.textContent = 'Next Round ➡️';
+            nextBtn.onclick = nextRound;
+          }
+        } else {
+          showPlayerScreen('player-results');
+        }
+        displayResults(results);
+      });
+
+      socket.on('finalResults', ({ scores }) => {
+        if (gameState.isHost) {
+          showHostScreen('host-final');
+        } else {
+          showPlayerScreen('player-final');
+        }
+        displayFinalResults(scores);
+      });
+
+      socket.on('theorySubmitted', () => {
+        const submitBtn = document.getElementById('submit-btn');
+        submitBtn.textContent = '✅ Theory Submitted!';
+        submitBtn.classList.add('success');
+        submitBtn.disabled = true;
+        document.getElementById('conspiracy-input').disabled = true;
+        gameState.hasSubmitted = true;
+      });
+
+      socket.on('voteRegistered', () => {
+        const statusDiv = document.getElementById('voting-status');
+        statusDiv.style.display = 'block';
+        statusDiv.innerHTML = '✅ Your vote has been registered!';
+        gameState.hasVoted = true;
+      });
+
+      socket.on('error', (message) => {
+        showError(message);
+        console.error('Game error:', message);
+      });
     }
 
     // Utility functions
@@ -594,16 +700,23 @@
     }
 
     function startGame() {
-      // Demo functionality
-      showError('Demo mode - server functionality not implemented yet');
+      if (gameState.connected && gameState.lobbyCode) {
+        socket.emit('startGame', { code: gameState.lobbyCode });
+      } else {
+        showError('Not connected to server or no game created');
+      }
     }
 
     function nextRound() {
-      // Demo functionality
+      if (gameState.connected && gameState.lobbyCode) {
+        socket.emit('nextRound', { code: gameState.lobbyCode });
+      }
     }
 
     function skipTimer() {
-      // Demo functionality
+      if (gameState.connected && gameState.lobbyCode) {
+        socket.emit('skipTimer', { code: gameState.lobbyCode });
+      }
     }
 
     function resetGame() {
@@ -631,8 +744,31 @@
         return;
       }
       
-      // Demo functionality
-      showError('Demo mode - game server not configured yet');
+      gameState.playerName = name;
+      document.getElementById('player-display-name').textContent = name;
+      
+      initSocket();
+      
+      // Wait for socket connection before joining
+      const waitForConnection = () => {
+        if (gameState.connected) {
+          socket.emit('joinGame', { code, name });
+        } else {
+          setTimeout(waitForConnection, 100);
+        }
+      };
+      waitForConnection();
+    }
+
+    function resetWritingInterface() {
+      const input = document.getElementById('conspiracy-input');
+      const btn = document.getElementById('submit-btn');
+      
+      input.value = '';
+      input.disabled = false;
+      btn.disabled = false;
+      btn.textContent = 'Submit Theory';
+      btn.classList.remove('success');
     }
 
     function submitConspiracy() {
@@ -641,11 +777,138 @@
         alert('Please write a conspiracy theory!');
         return;
       }
-      // Demo functionality
+      
+      if (gameState.connected && gameState.lobbyCode) {
+        socket.emit('submitTheory', { code: gameState.lobbyCode, theory });
+      }
     }
 
     function voteForAnswer(playerId) {
-      // Demo functionality
+      if (gameState.hasVoted || playerId === gameState.playerId) {
+        return;
+      }
+      
+      if (gameState.connected && gameState.lobbyCode) {
+        socket.emit('vote', { code: gameState.lobbyCode, votedForId: playerId });
+        
+        // Update UI immediately
+        document.querySelectorAll('.answer-item[data-id]').forEach(el => {
+          el.classList.remove('voted');
+          el.classList.add('non-clickable');
+          el.onclick = null;
+        });
+        
+        const votedElement = document.querySelector(`[data-id="${playerId}"]`);
+        if (votedElement) {
+          votedElement.classList.add('voted');
+        }
+      }
+    }
+
+    // Display functions
+    function updatePlayersDisplay(players = []) {
+      const hostContainer = document.getElementById('players-container');
+      const playerContainer = document.getElementById('player-lobby-list');
+      const hostCountElement = document.getElementById('lobby-player-count');
+      const playerCountElement = document.getElementById('player-lobby-count');
+      
+      if (players.length === 0) {
+        const waitingHTML = '<p style="color: #888;">Waiting for players to join...</p>';
+        if (hostContainer) hostContainer.innerHTML = waitingHTML;
+        if (playerContainer) playerContainer.innerHTML = waitingHTML;
+      } else {
+        const playerElements = players.map(player => 
+          `<div class="player-item">${player.name}</div>`
+        ).join('');
+        
+        if (hostContainer) hostContainer.innerHTML = playerElements;
+        if (playerContainer) playerContainer.innerHTML = playerElements;
+      }
+      
+      if (hostCountElement) hostCountElement.textContent = players.length;
+      if (playerCountElement) playerCountElement.textContent = players.length;
+    }
+
+    function updateTimer(timeLeft) {
+      const timerElements = [
+        document.getElementById('timer'),
+        document.getElementById('player-timer')
+      ];
+      
+      timerElements.forEach(element => {
+        if (element) {
+          element.textContent = timeLeft;
+          if (timeLeft <= 10) {
+            element.classList.add('warning');
+          } else {
+            element.classList.remove('warning');
+          }
+        }
+      });
+    }
+
+    function displayAnswersForVoting(submissions) {
+      const hostGrid = document.getElementById('host-answers-grid');
+      const playerGrid = document.getElementById('player-answers-grid');
+      
+      const hostHTML = submissions.map(sub => 
+        `<div class="answer-item non-clickable">
+          <div style="font-size: 1.1em; margin-bottom: 10px;">${sub.text}</div>
+          <div style="font-style: italic; color: var(--brand);">by ${sub.playerName}</div>
+        </div>`
+      ).join('');
+      
+      const playerHTML = submissions.map(sub => {
+        const isOwnTheory = sub.id === gameState.playerId;
+        const clickHandler = isOwnTheory ? '' : `onclick="voteForAnswer('${sub.id}')"`;
+        const className = isOwnTheory ? 'answer-item non-clickable' : 'answer-item';
+        const ownTheoryLabel = isOwnTheory ? '<div style="color: var(--accent); font-weight: bold; margin-bottom: 5px;">Your Theory</div>' : '';
+        
+        return `<div class="${className}" ${clickHandler} data-id="${sub.id}">
+          ${ownTheoryLabel}
+          <div style="font-size: 1.1em;">${sub.text}</div>
+        </div>`;
+      }).join('');
+      
+      if (hostGrid) hostGrid.innerHTML = hostHTML;
+      if (playerGrid) playerGrid.innerHTML = playerHTML;
+    }
+
+    function displayResults(results) {
+      const resultsHTML = results.map(result => 
+        `<div class="answer-item non-clickable">
+          <div style="font-size: 1.1em; margin-bottom: 10px;">${result.text}</div>
+          <div style="font-style: italic; color: var(--brand); margin-bottom: 10px;">by ${result.playerName}</div>
+          <div class="vote-count">${result.votes} vote${result.votes !== 1 ? 's' : ''} ${result.votes > 0 ? '🎉' : ''}</div>
+        </div>`
+      ).join('');
+      
+      const hostResultsGrid = document.getElementById('results-grid');
+      const playerResultsGrid = document.getElementById('player-results-grid');
+      
+      if (hostResultsGrid) hostResultsGrid.innerHTML = resultsHTML;
+      if (playerResultsGrid) playerResultsGrid.innerHTML = resultsHTML;
+    }
+
+    function displayFinalResults(scores) {
+      const scoreboardHTML = scores.map((player, index) => {
+        const isWinner = index === 0;
+        const className = isWinner ? 'score-item winner' : 'score-item';
+        
+        return `<div class="${className}">
+          <div class="score-name">
+            ${isWinner ? '🏆 ' : ''}${player.name}
+            ${isWinner ? ' - WINNER!' : ''}
+          </div>
+          <div class="score-points">${player.score} point${player.score !== 1 ? 's' : ''}</div>
+        </div>`;
+      }).join('');
+      
+      const hostScoreboard = document.getElementById('final-scoreboard');
+      const playerScoreboard = document.getElementById('player-final-scoreboard');
+      
+      if (hostScoreboard) hostScoreboard.innerHTML = scoreboardHTML;
+      if (playerScoreboard) playerScoreboard.innerHTML = scoreboardHTML;
     }
 
     // Auto-uppercase room code input
