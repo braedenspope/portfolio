@@ -24,45 +24,104 @@
 
     .screen {
       display: none;
-      opacity: 0;
-      transform: translateY(20px);
-      transition: all 0.5s ease-in-out;
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      min-height: 100vh;
+      animation: slideIn 0.6s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     .screen.active {
       display: block;
-      opacity: 1;
-      transform: translateY(0);
-      position: relative;
     }
 
-    .screen.transitioning-out {
-      opacity: 0;
-      transform: translateY(-20px);
-    }
-
-    .screen.transitioning-in {
-      opacity: 0;
-      transform: translateY(20px);
+    .screen.exiting {
+      animation: slideOut 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     @keyframes slideIn {
-      from { opacity: 0; transform: translateX(100%); }
-      to { opacity: 1; transform: translateX(0); }
+      from { 
+        opacity: 0; 
+        transform: translateX(50px);
+        filter: blur(5px);
+      }
+      to { 
+        opacity: 1; 
+        transform: translateX(0);
+        filter: blur(0);
+      }
     }
 
     @keyframes slideOut {
-      from { opacity: 1; transform: translateX(0); }
-      to { opacity: 0; transform: translateX(-100%); }
+      from { 
+        opacity: 1; 
+        transform: translateX(0);
+        filter: blur(0);
+      }
+      to { 
+        opacity: 0; 
+        transform: translateX(-50px);
+        filter: blur(5px);
+      }
     }
 
-    .slide-transition {
-      animation: slideIn 0.4s ease-out;
+    .transition-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, rgba(122, 162, 255, 0.1), rgba(24, 194, 156, 0.1));
+      z-index: 1000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(10px);
+    }
+
+    .transition-overlay.active {
+      display: flex;
+      animation: fadeIn 0.3s ease-in-out;
+    }
+
+    .transition-text {
+      font-size: 1.5em;
+      color: var(--brand);
+      text-align: center;
+      background: rgba(0,0,0,0.8);
+      padding: 20px 40px;
+      border-radius: 15px;
+      border: 2px solid var(--brand);
+    }
+
+    .screen-header {
+      text-align: center;
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 2px solid rgba(122, 162, 255, 0.2);
+    }
+
+    .screen-title {
+      font-size: 2em;
+      margin-bottom: 10px;
+      color: var(--brand);
+    }
+
+    .screen-subtitle {
+      font-size: 1.1em;
+      color: var(--muted);
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 6px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 3px;
+      margin: 20px 0;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--brand), var(--accent));
+      border-radius: 3px;
+      transition: width 0.6s ease;
     }
 
     .lobby-code {
@@ -364,87 +423,100 @@
     <div class="game-container">
       <h1 class="game-title">🕵️ Waterdeep Conspiracy Theories 🕵️</h1>
       
-      <!-- 1. Home Screen -->
+      <!-- Transition Overlay -->
+      <div class="transition-overlay" id="transition-overlay">
+        <div class="transition-text" id="transition-text">Loading...</div>
+      </div>
+      
+      <!-- Screen 1: Home Screen -->
       <div id="home-screen" class="screen active">
+        <div class="screen-header">
+          <div class="screen-title">Welcome to the Game!</div>
+          <div class="screen-subtitle">Create wild conspiracy theories about your D&D campaign</div>
+        </div>
         <div style="margin-bottom: 30px;">
-          <p style="font-size: 1.2em; margin-bottom: 20px;">
-            Create wild conspiracy theories about your D&D campaign!
+          <p style="font-size: 1.1em; margin-bottom: 20px; max-width: 600px; margin-left: auto; margin-right: auto;">
+            Join up to 8 players in this hilarious party game where you create the most outrageous conspiracy theories about your campaign characters and vote for the best ones!
           </p>
         </div>
         <button class="game-btn" onclick="showHostLobby()">🎮 Host Game</button>
         <button class="game-btn" onclick="showJoinScreen()">📱 Join Game</button>
       </div>
 
-      <!-- 2. Join Screen -->
+      <!-- Screen 2: Join Screen -->
       <div id="join-screen" class="screen">
-        <h2>📱 Join Game</h2>
+        <div class="screen-header">
+          <div class="screen-title">Join a Game</div>
+          <div class="screen-subtitle">Enter the room code to join your friends</div>
+        </div>
         <input type="text" id="room-code" class="input-field" placeholder="Enter Room Code" maxlength="4" style="text-transform: uppercase;">
         <br>
         <input type="text" id="player-name" class="input-field" placeholder="Enter Your Name" maxlength="20">
         <br>
         <button class="game-btn" onclick="joinGame()">Join Game</button>
-        <button class="game-btn" onclick="showScreen('home-screen')">Back</button>
+        <button class="game-btn" onclick="showHomeScreen()">Back</button>
         <div id="join-error" class="error-message" style="display: none;"></div>
       </div>
 
-      <!-- 3. Game Lobby Screen -->
+      <!-- Screen 3: Game Lobby -->
       <div id="lobby-screen" class="screen">
-        <!-- Host Lobby -->
-        <div id="host-lobby-view" style="display: none;">
-          <h2>🎮 Game Lobby</h2>
-          <p>Players can join using this code:</p>
-          <div class="lobby-code" id="lobby-code">ABCD</div>
-          <p style="margin: 10px 0;">Share this URL with players:<br>
-          <strong id="game-url">Loading...</strong></p>
-          
-          <div class="players-list">
-            <h3>Players in Lobby (<span id="lobby-player-count">0</span>):</h3>
-            <div id="players-container">
-              <p style="color: #888;">Waiting for players to join...</p>
-            </div>
-          </div>
-          
-          <button class="game-btn" onclick="startGame()" id="start-game-btn">Start Game</button>
-          <button class="game-btn" onclick="showScreen('home-screen')">Back to Menu</button>
+        <div class="screen-header">
+          <div class="screen-title">Game Lobby</div>
+          <div class="screen-subtitle" id="lobby-subtitle">Waiting for players to join...</div>
         </div>
-
-        <!-- Player Lobby -->
-        <div id="player-lobby-view" style="display: none;">
-          <h2>⏳ Waiting for Game to Start</h2>
+        
+        <!-- Host View -->
+        <div id="host-lobby-content" style="display: none;">
+          <div class="lobby-code" id="lobby-code">ABCD</div>
+          <p style="margin: 10px 0;">Share this code with players or send them this link:<br>
+          <strong id="game-url">Loading...</strong></p>
+        </div>
+        
+        <!-- Player View -->
+        <div id="player-lobby-content" style="display: none;">
           <div class="status-message">
             <p><strong>Room Code:</strong> <span id="player-room-code"></span></p>
             <p><strong>Your Name:</strong> <span id="player-display-name"></span></p>
           </div>
-          <div class="players-list">
-            <h3>Players in Lobby (<span id="player-lobby-count">0</span>):</h3>
-            <div id="player-lobby-list"></div>
-          </div>
-          <button class="game-btn" onclick="showScreen('home-screen')">Leave Game</button>
-        </div>
-      </div>
-
-      <!-- 4. Game Screen - Writing Phase -->
-      <div id="writing-screen" class="screen">
-        <div class="round-info">
-          <h2>Round <span id="current-round">1</span> of 4</h2>
-          <h3>✍️ Write Your Conspiracy Theory</h3>
         </div>
         
-        <div class="prompt-display" id="writing-prompt"></div>
+        <div class="players-list">
+          <h3>Players in Game (<span id="lobby-player-count">0</span>):</h3>
+          <div id="players-container">
+            <p style="color: #888;">Waiting for players to join...</p>
+          </div>
+        </div>
+        
+        <button class="game-btn" onclick="startGame()" id="start-game-btn" style="display: none;">Start Game</button>
+        <button class="game-btn" onclick="showHomeScreen()">Leave Game</button>
+      </div>
+
+      <!-- Screen 4: Writing Phase -->
+      <div id="writing-screen" class="screen">
+        <div class="screen-header">
+          <div class="screen-title">Round <span id="current-round">1</span> of 4</div>
+          <div class="screen-subtitle">Write your conspiracy theory!</div>
+        </div>
+        
+        <div class="progress-bar">
+          <div class="progress-fill" id="game-progress" style="width: 25%;"></div>
+        </div>
+        
+        <div class="prompt-display" id="writing-prompt">Loading prompt...</div>
         
         <div class="timer" id="writing-timer">60</div>
         
         <!-- Host View -->
-        <div id="host-writing-view" style="display: none;">
-          <div id="waiting-message">
-            <p><span class="waiting-indicator">⏳</span> Players are writing their conspiracy theories...</p>
+        <div id="host-writing-content" style="display: none;">
+          <div class="status-message">
+            <p><span class="waiting-indicator">⏳</span> Players are writing their theories...</p>
             <p><strong>Submitted:</strong> <span id="submitted-count">0</span>/<span id="total-players">0</span></p>
           </div>
           <button class="game-btn" onclick="skipTimer()">Skip Timer ⏭️</button>
         </div>
-
+        
         <!-- Player View -->
-        <div id="player-writing-view" style="display: none;">
+        <div id="player-writing-content" style="display: none;">
           <div class="mobile-input">
             <textarea id="conspiracy-input" placeholder="Write your conspiracy theory here... Be creative and funny!"></textarea>
             <br>
@@ -453,83 +525,95 @@
         </div>
       </div>
 
-      <!-- 5. Game Screen - Voting Phase -->
+      <!-- Screen 5: Voting Phase -->
       <div id="voting-screen" class="screen">
-        <div class="round-info">
-          <h2>Round <span id="voting-round">1</span> of 4</h2>
-          <h3>🗳️ Vote for the Best Conspiracy Theory!</h3>
+        <div class="screen-header">
+          <div class="screen-title">Vote for the Best Theory!</div>
+          <div class="screen-subtitle">Choose your favorite conspiracy (you can't vote for your own)</div>
         </div>
         
-        <p><em>(You can't vote for your own theory)</em></p>
+        <div class="progress-bar">
+          <div class="progress-fill" id="voting-progress" style="width: 50%;"></div>
+        </div>
+        
         <div class="answers-grid" id="voting-answers-grid"></div>
         
-        <!-- Host View -->
-        <div id="host-voting-status" class="status-message" style="display: none;">
+        <div class="status-message" id="voting-status">
           <p><span class="waiting-indicator">⏳</span> Waiting for all players to vote...</p>
           <p><strong>Voted:</strong> <span id="voted-count">0</span>/<span id="total-players-voting">0</span></p>
         </div>
-
-        <!-- Player View -->
-        <div id="player-voting-status" class="status-message" style="display: none;"></div>
       </div>
 
-      <!-- 6. Game Screen - Results with Votes -->
-      <div id="results-screen" class="screen">
-        <div class="round-info">
-          <h2>Round <span id="results-round">1</span> of 4</h2>
-          <h3>📊 Round Results</h3>
+      <!-- Screen 6: Vote Results -->
+      <div id="vote-results-screen" class="screen">
+        <div class="screen-header">
+          <div class="screen-title">Round Results</div>
+          <div class="screen-subtitle">See how everyone voted!</div>
         </div>
         
-        <div class="answers-grid" id="results-answers-grid"></div>
+        <div class="progress-bar">
+          <div class="progress-fill" id="results-progress" style="width: 75%;"></div>
+        </div>
         
-        <!-- Host Controls -->
+        <div class="answers-grid" id="vote-results-grid"></div>
+        
+        <!-- Host controls -->
         <div id="host-results-controls" style="display: none;">
-          <button class="game-btn" id="continue-btn" onclick="continueGame()">Continue ➡️</button>
+          <button class="game-btn" onclick="showCurrentScores()" id="show-scores-btn">Show Scores 📊</button>
         </div>
-
-        <!-- Player Status -->
-        <div id="player-results-status" class="status-message" style="display: none;">
-          <p><span class="waiting-indicator">⏳</span> Waiting for host to continue...</p>
+        
+        <!-- Player waiting -->
+        <div id="player-results-waiting" style="display: none;">
+          <div class="status-message">
+            <p><span class="waiting-indicator">⏳</span> Waiting for next round...</p>
+          </div>
         </div>
       </div>
 
-      <!-- 7. Game Screen - Current Scores -->
-      <div id="scores-screen" class="screen">
-        <div class="round-info">
-          <h2>🏆 Current Scores</h2>
-          <p>After Round <span id="scores-round">1</span> of 4</p>
+      <!-- Screen 7: Current Scores -->
+      <div id="current-scores-screen" class="screen">
+        <div class="screen-header">
+          <div class="screen-title">Current Scores</div>
+          <div class="screen-subtitle">After Round <span id="scores-round">1</span></div>
+        </div>
+        
+        <div class="progress-bar">
+          <div class="progress-fill" id="scores-progress" style="width: 75%;"></div>
         </div>
         
         <div class="scoreboard" id="current-scoreboard"></div>
         
-        <!-- Host Controls -->
         <div id="host-scores-controls" style="display: none;">
-          <button class="game-btn" onclick="nextRound()">Next Round ▶️</button>
+          <button class="game-btn" id="continue-game-btn" onclick="continueGame()">Continue Game ➡️</button>
         </div>
-
-        <!-- Player Status -->
-        <div id="player-scores-status" class="status-message" style="display: none;">
-          <p><span class="waiting-indicator">⏳</span> Get ready for the next round...</p>
+        
+        <div id="player-scores-waiting" style="display: none;">
+          <div class="status-message">
+            <p><span class="waiting-indicator">⏳</span> Get ready for the next round...</p>
+          </div>
         </div>
       </div>
 
-      <!-- 8. End Game Screen -->
-      <div id="endgame-screen" class="screen">
-        <div class="round-info">
-          <h2>🎉 Game Complete! 🎉</h2>
-          <h3>🏆 Final Results 🏆</h3>
+      <!-- Screen 8: Final Results -->
+      <div id="final-results-screen" class="screen">
+        <div class="screen-header">
+          <div class="screen-title">🏆 Final Results 🏆</div>
+          <div class="screen-subtitle">Game Over - Here's who won!</div>
+        </div>
+        
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: 100%;"></div>
         </div>
         
         <div class="scoreboard" id="final-scoreboard"></div>
         
-        <div style="margin-top: 30px;">
-          <button class="game-btn" onclick="resetGame()">🎮 Play Again</button>
-          <button class="game-btn" onclick="showScreen('home-screen')">Main Menu</button>
+        <div class="status-message">
+          <p>Thanks for playing! 🎉</p>
+          <p>Want to play another round?</p>
         </div>
         
-        <div class="status-message" style="margin-top: 20px;">
-          <p>Thanks for playing the Waterdeep Conspiracy Theory Game! 🎲</p>
-        </div>
+        <button class="game-btn" onclick="resetGame()">🎮 New Game</button>
+        <button class="game-btn" onclick="showHomeScreen()">Main Menu</button>
       </div>
     </div>
   </div>
@@ -558,7 +642,7 @@
     // Initialize socket connection
     function initSocket() {
       // Replace this URL with your deployed server URL
-      const serverUrl = 'https://portfolio-quge.onrender.com'; // Change this!
+      const serverUrl = 'https://your-game-server.herokuapp.com'; // Change this!
       socket = io(serverUrl);
       
       socket.on('connect', () => {
@@ -579,14 +663,14 @@
         document.getElementById('lobby-code').textContent = code;
         document.getElementById('game-url').textContent = window.location.origin + '/conspiracy-game.html';
         updateStartButton();
+        hideTransition();
       });
 
       socket.on('joinedGame', ({ code }) => {
         gameState.lobbyCode = code;
         document.getElementById('player-room-code').textContent = code;
-        document.getElementById('host-lobby-view').style.display = 'none';
-        document.getElementById('player-lobby-view').style.display = 'block';
-        showScreen('lobby-screen');
+        document.getElementById('player-display-name').textContent = gameState.playerName;
+        showPlayerLobby();
         hideError();
       });
 
@@ -601,29 +685,15 @@
         gameState.hasSubmitted = false;
         gameState.hasVoted = false;
         
-        // Update round numbers
         document.getElementById('current-round').textContent = round;
         document.getElementById('writing-prompt').textContent = prompt;
         
-        // Show appropriate views
-        if (gameState.isHost) {
-          document.getElementById('host-writing-view').style.display = 'block';
-          document.getElementById('player-writing-view').style.display = 'none';
-        } else {
-          document.getElementById('host-writing-view').style.display = 'none';
-          document.getElementById('player-writing-view').style.display = 'block';
-          resetWritingInterface();
-        }
-        
-        showScreen('writing-screen');
-        updateTimer(timeLeft, 'writing');
+        showWritingScreen();
+        updateTimer(timeLeft);
       });
 
       socket.on('timerUpdate', ({ timeLeft }) => {
-        const currentScreen = document.querySelector('.screen.active');
-        if (currentScreen.id === 'writing-screen') {
-          updateTimer(timeLeft, 'writing');
-        }
+        updateTimer(timeLeft);
       });
 
       socket.on('submissionUpdate', ({ submitted, total }) => {
@@ -632,16 +702,8 @@
       });
 
       socket.on('votingPhase', ({ submissions }) => {
-        document.getElementById('voting-round').textContent = gameState.currentRound;
-        
-        if (gameState.isHost) {
-          document.getElementById('host-voting-status').style.display = 'block';
-        } else {
-          document.getElementById('player-voting-status').style.display = 'none';
-        }
-        
+        showVotingScreen();
         displayAnswersForVoting(submissions);
-        showScreen('voting-screen');
       });
 
       socket.on('voteUpdate', ({ voted, total }) => {
@@ -650,50 +712,14 @@
       });
 
       socket.on('results', ({ results, isLastRound }) => {
-        document.getElementById('results-round').textContent = gameState.currentRound;
-        
-        if (gameState.isHost) {
-          document.getElementById('host-results-controls').style.display = 'block';
-          document.getElementById('player-results-status').style.display = 'none';
-          
-          const continueBtn = document.getElementById('continue-btn');
-          continueBtn.textContent = isLastRound ? 'View Final Scores 🏆' : 'Show Scores 📊';
-        } else {
-          document.getElementById('host-results-controls').style.display = 'none';
-          document.getElementById('player-results-status').style.display = 'block';
-        }
-        
-        displayResults(results);
-        showScreen('results-screen');
-        
-        // Store if this is the last round for later use
+        showVoteResultsScreen();
+        displayVoteResults(results);
         gameState.isLastRound = isLastRound;
       });
 
-      socket.on('currentScores', ({ scores, round, isLastRound }) => {
-        if (isLastRound) {
-          // Skip to final results
-          displayFinalResults(scores);
-          showScreen('endgame-screen');
-        } else {
-          document.getElementById('scores-round').textContent = round;
-          
-          if (gameState.isHost) {
-            document.getElementById('host-scores-controls').style.display = 'block';
-            document.getElementById('player-scores-status').style.display = 'none';
-          } else {
-            document.getElementById('host-scores-controls').style.display = 'none';
-            document.getElementById('player-scores-status').style.display = 'block';
-          }
-          
-          displayCurrentScores(scores);
-          showScreen('scores-screen');
-        }
-      });
-
       socket.on('finalResults', ({ scores }) => {
+        showFinalResultsScreen();
         displayFinalResults(scores);
-        showScreen('endgame-screen');
       });
 
       socket.on('theorySubmitted', () => {
@@ -706,22 +732,6 @@
       });
 
       socket.on('voteRegistered', () => {
-        const statusDiv = document.getElementById('player-voting-status');
-        statusDiv.style.display = 'block';
-        statusDiv.innerHTML = '✅ Your vote has been registered!';
-        gameState.hasVoted = true;
-      });
-
-      socket.on('error', (message) => {
-        showError(message);
-        console.error('Game error:', message);
-      });
-        submitBtn.disabled = true;
-        document.getElementById('conspiracy-input').disabled = true;
-        gameState.hasSubmitted = true;
-      };
-
-      socket.on('voteRegistered', () => {
         const statusDiv = document.getElementById('voting-status');
         statusDiv.style.display = 'block';
         statusDiv.innerHTML = '✅ Your vote has been registered!';
@@ -732,50 +742,167 @@
         showError(message);
         console.error('Game error:', message);
       });
-    
+    }
 
-    // Utility functions
-    function showScreen(screenId, direction = 'forward') {
+    // Enhanced screen transition system
+    function showScreen(screenId, transitionText = '') {
+      // Show transition overlay if text provided
+      if (transitionText) {
+        showTransition(transitionText);
+        setTimeout(() => {
+          performScreenTransition(screenId);
+          hideTransition();
+        }, 800);
+      } else {
+        performScreenTransition(screenId);
+      }
+    }
+
+    function performScreenTransition(screenId) {
       const currentScreen = document.querySelector('.screen.active');
       const newScreen = document.getElementById(screenId);
       
-      if (!newScreen || newScreen === currentScreen) return;
-      
-      // Add transition classes
       if (currentScreen) {
-        currentScreen.classList.add('transitioning-out');
+        currentScreen.classList.remove('active');
+        currentScreen.classList.add('exiting');
         setTimeout(() => {
-          currentScreen.classList.remove('active', 'transitioning-out');
-        }, 250);
+          currentScreen.classList.remove('exiting');
+        }, 400);
       }
       
-      newScreen.classList.add('transitioning-in');
-      setTimeout(() => {
-        newScreen.classList.remove('transitioning-in');
-        newScreen.classList.add('active', 'slide-transition');
-      }, 250);
+      if (newScreen) {
+        newScreen.classList.add('active');
+      }
+    }
+
+    function showTransition(text) {
+      const overlay = document.getElementById('transition-overlay');
+      const textElement = document.getElementById('transition-text');
+      textElement.textContent = text;
+      overlay.classList.add('active');
+    }
+
+    function hideTransition() {
+      const overlay = document.getElementById('transition-overlay');
+      overlay.classList.remove('active');
+    }
+
+    function updateProgressBar(stage) {
+      const progressBars = {
+        'writing': 25,
+        'voting': 50,
+        'results': 75,
+        'final': 100
+      };
+      
+      ['game-progress', 'voting-progress', 'results-progress', 'scores-progress'].forEach(id => {
+        const element = document.getElementById(id);
+        if (element) {
+          element.style.width = (progressBars[stage] || 0) + '%';
+        }
+      });
+    }
+
+    // Screen navigation functions
+    function showHomeScreen() {
+      showScreen('home-screen');
+      if (socket && socket.connected) {
+        socket.disconnect();
+      }
+      resetGameState();
+    }
+
+    function showJoinScreen() {
+      showScreen('join-screen');
     }
 
     function showHostLobby() {
       gameState.isHost = true;
       initSocket();
+      showScreen('lobby-screen', 'Creating game...');
       
-      // Wait for connection before showing lobby
-      const waitForConnection = () => {
-        if (gameState.connected) {
-          document.getElementById('host-lobby-view').style.display = 'block';
-          document.getElementById('player-lobby-view').style.display = 'none';
-          showScreen('lobby-screen');
-        } else {
-          setTimeout(waitForConnection, 100);
-        }
-      };
-      waitForConnection();
+      // Show host content
+      document.getElementById('host-lobby-content').style.display = 'block';
+      document.getElementById('player-lobby-content').style.display = 'none';
+      document.getElementById('start-game-btn').style.display = 'block';
+      document.getElementById('lobby-subtitle').textContent = 'Share the room code with your friends';
     }
 
-    function showJoinScreen() {
-      gameState.isHost = false;
-      showScreen('join-screen');
+    function showPlayerLobby() {
+      showScreen('lobby-screen', 'Joining game...');
+      
+      // Show player content
+      document.getElementById('host-lobby-content').style.display = 'none';
+      document.getElementById('player-lobby-content').style.display = 'block';
+      document.getElementById('start-game-btn').style.display = 'none';
+      document.getElementById('lobby-subtitle').textContent = 'Waiting for host to start the game';
+    }
+
+    function showWritingScreen() {
+      showScreen('writing-screen', 'Get ready to write...');
+      updateProgressBar('writing');
+      
+      if (gameState.isHost) {
+        document.getElementById('host-writing-content').style.display = 'block';
+        document.getElementById('player-writing-content').style.display = 'none';
+      } else {
+        document.getElementById('host-writing-content').style.display = 'none';
+        document.getElementById('player-writing-content').style.display = 'block';
+        resetWritingInterface();
+      }
+    }
+
+    function showVotingScreen() {
+      showScreen('voting-screen', 'Time to vote!');
+      updateProgressBar('voting');
+    }
+
+    function showVoteResultsScreen() {
+      showScreen('vote-results-screen', 'Counting votes...');
+      updateProgressBar('results');
+      
+      if (gameState.isHost) {
+        document.getElementById('host-results-controls').style.display = 'block';
+        document.getElementById('player-results-waiting').style.display = 'none';
+      } else {
+        document.getElementById('host-results-controls').style.display = 'none';
+        document.getElementById('player-results-waiting').style.display = 'block';
+      }
+    }
+
+    function showCurrentScores() {
+      showScreen('current-scores-screen', 'Calculating scores...');
+      
+      document.getElementById('scores-round').textContent = gameState.currentRound;
+      
+      if (gameState.isHost) {
+        document.getElementById('host-scores-controls').style.display = 'block';
+        document.getElementById('player-scores-waiting').style.display = 'none';
+        
+        // Update button text based on if it's the last round
+        const continueBtn = document.getElementById('continue-game-btn');
+        if (gameState.currentRound >= gameState.maxRounds) {
+          continueBtn.textContent = 'Show Final Results 🏆';
+          continueBtn.onclick = () => socket.emit('nextRound', { code: gameState.lobbyCode });
+        } else {
+          continueBtn.textContent = `Start Round ${gameState.currentRound + 1} ➡️`;
+          continueBtn.onclick = continueGame;
+        }
+      } else {
+        document.getElementById('host-scores-controls').style.display = 'none';
+        document.getElementById('player-scores-waiting').style.display = 'block';
+      }
+    }
+
+    function showFinalResultsScreen() {
+      showScreen('final-results-screen', 'Game complete!');
+      updateProgressBar('final');
+    }
+
+    function continueGame() {
+      if (gameState.connected && gameState.lobbyCode) {
+        socket.emit('nextRound', { code: gameState.lobbyCode });
+      }
     }
 
     function resetGameState() {
@@ -798,9 +925,6 @@
       if (errorDiv) {
         errorDiv.textContent = message;
         errorDiv.style.display = 'block';
-        setTimeout(() => {
-          errorDiv.style.display = 'none';
-        }, 5000);
       }
     }
 
@@ -840,16 +964,10 @@
     }
 
     function resetGame() {
-      showHostView();
+      showHostLobby();
     }
 
     // Player functions
-    function showPlayerView() {
-      gameState.isHost = false;
-      showScreen('player-view');
-      showPlayerScreen('player-join');
-    }
-
     function joinGame() {
       const code = document.getElementById('room-code').value.toUpperCase().trim();
       const name = document.getElementById('player-name').value.trim();
@@ -865,8 +983,6 @@
       }
       
       gameState.playerName = name;
-      document.getElementById('player-display-name').textContent = name;
-      
       initSocket();
       
       // Wait for socket connection before joining
@@ -925,58 +1041,51 @@
       }
     }
 
-    // Display functions
+    // Enhanced display functions
     function updatePlayersDisplay(players = []) {
-      const hostContainer = document.getElementById('players-container');
-      const playerContainer = document.getElementById('player-lobby-list');
-      const hostCountElement = document.getElementById('lobby-player-count');
-      const playerCountElement = document.getElementById('player-lobby-count');
+      const container = document.getElementById('players-container');
+      const countElement = document.getElementById('lobby-player-count');
       
       if (players.length === 0) {
-        const waitingHTML = '<p style="color: #888;">Waiting for players to join...</p>';
-        if (hostContainer) hostContainer.innerHTML = waitingHTML;
-        if (playerContainer) playerContainer.innerHTML = waitingHTML;
+        container.innerHTML = '<p style="color: #888;">Waiting for players to join...</p>';
       } else {
         const playerElements = players.map(player => 
           `<div class="player-item">${player.name}</div>`
         ).join('');
-        
-        if (hostContainer) hostContainer.innerHTML = playerElements;
-        if (playerContainer) playerContainer.innerHTML = playerElements;
+        container.innerHTML = playerElements;
       }
       
-      if (hostCountElement) hostCountElement.textContent = players.length;
-      if (playerCountElement) playerCountElement.textContent = players.length;
+      if (countElement) countElement.textContent = players.length;
+    }
+
+    function updateStartButton(playerCount = 0) {
+      const startBtn = document.getElementById('start-game-btn');
+      if (gameState.isHost && startBtn) {
+        if (playerCount >= 1) {
+          startBtn.disabled = false;
+          startBtn.textContent = `Start Game (${playerCount} player${playerCount !== 1 ? 's' : ''})`;
+        } else {
+          startBtn.disabled = true;
+          startBtn.textContent = 'Waiting for players...';
+        }
+      }
     }
 
     function updateTimer(timeLeft) {
-      const timerElements = [
-        document.getElementById('timer'),
-        document.getElementById('player-timer')
-      ];
+      const timerElement = document.getElementById('writing-timer');
       
-      timerElements.forEach(element => {
-        if (element) {
-          element.textContent = timeLeft;
-          if (timeLeft <= 10) {
-            element.classList.add('warning');
-          } else {
-            element.classList.remove('warning');
-          }
+      if (timerElement) {
+        timerElement.textContent = timeLeft;
+        if (timeLeft <= 10) {
+          timerElement.classList.add('warning');
+        } else {
+          timerElement.classList.remove('warning');
         }
-      });
+      }
     }
 
     function displayAnswersForVoting(submissions) {
-      const hostGrid = document.getElementById('host-answers-grid');
-      const playerGrid = document.getElementById('player-answers-grid');
-      
-      const hostHTML = submissions.map(sub => 
-        `<div class="answer-item non-clickable">
-          <div style="font-size: 1.1em; margin-bottom: 10px;">${sub.text}</div>
-          <div style="font-style: italic; color: var(--brand);">by ${sub.playerName}</div>
-        </div>`
-      ).join('');
+      const grid = document.getElementById('voting-answers-grid');
       
       const playerHTML = submissions.map(sub => {
         const isOwnTheory = sub.id === gameState.playerId;
@@ -990,11 +1099,12 @@
         </div>`;
       }).join('');
       
-      if (hostGrid) hostGrid.innerHTML = hostHTML;
-      if (playerGrid) playerGrid.innerHTML = playerHTML;
+      if (grid) grid.innerHTML = playerHTML;
     }
 
-    function displayResults(results) {
+    function displayVoteResults(results) {
+      const grid = document.getElementById('vote-results-grid');
+      
       const resultsHTML = results.map(result => 
         `<div class="answer-item non-clickable">
           <div style="font-size: 1.1em; margin-bottom: 10px;">${result.text}</div>
@@ -1003,14 +1113,63 @@
         </div>`
       ).join('');
       
-      const hostResultsGrid = document.getElementById('results-grid');
-      const playerResultsGrid = document.getElementById('player-results-grid');
+      if (grid) grid.innerHTML = resultsHTML;
       
-      if (hostResultsGrid) hostResultsGrid.innerHTML = resultsHTML;
-      if (playerResultsGrid) playerResultsGrid.innerHTML = resultsHTML;
+      // Create current scores after showing vote results
+      setTimeout(() => {
+        if (gameState.isHost) {
+          calculateCurrentScores(results);
+        }
+      }, 2000);
+    }
+
+    function calculateCurrentScores(results) {
+      // Calculate scores based on votes received
+      const scoreUpdates = new Map();
+      results.forEach(result => {
+        scoreUpdates.set(result.id, result.votes);
+      });
+      
+      // Update running totals
+      scoreUpdates.forEach((votes, playerId) => {
+        const currentScore = gameState.runningScores?.get(playerId) || 0;
+        if (!gameState.runningScores) gameState.runningScores = new Map();
+        gameState.runningScores.set(playerId, currentScore + votes);
+      });
+      
+      // Display current scores
+      displayCurrentScores();
+    }
+
+    function displayCurrentScores() {
+      const scoreboard = document.getElementById('current-scoreboard');
+      
+      if (!gameState.runningScores) return;
+      
+      const scores = Array.from(gameState.runningScores.entries()).map(([id, score]) => {
+        const playerName = gameState.playerNames?.get(id) || 'Unknown Player';
+        return { id, name: playerName, score };
+      }).sort((a, b) => b.score - a.score);
+      
+      const scoreboardHTML = scores.map((player, index) => {
+        const isLeading = index === 0 && player.score > 0;
+        const className = isLeading ? 'score-item winner' : 'score-item';
+        
+        return `<div class="${className}">
+          <div class="score-name">
+            ${isLeading ? '👑 ' : ''}${player.name}
+            ${isLeading ? ' - Leading!' : ''}
+          </div>
+          <div class="score-points">${player.score} point${player.score !== 1 ? 's' : ''}</div>
+        </div>`;
+      }).join('');
+      
+      if (scoreboard) scoreboard.innerHTML = scoreboardHTML;
     }
 
     function displayFinalResults(scores) {
+      const scoreboard = document.getElementById('final-scoreboard');
+      
       const scoreboardHTML = scores.map((player, index) => {
         const isWinner = index === 0;
         const className = isWinner ? 'score-item winner' : 'score-item';
@@ -1024,11 +1183,7 @@
         </div>`;
       }).join('');
       
-      const hostScoreboard = document.getElementById('final-scoreboard');
-      const playerScoreboard = document.getElementById('player-final-scoreboard');
-      
-      if (hostScoreboard) hostScoreboard.innerHTML = scoreboardHTML;
-      if (playerScoreboard) playerScoreboard.innerHTML = scoreboardHTML;
+      if (scoreboard) scoreboard.innerHTML = scoreboardHTML;
     }
 
     // Auto-uppercase room code input
