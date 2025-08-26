@@ -7,8 +7,14 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIo(server, {
   cors: {
-    origin: "*",
-    methods: ["GET", "POST"]
+    origin: [
+      "https://www.braedenpope.dev", 
+      "https://braedenpope.dev",
+      "http://localhost:3000",  // for local testing
+      "http://127.0.0.1:3000"   // for local testing
+    ],
+    methods: ["GET", "POST"],
+    credentials: true
   }
 });
 
