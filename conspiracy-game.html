@@ -808,8 +808,8 @@
       <!-- Screen 5: Voting Phase -->
       <div id="voting-screen" class="screen">
         <div class="screen-header">
-          <div class="screen-title">Vote for the Best Theory!</div>
-          <div class="screen-subtitle">Choose your favorite conspiracy (you can't vote for your own)</div>
+          <div class="screen-title" id="voting-screen-title">Vote for the Best Theory!</div>
+          <div class="screen-subtitle" id="voting-screen-subtitle">Choose your favorite conspiracy (you can't vote for your own)</div>
         </div>
         
         <div class="progress-bar">
@@ -818,9 +818,21 @@
         
         <div class="answers-grid" id="voting-answers-grid"></div>
         
-        <div class="status-message" id="voting-status">
-          <p><span class="waiting-indicator">⏳</span> Waiting for all players to vote...</p>
-          <p><strong>Voted:</strong> <span id="voted-count">0</span>/<span id="total-players-voting">0</span></p>
+        <!-- Host View -->
+        <div id="host-voting-content" style="display: none;">
+          <div class="status-message">
+            <p><span class="waiting-indicator">⏳</span> Players are voting for their favorite theories...</p>
+            <p><strong>Voted:</strong> <span id="host-voted-count">0</span>/<span id="host-total-players-voting">0</span></p>
+          </div>
+          <button class="game-btn" onclick="skipTimer()">Skip Voting ⏭️</button>
+        </div>
+        
+        <!-- Player View -->
+        <div id="player-voting-content" style="display: none;">
+          <div class="status-message" id="voting-status">
+            <p><span class="waiting-indicator">⏳</span> Waiting for all players to vote...</p>
+            <p><strong>Voted:</strong> <span id="voted-count">0</span>/<span id="total-players-voting">0</span></p>
+          </div>
         </div>
       </div>
 
@@ -1002,8 +1014,11 @@
       });
 
       socket.on('voteUpdate', ({ voted, total }) => {
+        // Update both host and player vote counters
         document.getElementById('voted-count').textContent = voted;
         document.getElementById('total-players-voting').textContent = total;
+        document.getElementById('host-voted-count').textContent = voted;
+        document.getElementById('host-total-players-voting').textContent = total;
       });
 
       socket.on('results', ({ results, isLastRound }) => {
@@ -1034,9 +1049,12 @@
       });
 
       socket.on('voteRegistered', () => {
-        const statusDiv = document.getElementById('voting-status');
-        statusDiv.style.display = 'block';
-        statusDiv.innerHTML = '✅ Your vote has been registered!';
+        // Only show vote confirmation to players, not host
+        if (!gameState.isHost) {
+          const statusDiv = document.getElementById('voting-status');
+          statusDiv.style.display = 'block';
+          statusDiv.innerHTML = '✅ Your vote has been registered!';
+        }
         gameState.hasVoted = true;
       });
 
@@ -1171,6 +1189,20 @@
     function showVotingScreen() {
       showScreen('voting-screen', 'Time to vote!');
       updateProgressBar('voting');
+      
+      if (gameState.isHost) {
+        // Host view - just watching
+        document.getElementById('voting-screen-title').textContent = 'Players Are Voting';
+        document.getElementById('voting-screen-subtitle').textContent = 'Watch as players choose their favorite theories';
+        document.getElementById('host-voting-content').style.display = 'block';
+        document.getElementById('player-voting-content').style.display = 'none';
+      } else {
+        // Player view - can vote
+        document.getElementById('voting-screen-title').textContent = 'Vote for the Best Theory!';
+        document.getElementById('voting-screen-subtitle').textContent = 'Choose your favorite conspiracy (you can\'t vote for your own)';
+        document.getElementById('host-voting-content').style.display = 'none';
+        document.getElementById('player-voting-content').style.display = 'block';
+      }
     }
 
     function showVoteResultsScreen() {
@@ -1352,6 +1384,11 @@
     }
 
     function voteForAnswer(playerId) {
+      // Prevent host from voting
+      if (gameState.isHost) {
+        return;
+      }
+      
       if (gameState.hasVoted || playerId === gameState.playerId) {
         return;
       }
@@ -1419,19 +1456,32 @@
     function displayAnswersForVoting(submissions) {
       const grid = document.getElementById('voting-answers-grid');
       
-      const playerHTML = submissions.map(sub => {
-        const isOwnTheory = sub.id === gameState.playerId;
-        const clickHandler = isOwnTheory ? '' : `onclick="voteForAnswer('${sub.id}')"`;
-        const className = isOwnTheory ? 'answer-item non-clickable' : 'answer-item';
-        const ownTheoryLabel = isOwnTheory ? '<div style="color: var(--forest-green); font-weight: bold; margin-bottom: 5px; font-family: \'Cinzel\', serif;">Your Theory</div>' : '';
+      if (gameState.isHost) {
+        // Host view - just display theories, no voting
+        const hostHTML = submissions.map(sub => 
+          `<div class="answer-item non-clickable">
+            <div style="font-size: 1.1em;">${sub.text}</div>
+            <div style="font-style: italic; color: var(--gold); margin-top: 10px; font-family: 'Cinzel', serif;">by ${sub.playerName}</div>
+          </div>`
+        ).join('');
         
-        return `<div class="${className}" ${clickHandler} data-id="${sub.id}">
-          ${ownTheoryLabel}
-          <div style="font-size: 1.1em;">${sub.text}</div>
-        </div>`;
-      }).join('');
-      
-      if (grid) grid.innerHTML = playerHTML;
+        if (grid) grid.innerHTML = hostHTML;
+      } else {
+        // Player view - can vote (original logic)
+        const playerHTML = submissions.map(sub => {
+          const isOwnTheory = sub.id === gameState.playerId;
+          const clickHandler = isOwnTheory ? '' : `onclick="voteForAnswer('${sub.id}')"`;
+          const className = isOwnTheory ? 'answer-item non-clickable' : 'answer-item';
+          const ownTheoryLabel = isOwnTheory ? '<div style="color: var(--forest-green); font-weight: bold; margin-bottom: 5px; font-family: \'Cinzel\', serif;">Your Theory</div>' : '';
+          
+          return `<div class="${className}" ${clickHandler} data-id="${sub.id}">
+            ${ownTheoryLabel}
+            <div style="font-size: 1.1em;">${sub.text}</div>
+          </div>`;
+        }).join('');
+        
+        if (grid) grid.innerHTML = playerHTML;
+      }
     }
 
     function displayVoteResults(results) {
