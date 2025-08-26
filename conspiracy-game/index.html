@@ -586,7 +586,7 @@
       100% { transform: rotate(360deg); }
     }
 
-    /* Audio Controls Styling */
+    /* Audio Controls - Only visible for host */
     .audio-controls {
       position: fixed;
       top: 20px;
@@ -594,36 +594,63 @@
       z-index: 1000;
       background: 
         linear-gradient(135deg, rgba(139, 69, 19, 0.9) 0%, rgba(93, 47, 10, 0.9) 100%);
-      border-radius: 15px;
-      padding: 15px;
-      border: 2px solid rgba(218, 165, 32, 0.5);
+      padding: 10px 15px;
+      border-radius: 12px;
+      border: 2px solid var(--gold);
+      display: none;
+      align-items: center;
+      gap: 10px;
       box-shadow: 
         0 4px 12px rgba(0,0,0,0.4),
         inset 0 1px 0 rgba(244, 228, 188, 0.2);
+    }
+
+    .audio-controls.show {
       display: flex;
-      align-items: center;
-      gap: 10px;
     }
 
     .audio-btn {
       background: none;
-      border: 2px solid var(--gold);
+      border: none;
       color: var(--gold);
-      padding: 8px 12px;
-      border-radius: 8px;
+      font-size: 1.2em;
       cursor: pointer;
-      font-size: 1em;
-      transition: all 0.3s ease;
+      padding: 5px;
+      border-radius: 6px;
+      transition: all 0.2s ease;
     }
 
     .audio-btn:hover {
-      background: var(--gold);
-      color: var(--deep-brown);
+      background: rgba(218, 165, 32, 0.2);
     }
 
     .volume-slider {
       width: 80px;
-      accent-color: var(--gold);
+      height: 4px;
+      background: rgba(139, 69, 19, 0.5);
+      border-radius: 2px;
+      outline: none;
+      cursor: pointer;
+    }
+
+    .volume-slider::-webkit-slider-thumb {
+      appearance: none;
+      width: 16px;
+      height: 16px;
+      background: var(--gold);
+      border-radius: 50%;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    }
+
+    .volume-slider::-moz-range-thumb {
+      width: 16px;
+      height: 16px;
+      background: var(--gold);
+      border-radius: 50%;
+      cursor: pointer;
+      border: none;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
     }
 
     /* Add subtle parchment texture effect */
@@ -692,7 +719,7 @@
       .audio-controls {
         top: 10px;
         right: 10px;
-        padding: 10px;
+        padding: 8px 12px;
       }
     }
 
@@ -740,11 +767,14 @@
       }
 
       .audio-controls {
-        position: relative;
-        top: 0;
-        right: 0;
-        margin: 10px auto;
-        display: inline-flex;
+        top: 5px;
+        right: 5px;
+        padding: 6px 10px;
+        font-size: 0.9em;
+      }
+
+      .volume-slider {
+        width: 60px;
       }
     }
   </style>
@@ -757,11 +787,12 @@
     <div class="game-container">
       <h1 class="game-title">🕵️ Waterdeep Conspiracy Theories 🕵️</h1>
       
-      <!-- Audio Controls -->
-      <div class="audio-controls" id="audio-controls" style="display: none;">
-        <button class="audio-btn" onclick="toggleMusic()" id="music-toggle">🎵</button>
-        <button class="audio-btn" onclick="toggleSFX()" id="sfx-toggle">🔊</button>
-        <input type="range" class="volume-slider" id="volume-slider" min="0" max="1" step="0.1" value="0.5" onchange="setGameVolume(this.value)">
+      <!-- Audio Controls (Host Only) -->
+      <div class="audio-controls" id="audio-controls">
+        <button class="audio-btn" id="mute-btn" onclick="toggleMute()">🔊</button>
+        <input type="range" class="volume-slider" id="volume-slider" min="0" max="1" step="0.1" value="0.5" 
+               onchange="setGameVolume(this.value)">
+        <button class="audio-btn" onclick="gameAudio.stopAll()">⏹️</button>
       </div>
       
       <!-- Transition Overlay -->
@@ -978,90 +1009,60 @@
   <!-- Socket.io will be loaded from CDN since we can't use the /socket.io/ path in a static site -->
   <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
   <script>
-    // Game Audio System
+    // Audio System - Only plays for host
     const gameAudio = {
-      // Background music tracks
       backgroundMusic: new Audio('assets/medieval-ambient.mp3'),
       votingMusic: new Audio('assets/tense-voting.mp3'),
       resultsMusic: new Audio('assets/celebration.mp3'),
-      finalMusic: new Audio('assets/victory-fanfare.mp3'),
       
       // Sound effects
       joinSound: new Audio('assets/join-game.mp3'),
       submitSound: new Audio('assets/submit-theory.mp3'),
       voteSound: new Audio('assets/vote-cast.mp3'),
-      countdownSound: new Audio('assets/countdown-tick.mp3'),
-      transitionSound: new Audio('assets/phase-transition.mp3'),
       
       currentTrack: null,
-      musicEnabled: true,
-      sfxEnabled: true,
-      masterVolume: 0.5,
+      isMuted: false,
+      volume: 0.5,
       
       init() {
-        // Set up background music properties
+        // Set up background music to loop
         this.backgroundMusic.loop = true;
-        this.backgroundMusic.volume = 0.3 * this.masterVolume;
+        this.backgroundMusic.volume = this.volume * 0.3;
         this.votingMusic.loop = true;
-        this.votingMusic.volume = 0.4 * this.masterVolume;
+        this.votingMusic.volume = this.volume * 0.4;
         this.resultsMusic.loop = false;
-        this.resultsMusic.volume = 0.5 * this.masterVolume;
-        this.finalMusic.loop = false;
-        this.finalMusic.volume = 0.6 * this.masterVolume;
+        this.resultsMusic.volume = this.volume * 0.5;
         
-        // Set up sound effects
-        this.joinSound.volume = 0.6 * this.masterVolume;
-        this.submitSound.volume = 0.6 * this.masterVolume;
-        this.voteSound.volume = 0.6 * this.masterVolume;
-        this.countdownSound.volume = 0.4 * this.masterVolume;
-        this.transitionSound.volume = 0.5 * this.masterVolume;
-        
-        // Show audio controls
-        document.getElementById('audio-controls').style.display = 'flex';
-        this.updateControlButtons();
+        // Lower volume for sound effects
+        this.joinSound.volume = this.volume * 0.6;
+        this.submitSound.volume = this.volume * 0.6;
+        this.voteSound.volume = this.volume * 0.6;
       },
       
-      playMusic(trackName) {
-        if (!this.musicEnabled) return;
+      playMusic(track) {
+        // Only play audio if user is host
+        if (!gameState.isHost) return;
         
-        try {
-          // Stop current music
-          if (this.currentTrack && !this.currentTrack.paused) {
-            this.currentTrack.pause();
-            this.currentTrack.currentTime = 0;
-          }
-          
-          // Start new track
-          const track = this[trackName];
-          if (track) {
-            this.currentTrack = track;
-            const playPromise = track.play();
-            
-            if (playPromise !== undefined) {
-              playPromise.catch(e => console.log('Audio play failed:', e));
-            }
-          }
-        } catch (e) {
-          console.log('Audio error:', e);
+        // Stop current music
+        if (this.currentTrack && !this.currentTrack.paused) {
+          this.currentTrack.pause();
+          this.currentTrack.currentTime = 0;
+        }
+        
+        // Start new track
+        this.currentTrack = this[track];
+        if (!this.isMuted) {
+          this.currentTrack.play().catch(e => console.log('Audio play failed:', e));
         }
       },
       
       playSound(soundName) {
-        if (!this.sfxEnabled) return;
+        // Only play audio if user is host
+        if (!gameState.isHost || this.isMuted) return;
         
-        try {
-          const sound = this[soundName];
-          if (sound) {
-            sound.currentTime = 0; // Reset to start
-            const playPromise = sound.play();
-            
-            if (playPromise !== undefined) {
-              playPromise.catch(e => console.log('Sound play failed:', e));
-            }
-          }
-        } catch (e) {
-          console.log('Sound error:', e);
-        }
+        const sound = this[soundName];
+        sound.currentTime = 0; // Reset to start
+        sound.play().catch(e => console.log('Sound play failed:', e));
       },
       
       stopAll() {
@@ -1075,59 +1076,24 @@
       },
       
       setVolume(volume) {
-        this.masterVolume = volume;
-        this.backgroundMusic.volume = 0.3 * volume;
-        this.votingMusic.volume = 0.4 * volume;
-        this.resultsMusic.volume = 0.5 * volume;
-        this.finalMusic.volume = 0.6 * volume;
-        this.joinSound.volume = 0.6 * volume;
-        this.submitSound.volume = 0.6 * volume;
-        this.voteSound.volume = 0.6 * volume;
-        this.countdownSound.volume = 0.4 * volume;
-        this.transitionSound.volume = 0.5 * volume;
+        this.volume = volume;
+        this.backgroundMusic.volume = volume * 0.3;
+        this.votingMusic.volume = volume * 0.4;
+        this.resultsMusic.volume = volume * 0.5;
+        this.joinSound.volume = volume * 0.6;
+        this.submitSound.volume = volume * 0.6;
+        this.voteSound.volume = volume * 0.6;
       },
       
-      toggleMusic() {
-        this.musicEnabled = !this.musicEnabled;
-        if (!this.musicEnabled && this.currentTrack && !this.currentTrack.paused) {
-          this.currentTrack.pause();
-        }
-        this.updateControlButtons();
+      mute() {
+        this.isMuted = true;
+        this.stopAll();
       },
       
-      toggleSFX() {
-        this.sfxEnabled = !this.sfxEnabled;
-        this.updateControlButtons();
-      },
-      
-      updateControlButtons() {
-        const musicBtn = document.getElementById('music-toggle');
-        const sfxBtn = document.getElementById('sfx-toggle');
-        
-        if (musicBtn) {
-          musicBtn.textContent = this.musicEnabled ? '🎵' : '🎵❌';
-          musicBtn.style.opacity = this.musicEnabled ? '1' : '0.5';
-        }
-        
-        if (sfxBtn) {
-          sfxBtn.textContent = this.sfxEnabled ? '🔊' : '🔊❌';
-          sfxBtn.style.opacity = this.sfxEnabled ? '1' : '0.5';
-        }
+      unmute() {
+        this.isMuted = false;
       }
     };
-
-    // Audio control functions (global scope for onclick handlers)
-    function toggleMusic() {
-      gameAudio.toggleMusic();
-    }
-    
-    function toggleSFX() {
-      gameAudio.toggleSFX();
-    }
-    
-    function setGameVolume(volume) {
-      gameAudio.setVolume(parseFloat(volume));
-    }
 
     let socket;
     let gameState = {
@@ -1145,6 +1111,32 @@
       runningScores: new Map()
     };
 
+    // Audio control functions
+    function toggleMute() {
+      const muteBtn = document.getElementById('mute-btn');
+      if (gameAudio.isMuted) {
+        gameAudio.unmute();
+        muteBtn.textContent = '🔊';
+      } else {
+        gameAudio.mute();
+        muteBtn.textContent = '🔇';
+      }
+    }
+
+    function setGameVolume(volume) {
+      gameAudio.setVolume(parseFloat(volume));
+    }
+
+    function showAudioControls() {
+      if (gameState.isHost) {
+        document.getElementById('audio-controls').classList.add('show');
+      }
+    }
+
+    function hideAudioControls() {
+      document.getElementById('audio-controls').classList.remove('show');
+    }
+
     // Initialize socket connection
     function initSocket() {
       // Replace this URL with your deployed server URL
@@ -1156,11 +1148,15 @@
         gameState.connected = true;
         gameState.playerId = socket.id;
         hideError();
+        
+        // Initialize audio system after connection
+        gameAudio.init();
       });
 
       socket.on('disconnect', () => {
         console.log('Disconnected from server');
         gameState.connected = false;
+        gameAudio.stopAll();
       });
 
       // Game events
@@ -1177,6 +1173,9 @@
         document.getElementById('game-url').textContent = window.location.origin + '/conspiracy-game.html';
         updateStartButton(0); // Start with 0 players
         hideTransition();
+        
+        // Show audio controls for host
+        showAudioControls();
       });
 
       socket.on('joinedGame', ({ code }) => {
@@ -1187,9 +1186,8 @@
         showPlayerLobby();
         hideError();
         
-        // Play join sound and start lobby music
+        // Play join sound for host
         gameAudio.playSound('joinSound');
-        setTimeout(() => gameAudio.playMusic('backgroundMusic'), 500);
       });
 
       socket.on('playersUpdate', ({ players }) => {
@@ -1200,6 +1198,11 @@
         
         updatePlayersDisplay(players);
         updateStartButton(players.length);
+        
+        // Play join sound for host when new player joins
+        if (gameState.isHost && players.length > 0) {
+          gameAudio.playSound('joinSound');
+        }
       });
 
       socket.on('roundStart', ({ round, prompt, timeLeft }) => {
@@ -1214,32 +1217,30 @@
         showWritingScreen();
         updateTimer(timeLeft);
         
-        // Play transition sound and switch to background music
-        gameAudio.playSound('transitionSound');
-        setTimeout(() => gameAudio.playMusic('backgroundMusic'), 300);
+        // Play background music for host
+        gameAudio.playMusic('backgroundMusic');
       });
 
       socket.on('timerUpdate', ({ timeLeft }) => {
         updateTimer(timeLeft);
-        
-        // Play countdown sound for last 10 seconds
-        if (timeLeft <= 10 && timeLeft > 0) {
-          gameAudio.playSound('countdownSound');
-        }
       });
 
       socket.on('submissionUpdate', ({ submitted, total }) => {
         document.getElementById('submitted-count').textContent = submitted;
         document.getElementById('total-players').textContent = total;
+        
+        // Play submit sound for host when someone submits
+        if (gameState.isHost) {
+          gameAudio.playSound('submitSound');
+        }
       });
 
       socket.on('votingPhase', ({ submissions }) => {
         showVotingScreen();
         displayAnswersForVoting(submissions);
         
-        // Switch to voting music
-        gameAudio.playSound('transitionSound');
-        setTimeout(() => gameAudio.playMusic('votingMusic'), 300);
+        // Play voting music for host
+        gameAudio.playMusic('votingMusic');
       });
 
       socket.on('voteUpdate', ({ voted, total }) => {
@@ -1248,6 +1249,11 @@
         document.getElementById('total-players-voting').textContent = total;
         document.getElementById('host-voted-count').textContent = voted;
         document.getElementById('host-total-players-voting').textContent = total;
+        
+        // Play vote sound for host when someone votes
+        if (gameState.isHost) {
+          gameAudio.playSound('voteSound');
+        }
       });
 
       socket.on('results', ({ results, isLastRound }) => {
@@ -1262,18 +1268,16 @@
         displayVoteResults(results);
         gameState.isLastRound = isLastRound;
         
-        // Play results music
-        gameAudio.playSound('transitionSound');
-        setTimeout(() => gameAudio.playMusic('resultsMusic'), 300);
+        // Play results music for host
+        gameAudio.playMusic('resultsMusic');
       });
 
       socket.on('finalResults', ({ scores }) => {
         showFinalResultsScreen();
         displayFinalResults(scores);
         
-        // Play victory fanfare
-        gameAudio.playSound('transitionSound');
-        setTimeout(() => gameAudio.playMusic('finalMusic'), 300);
+        // Play celebration music for host
+        gameAudio.playMusic('resultsMusic');
       });
 
       socket.on('theorySubmitted', () => {
@@ -1283,9 +1287,6 @@
         submitBtn.disabled = true;
         document.getElementById('conspiracy-input').disabled = true;
         gameState.hasSubmitted = true;
-        
-        // Play submit sound
-        gameAudio.playSound('submitSound');
       });
 
       socket.on('voteRegistered', () => {
@@ -1296,9 +1297,6 @@
           statusDiv.innerHTML = '✅ Your vote has been registered!';
         }
         gameState.hasVoted = true;
-        
-        // Play vote sound
-        gameAudio.playSound('voteSound');
       });
 
       socket.on('error', (message) => {
@@ -1373,6 +1371,7 @@
         socket.disconnect();
       }
       resetGameState();
+      hideAudioControls();
       gameAudio.stopAll();
     }
 
@@ -1820,17 +1819,17 @@
       if (scoreboard) scoreboard.innerHTML = scoreboardHTML;
     }
 
-    // Initialize audio system when page loads
+    // Auto-uppercase room code input
     document.addEventListener('DOMContentLoaded', () => {
-      gameAudio.init();
-      
-      // Auto-uppercase room code input
       const roomCodeInput = document.getElementById('room-code');
       if (roomCodeInput) {
         roomCodeInput.addEventListener('input', (e) => {
           e.target.value = e.target.value.toUpperCase();
         });
       }
+      
+      // Initialize audio system
+      gameAudio.init();
     });
   </script>
 </body>
