@@ -24,16 +24,45 @@
 
     .screen {
       display: none;
-      animation: fadeIn 0.5s ease-in;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.5s ease-in-out;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      min-height: 100vh;
     }
 
     .screen.active {
       display: block;
+      opacity: 1;
+      transform: translateY(0);
+      position: relative;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+    .screen.transitioning-out {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+
+    .screen.transitioning-in {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateX(100%); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes slideOut {
+      from { opacity: 1; transform: translateX(0); }
+      to { opacity: 0; transform: translateX(-100%); }
+    }
+
+    .slide-transition {
+      animation: slideIn 0.4s ease-out;
     }
 
     .lobby-code {
@@ -335,21 +364,33 @@
     <div class="game-container">
       <h1 class="game-title">🕵️ Waterdeep Conspiracy Theories 🕵️</h1>
       
-      <!-- Main Menu -->
-      <div id="main-menu" class="screen active">
+      <!-- 1. Home Screen -->
+      <div id="home-screen" class="screen active">
         <div style="margin-bottom: 30px;">
           <p style="font-size: 1.2em; margin-bottom: 20px;">
             Create wild conspiracy theories about your D&D campaign!
           </p>
         </div>
-        <button class="game-btn" onclick="showHostView()">🎮 Host Game</button>
-        <button class="game-btn" onclick="showPlayerView()">📱 Join Game</button>
+        <button class="game-btn" onclick="showHostLobby()">🎮 Host Game</button>
+        <button class="game-btn" onclick="showJoinScreen()">📱 Join Game</button>
       </div>
 
-      <!-- Host View -->
-      <div id="host-view" class="screen">
-        <!-- Lobby Setup -->
-        <div id="host-lobby" class="host-screen active">
+      <!-- 2. Join Screen -->
+      <div id="join-screen" class="screen">
+        <h2>📱 Join Game</h2>
+        <input type="text" id="room-code" class="input-field" placeholder="Enter Room Code" maxlength="4" style="text-transform: uppercase;">
+        <br>
+        <input type="text" id="player-name" class="input-field" placeholder="Enter Your Name" maxlength="20">
+        <br>
+        <button class="game-btn" onclick="joinGame()">Join Game</button>
+        <button class="game-btn" onclick="showScreen('home-screen')">Back</button>
+        <div id="join-error" class="error-message" style="display: none;"></div>
+      </div>
+
+      <!-- 3. Game Lobby Screen -->
+      <div id="lobby-screen" class="screen">
+        <!-- Host Lobby -->
+        <div id="host-lobby-view" style="display: none;">
           <h2>🎮 Game Lobby</h2>
           <p>Players can join using this code:</p>
           <div class="lobby-code" id="lobby-code">ABCD</div>
@@ -364,71 +405,11 @@
           </div>
           
           <button class="game-btn" onclick="startGame()" id="start-game-btn">Start Game</button>
-          <button class="game-btn" onclick="showMainMenu()">Back to Menu</button>
+          <button class="game-btn" onclick="showScreen('home-screen')">Back to Menu</button>
         </div>
 
-        <!-- Game Round -->
-        <div id="host-game" class="host-screen">
-          <div class="round-info">
-            <h2>Round <span id="round-number">1</span> of 4</h2>
-          </div>
-          
-          <div class="prompt-display" id="prompt-display">
-            Loading prompt...
-          </div>
-          
-          <div class="timer" id="timer">60</div>
-          
-          <div id="waiting-message">
-            <p><span class="waiting-indicator">⏳</span> Players are writing their conspiracy theories...</p>
-            <p><strong>Submitted:</strong> <span id="submitted-count">0</span>/<span id="total-players">0</span></p>
-          </div>
-          
-          <button class="game-btn" id="skip-timer" onclick="skipTimer()">Skip Timer ⏭️</button>
-        </div>
-
-        <!-- Voting Phase -->
-        <div id="host-voting" class="host-screen">
-          <h2>🗳️ Vote for the Best Conspiracy Theory!</h2>
-          <div class="answers-grid" id="host-answers-grid"></div>
-          <div class="status-message">
-            <p><span class="waiting-indicator">⏳</span> Waiting for all players to vote...</p>
-            <p><strong>Voted:</strong> <span id="voted-count">0</span>/<span id="total-players-voting">0</span></p>
-          </div>
-        </div>
-
-        <!-- Results -->
-        <div id="host-results" class="host-screen">
-          <h2>📊 Round Results</h2>
-          <div class="answers-grid" id="results-grid"></div>
-          <button class="game-btn" id="next-round-btn" onclick="nextRound()">Next Round ➡️</button>
-        </div>
-
-        <!-- Final Scores -->
-        <div id="host-final" class="host-screen">
-          <h2>🏆 Final Results 🏆</h2>
-          <div class="scoreboard" id="final-scoreboard"></div>
-          <button class="game-btn" onclick="resetGame()">🎮 New Game</button>
-          <button class="game-btn" onclick="showMainMenu()">Main Menu</button>
-        </div>
-      </div>
-
-      <!-- Player View -->
-      <div id="player-view" class="screen">
-        <!-- Join Lobby -->
-        <div id="player-join" class="player-screen active">
-          <h2>📱 Join Game</h2>
-          <input type="text" id="room-code" class="input-field" placeholder="Enter Room Code" maxlength="4" style="text-transform: uppercase;">
-          <br>
-          <input type="text" id="player-name" class="input-field" placeholder="Enter Your Name" maxlength="20">
-          <br>
-          <button class="game-btn" onclick="joinGame()">Join Game</button>
-          <button class="game-btn" onclick="showMainMenu()">Back to Menu</button>
-          <div id="join-error" class="error-message" style="display: none;"></div>
-        </div>
-
-        <!-- Waiting in Lobby -->
-        <div id="player-waiting" class="player-screen">
+        <!-- Player Lobby -->
+        <div id="player-lobby-view" style="display: none;">
           <h2>⏳ Waiting for Game to Start</h2>
           <div class="status-message">
             <p><strong>Room Code:</strong> <span id="player-room-code"></span></p>
@@ -438,49 +419,116 @@
             <h3>Players in Lobby (<span id="player-lobby-count">0</span>):</h3>
             <div id="player-lobby-list"></div>
           </div>
+          <button class="game-btn" onclick="showScreen('home-screen')">Leave Game</button>
+        </div>
+      </div>
+
+      <!-- 4. Game Screen - Writing Phase -->
+      <div id="writing-screen" class="screen">
+        <div class="round-info">
+          <h2>Round <span id="current-round">1</span> of 4</h2>
+          <h3>✍️ Write Your Conspiracy Theory</h3>
+        </div>
+        
+        <div class="prompt-display" id="writing-prompt"></div>
+        
+        <div class="timer" id="writing-timer">60</div>
+        
+        <!-- Host View -->
+        <div id="host-writing-view" style="display: none;">
+          <div id="waiting-message">
+            <p><span class="waiting-indicator">⏳</span> Players are writing their conspiracy theories...</p>
+            <p><strong>Submitted:</strong> <span id="submitted-count">0</span>/<span id="total-players">0</span></p>
+          </div>
+          <button class="game-btn" onclick="skipTimer()">Skip Timer ⏭️</button>
         </div>
 
-        <!-- Writing Phase -->
-        <div id="player-writing" class="player-screen">
-          <div class="round-info">
-            <h2>Round <span id="player-round">1</span> of 4</h2>
-          </div>
-          
-          <div class="prompt-display" id="player-prompt"></div>
-          
-          <div class="timer" id="player-timer">60</div>
-          
+        <!-- Player View -->
+        <div id="player-writing-view" style="display: none;">
           <div class="mobile-input">
             <textarea id="conspiracy-input" placeholder="Write your conspiracy theory here... Be creative and funny!"></textarea>
             <br>
             <button class="game-btn" onclick="submitConspiracy()" id="submit-btn">Submit Theory</button>
           </div>
         </div>
+      </div>
 
-        <!-- Voting Phase -->
-        <div id="player-voting" class="player-screen">
-          <h2>🗳️ Vote for the Best Theory!</h2>
-          <p><em>(You can't vote for your own theory)</em></p>
-          <div class="answers-grid" id="player-answers-grid"></div>
-          <div id="voting-status" class="status-message" style="display: none;"></div>
+      <!-- 5. Game Screen - Voting Phase -->
+      <div id="voting-screen" class="screen">
+        <div class="round-info">
+          <h2>Round <span id="voting-round">1</span> of 4</h2>
+          <h3>🗳️ Vote for the Best Conspiracy Theory!</h3>
+        </div>
+        
+        <p><em>(You can't vote for your own theory)</em></p>
+        <div class="answers-grid" id="voting-answers-grid"></div>
+        
+        <!-- Host View -->
+        <div id="host-voting-status" class="status-message" style="display: none;">
+          <p><span class="waiting-indicator">⏳</span> Waiting for all players to vote...</p>
+          <p><strong>Voted:</strong> <span id="voted-count">0</span>/<span id="total-players-voting">0</span></p>
         </div>
 
-        <!-- Round Results -->
-        <div id="player-results" class="player-screen">
-          <h2>📊 Round Results</h2>
-          <div class="answers-grid" id="player-results-grid"></div>
-          <div class="status-message">
-            <p><span class="waiting-indicator">⏳</span> Waiting for next round...</p>
-          </div>
+        <!-- Player View -->
+        <div id="player-voting-status" class="status-message" style="display: none;"></div>
+      </div>
+
+      <!-- 6. Game Screen - Results with Votes -->
+      <div id="results-screen" class="screen">
+        <div class="round-info">
+          <h2>Round <span id="results-round">1</span> of 4</h2>
+          <h3>📊 Round Results</h3>
+        </div>
+        
+        <div class="answers-grid" id="results-answers-grid"></div>
+        
+        <!-- Host Controls -->
+        <div id="host-results-controls" style="display: none;">
+          <button class="game-btn" id="continue-btn" onclick="continueGame()">Continue ➡️</button>
         </div>
 
-        <!-- Final Results -->
-        <div id="player-final" class="player-screen">
-          <h2>🏆 Final Results 🏆</h2>
-          <div class="scoreboard" id="player-final-scoreboard"></div>
-          <div class="status-message">
-            <p>Thanks for playing! 🎉</p>
-          </div>
+        <!-- Player Status -->
+        <div id="player-results-status" class="status-message" style="display: none;">
+          <p><span class="waiting-indicator">⏳</span> Waiting for host to continue...</p>
+        </div>
+      </div>
+
+      <!-- 7. Game Screen - Current Scores -->
+      <div id="scores-screen" class="screen">
+        <div class="round-info">
+          <h2>🏆 Current Scores</h2>
+          <p>After Round <span id="scores-round">1</span> of 4</p>
+        </div>
+        
+        <div class="scoreboard" id="current-scoreboard"></div>
+        
+        <!-- Host Controls -->
+        <div id="host-scores-controls" style="display: none;">
+          <button class="game-btn" onclick="nextRound()">Next Round ▶️</button>
+        </div>
+
+        <!-- Player Status -->
+        <div id="player-scores-status" class="status-message" style="display: none;">
+          <p><span class="waiting-indicator">⏳</span> Get ready for the next round...</p>
+        </div>
+      </div>
+
+      <!-- 8. End Game Screen -->
+      <div id="endgame-screen" class="screen">
+        <div class="round-info">
+          <h2>🎉 Game Complete! 🎉</h2>
+          <h3>🏆 Final Results 🏆</h3>
+        </div>
+        
+        <div class="scoreboard" id="final-scoreboard"></div>
+        
+        <div style="margin-top: 30px;">
+          <button class="game-btn" onclick="resetGame()">🎮 Play Again</button>
+          <button class="game-btn" onclick="showScreen('home-screen')">Main Menu</button>
+        </div>
+        
+        <div class="status-message" style="margin-top: 20px;">
+          <p>Thanks for playing the Waterdeep Conspiracy Theory Game! 🎲</p>
         </div>
       </div>
     </div>
@@ -536,7 +584,9 @@
       socket.on('joinedGame', ({ code }) => {
         gameState.lobbyCode = code;
         document.getElementById('player-room-code').textContent = code;
-        showPlayerScreen('player-waiting');
+        document.getElementById('host-lobby-view').style.display = 'none';
+        document.getElementById('player-lobby-view').style.display = 'block';
+        showScreen('lobby-screen');
         hideError();
       });
 
@@ -551,23 +601,29 @@
         gameState.hasSubmitted = false;
         gameState.hasVoted = false;
         
-        document.getElementById('round-number').textContent = round;
-        document.getElementById('player-round').textContent = round;
-        document.getElementById('prompt-display').textContent = prompt;
-        document.getElementById('player-prompt').textContent = prompt;
+        // Update round numbers
+        document.getElementById('current-round').textContent = round;
+        document.getElementById('writing-prompt').textContent = prompt;
         
+        // Show appropriate views
         if (gameState.isHost) {
-          showHostScreen('host-game');
+          document.getElementById('host-writing-view').style.display = 'block';
+          document.getElementById('player-writing-view').style.display = 'none';
         } else {
-          showPlayerScreen('player-writing');
+          document.getElementById('host-writing-view').style.display = 'none';
+          document.getElementById('player-writing-view').style.display = 'block';
           resetWritingInterface();
         }
         
-        updateTimer(timeLeft);
+        showScreen('writing-screen');
+        updateTimer(timeLeft, 'writing');
       });
 
       socket.on('timerUpdate', ({ timeLeft }) => {
-        updateTimer(timeLeft);
+        const currentScreen = document.querySelector('.screen.active');
+        if (currentScreen.id === 'writing-screen') {
+          updateTimer(timeLeft, 'writing');
+        }
       });
 
       socket.on('submissionUpdate', ({ submitted, total }) => {
@@ -576,12 +632,16 @@
       });
 
       socket.on('votingPhase', ({ submissions }) => {
+        document.getElementById('voting-round').textContent = gameState.currentRound;
+        
         if (gameState.isHost) {
-          showHostScreen('host-voting');
+          document.getElementById('host-voting-status').style.display = 'block';
         } else {
-          showPlayerScreen('player-voting');
+          document.getElementById('player-voting-status').style.display = 'none';
         }
+        
         displayAnswersForVoting(submissions);
+        showScreen('voting-screen');
       });
 
       socket.on('voteUpdate', ({ voted, total }) => {
@@ -590,29 +650,50 @@
       });
 
       socket.on('results', ({ results, isLastRound }) => {
+        document.getElementById('results-round').textContent = gameState.currentRound;
+        
         if (gameState.isHost) {
-          showHostScreen('host-results');
-          const nextBtn = document.getElementById('next-round-btn');
-          if (isLastRound) {
-            nextBtn.textContent = 'Show Final Results 🏆';
-            nextBtn.onclick = () => socket.emit('nextRound', { code: gameState.lobbyCode });
-          } else {
-            nextBtn.textContent = 'Next Round ➡️';
-            nextBtn.onclick = nextRound;
-          }
+          document.getElementById('host-results-controls').style.display = 'block';
+          document.getElementById('player-results-status').style.display = 'none';
+          
+          const continueBtn = document.getElementById('continue-btn');
+          continueBtn.textContent = isLastRound ? 'View Final Scores 🏆' : 'Show Scores 📊';
         } else {
-          showPlayerScreen('player-results');
+          document.getElementById('host-results-controls').style.display = 'none';
+          document.getElementById('player-results-status').style.display = 'block';
         }
+        
         displayResults(results);
+        showScreen('results-screen');
+        
+        // Store if this is the last round for later use
+        gameState.isLastRound = isLastRound;
+      });
+
+      socket.on('currentScores', ({ scores, round, isLastRound }) => {
+        if (isLastRound) {
+          // Skip to final results
+          displayFinalResults(scores);
+          showScreen('endgame-screen');
+        } else {
+          document.getElementById('scores-round').textContent = round;
+          
+          if (gameState.isHost) {
+            document.getElementById('host-scores-controls').style.display = 'block';
+            document.getElementById('player-scores-status').style.display = 'none';
+          } else {
+            document.getElementById('host-scores-controls').style.display = 'none';
+            document.getElementById('player-scores-status').style.display = 'block';
+          }
+          
+          displayCurrentScores(scores);
+          showScreen('scores-screen');
+        }
       });
 
       socket.on('finalResults', ({ scores }) => {
-        if (gameState.isHost) {
-          showHostScreen('host-final');
-        } else {
-          showPlayerScreen('player-final');
-        }
         displayFinalResults(scores);
+        showScreen('endgame-screen');
       });
 
       socket.on('theorySubmitted', () => {
@@ -625,6 +706,22 @@
       });
 
       socket.on('voteRegistered', () => {
+        const statusDiv = document.getElementById('player-voting-status');
+        statusDiv.style.display = 'block';
+        statusDiv.innerHTML = '✅ Your vote has been registered!';
+        gameState.hasVoted = true;
+      });
+
+      socket.on('error', (message) => {
+        showError(message);
+        console.error('Game error:', message);
+      });
+        submitBtn.disabled = true;
+        document.getElementById('conspiracy-input').disabled = true;
+        gameState.hasSubmitted = true;
+      };
+
+      socket.on('voteRegistered', () => {
         const statusDiv = document.getElementById('voting-status');
         statusDiv.style.display = 'block';
         statusDiv.innerHTML = '✅ Your vote has been registered!';
@@ -635,30 +732,50 @@
         showError(message);
         console.error('Game error:', message);
       });
-    }
+    
 
     // Utility functions
-    function showScreen(screenId) {
-      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-      document.getElementById(screenId).classList.add('active');
-    }
-
-    function showHostScreen(screenId) {
-      document.querySelectorAll('.host-screen').forEach(s => s.classList.remove('active'));
-      document.getElementById(screenId).classList.add('active');
-    }
-
-    function showPlayerScreen(screenId) {
-      document.querySelectorAll('.player-screen').forEach(s => s.classList.remove('active'));
-      document.getElementById(screenId).classList.add('active');
-    }
-
-    function showMainMenu() {
-      showScreen('main-menu');
-      if (socket) {
-        socket.disconnect();
+    function showScreen(screenId, direction = 'forward') {
+      const currentScreen = document.querySelector('.screen.active');
+      const newScreen = document.getElementById(screenId);
+      
+      if (!newScreen || newScreen === currentScreen) return;
+      
+      // Add transition classes
+      if (currentScreen) {
+        currentScreen.classList.add('transitioning-out');
+        setTimeout(() => {
+          currentScreen.classList.remove('active', 'transitioning-out');
+        }, 250);
       }
-      resetGameState();
+      
+      newScreen.classList.add('transitioning-in');
+      setTimeout(() => {
+        newScreen.classList.remove('transitioning-in');
+        newScreen.classList.add('active', 'slide-transition');
+      }, 250);
+    }
+
+    function showHostLobby() {
+      gameState.isHost = true;
+      initSocket();
+      
+      // Wait for connection before showing lobby
+      const waitForConnection = () => {
+        if (gameState.connected) {
+          document.getElementById('host-lobby-view').style.display = 'block';
+          document.getElementById('player-lobby-view').style.display = 'none';
+          showScreen('lobby-screen');
+        } else {
+          setTimeout(waitForConnection, 100);
+        }
+      };
+      waitForConnection();
+    }
+
+    function showJoinScreen() {
+      gameState.isHost = false;
+      showScreen('join-screen');
     }
 
     function resetGameState() {
@@ -681,6 +798,9 @@
       if (errorDiv) {
         errorDiv.textContent = message;
         errorDiv.style.display = 'block';
+        setTimeout(() => {
+          errorDiv.style.display = 'none';
+        }, 5000);
       }
     }
 

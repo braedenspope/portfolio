@@ -178,6 +178,20 @@ class Game {
     });
   }
 
+  showCurrentScores() {
+    const currentScores = Array.from(this.players.entries()).map(([id, player]) => ({
+      id,
+      name: player.name,
+      score: this.scores.get(id) || 0
+    })).sort((a, b) => b.score - a.score);
+    
+    this.broadcast('currentScores', { 
+      scores: currentScores, 
+      round: this.currentRound,
+      isLastRound: this.currentRound >= this.maxRounds
+    });
+  }
+
   nextRound() {
     this.currentRound++;
     if (this.currentRound > this.maxRounds) {
@@ -310,6 +324,14 @@ io.on('connection', (socket) => {
     const game = games.get(code);
     if (game) {
       game.endPhase();
+    }
+  });
+
+  // Show current scores
+  socket.on('showScores', ({ code }) => {
+    const game = games.get(code);
+    if (game) {
+      game.showCurrentScores();
     }
   });
 
