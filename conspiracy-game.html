@@ -916,7 +916,9 @@
       currentPrompt: '',
       hasSubmitted: false,
       hasVoted: false,
-      connected: false
+      connected: false,
+      playerNames: new Map(),
+      runningScores: new Map()
     };
 
     // Initialize socket connection
@@ -963,6 +965,11 @@
       });
 
       socket.on('playersUpdate', ({ players }) => {
+        // Store player names for later use in scoring
+        players.forEach(player => {
+          gameState.playerNames.set(player.id, player.name);
+        });
+        
         updatePlayersDisplay(players);
         updateStartButton(players.length);
       });
@@ -1000,6 +1007,13 @@
       });
 
       socket.on('results', ({ results, isLastRound }) => {
+        // Store player names from results
+        results.forEach(result => {
+          if (result.playerName) {
+            gameState.playerNames.set(result.id, result.playerName);
+          }
+        });
+        
         showVoteResultsScreen();
         displayVoteResults(results);
         gameState.isLastRound = isLastRound;
@@ -1218,7 +1232,9 @@
         currentPrompt: '',
         hasSubmitted: false,
         hasVoted: false,
-        connected: false
+        connected: false,
+        playerNames: new Map(),
+        runningScores: new Map()
       };
     }
 
@@ -1440,16 +1456,24 @@
     }
 
     function calculateCurrentScores(results) {
+      // Initialize running scores if not exists
+      if (!gameState.runningScores) {
+        gameState.runningScores = new Map();
+      }
+      
       // Calculate scores based on votes received
       const scoreUpdates = new Map();
       results.forEach(result => {
         scoreUpdates.set(result.id, result.votes);
+        // Also store player name if we have it
+        if (result.playerName) {
+          gameState.playerNames.set(result.id, result.playerName);
+        }
       });
       
       // Update running totals
       scoreUpdates.forEach((votes, playerId) => {
-        const currentScore = gameState.runningScores?.get(playerId) || 0;
-        if (!gameState.runningScores) gameState.runningScores = new Map();
+        const currentScore = gameState.runningScores.get(playerId) || 0;
         gameState.runningScores.set(playerId, currentScore + votes);
       });
       
@@ -1463,7 +1487,7 @@
       if (!gameState.runningScores) return;
       
       const scores = Array.from(gameState.runningScores.entries()).map(([id, score]) => {
-        const playerName = gameState.playerNames?.get(id) || 'Unknown Player';
+        const playerName = gameState.playerNames.get(id) || 'Unknown Player';
         return { id, name: playerName, score };
       }).sort((a, b) => b.score - a.score);
       
