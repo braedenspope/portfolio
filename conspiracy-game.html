@@ -659,14 +659,22 @@
 
       // Game events
       socket.on('gameCreated', ({ code }) => {
+        console.log('Game created with code:', code);
         gameState.lobbyCode = code;
-        document.getElementById('lobby-code').textContent = code;
+        
+        // Make sure we update the display
+        const lobbyCodeElement = document.getElementById('lobby-code');
+        if (lobbyCodeElement) {
+          lobbyCodeElement.textContent = code;
+        }
+        
         document.getElementById('game-url').textContent = window.location.origin + '/conspiracy-game.html';
-        updateStartButton();
+        updateStartButton(0); // Start with 0 players
         hideTransition();
       });
 
       socket.on('joinedGame', ({ code }) => {
+        console.log('Successfully joined game:', code);
         gameState.lobbyCode = code;
         document.getElementById('player-room-code').textContent = code;
         document.getElementById('player-display-name').textContent = gameState.playerName;
@@ -818,6 +826,9 @@
 
     function showHostLobby() {
       gameState.isHost = true;
+      // Clear any previous lobby code
+      document.getElementById('lobby-code').textContent = 'LOADING...';
+      
       initSocket();
       showScreen('lobby-screen', 'Creating game...');
       
@@ -826,6 +837,17 @@
       document.getElementById('player-lobby-content').style.display = 'none';
       document.getElementById('start-game-btn').style.display = 'block';
       document.getElementById('lobby-subtitle').textContent = 'Share the room code with your friends';
+      
+      // Wait for socket connection before creating game
+      const waitForConnection = () => {
+        if (gameState.connected) {
+          console.log('Socket connected, creating game...');
+          socket.emit('createGame');
+        } else {
+          setTimeout(waitForConnection, 100);
+        }
+      };
+      waitForConnection();
     }
 
     function showPlayerLobby() {
@@ -972,8 +994,15 @@
       const code = document.getElementById('room-code').value.toUpperCase().trim();
       const name = document.getElementById('player-name').value.trim();
       
+      console.log('Attempting to join game:', { code, name });
+      
       if (!code || !name) {
         showError('Please enter both room code and your name!');
+        return;
+      }
+      
+      if (code.length !== 4) {
+        showError('Room code must be exactly 4 characters!');
         return;
       }
       
@@ -983,13 +1012,20 @@
       }
       
       gameState.playerName = name;
+      gameState.isHost = false;
+      
+      // Show loading state
+      showTransition('Joining game...');
+      
       initSocket();
       
       // Wait for socket connection before joining
       const waitForConnection = () => {
         if (gameState.connected) {
+          console.log('Socket connected, attempting to join...');
           socket.emit('joinGame', { code, name });
         } else {
+          console.log('Waiting for socket connection...');
           setTimeout(waitForConnection, 100);
         }
       };

@@ -216,8 +216,16 @@ class Game {
 function generateLobbyCode() {
   let code;
   do {
-    code = Math.random().toString(36).substr(2, 4).toUpperCase();
+    // Generate 4 random characters
+    code = Math.random().toString(36).substring(2, 6).toUpperCase();
+    // Ensure it's exactly 4 characters
+    while (code.length < 4) {
+      code += Math.random().toString(36).substring(2, 3).toUpperCase();
+    }
+    code = code.substring(0, 4);
   } while (games.has(code));
+  
+  console.log('Generated new lobby code:', code);
   return code;
 }
 
@@ -251,8 +259,14 @@ io.on('connection', (socket) => {
 
   // Player joins game
   socket.on('joinGame', ({ code, name }) => {
-    const game = games.get(code.toUpperCase());
+    const upperCode = code.toUpperCase();
+    const game = games.get(upperCode);
+    
+    console.log(`Join attempt - Code: ${upperCode}, Name: ${name}, Game exists: ${!!game}`);
+    console.log(`Active games: ${Array.from(games.keys())}`);
+    
     if (!game) {
+      console.log(`Game not found for code: ${upperCode}`);
       socket.emit('error', 'Game not found');
       return;
     }
@@ -262,12 +276,19 @@ io.on('connection', (socket) => {
       return;
     }
     
-    socket.join(code.toUpperCase());
+    // Check if name already exists in game
+    const existingPlayer = Array.from(game.players.values()).find(p => p.name === name);
+    if (existingPlayer) {
+      socket.emit('error', 'Name already taken in this game');
+      return;
+    }
+    
+    socket.join(upperCode);
     game.addPlayer(socket, name);
     
-    socket.emit('joinedGame', { code: code.toUpperCase() });
+    socket.emit('joinedGame', { code: upperCode });
     game.broadcast('playersUpdate', { players: game.getPlayerList() });
-    console.log(`${name} joined game ${code}`);
+    console.log(`${name} joined game ${upperCode} successfully`);
   });
 
   // Start game
