@@ -26,6 +26,7 @@ class Game {
   constructor(code) {
     this.code = code;
     this.players = new Map();
+    this.hostSocket = null;  // Track the host separately
     this.currentRound = 1;
     this.maxRounds = 4;
     this.currentPrompt = '';
@@ -52,6 +53,10 @@ class Game {
     ];
   }
 
+  setHost(socket) {
+    this.hostSocket = socket;
+  }
+
   addPlayer(socket, name) {
     this.players.set(socket.id, { name, socket, score: 0 });
     this.scores.set(socket.id, 0);
@@ -60,6 +65,11 @@ class Game {
   removePlayer(socketId) {
     this.players.delete(socketId);
     this.scores.delete(socketId);
+    
+    // If host disconnects, clean up game
+    if (this.hostSocket && this.hostSocket.id === socketId) {
+      this.hostSocket = null;
+    }
   }
 
   getPlayerList() {
@@ -206,8 +216,25 @@ class Game {
   }
 
   broadcast(event, data) {
+    // Send to all players
     for (const player of this.players.values()) {
       player.socket.emit(event, data);
+    }
+    
+    // Also send to host if they exist and are different from players
+    if (this.hostSocket && !this.players.has(this.hostSocket.id)) {
+      this.hostSocket.emit(event, data);
+    }
+  }
+
+  broadcastToAll(event, data) {
+    // Send to all players AND host
+    for (const player of this.players.values()) {
+      player.socket.emit(event, data);
+    }
+    
+    if (this.hostSocket) {
+      this.hostSocket.emit(event, data);
     }
   }
 }
@@ -250,11 +277,12 @@ io.on('connection', (socket) => {
   socket.on('createGame', () => {
     const code = generateLobbyCode();
     const game = new Game(code);
+    game.setHost(socket);  // Set this socket as the host
     games.set(code, game);
     
     socket.join(code);
     socket.emit('gameCreated', { code });
-    console.log(`Game created with code: ${code}`);
+    console.log(`Game created with code: ${code} by host: ${socket.id}`);
   });
 
   // Player joins game
@@ -287,8 +315,9 @@ io.on('connection', (socket) => {
     game.addPlayer(socket, name);
     
     socket.emit('joinedGame', { code: upperCode });
-    game.broadcast('playersUpdate', { players: game.getPlayerList() });
-    console.log(`${name} joined game ${upperCode} successfully`);
+    // Use broadcastToAll to ensure host sees the update too
+    game.broadcastToAll('playersUpdate', { players: game.getPlayerList() });
+    console.log(`${name} joined game ${upperCode} successfully. Total players: ${game.players.size}`);
   });
 
   // Start game
@@ -344,9 +373,12 @@ io.on('connection', (socket) => {
   socket.on('disconnect', () => {
     console.log('Client disconnected:', socket.id);
     for (const [code, game] of games) {
+      // Check if this was a player
       if (game.players.has(socket.id)) {
+        const playerName = game.players.get(socket.id).name;
         game.removePlayer(socket.id);
-        game.broadcast('playersUpdate', { players: game.getPlayerList() });
+        game.broadcastToAll('playersUpdate', { players: game.getPlayerList() });
+        console.log(`Player ${playerName} left game ${code}`);
         
         // Clean up empty games
         if (game.players.size === 0) {
@@ -354,6 +386,15 @@ io.on('connection', (socket) => {
           games.delete(code);
           console.log(`Game ${code} cleaned up - no players remaining`);
         }
+        break;
+      }
+      // Check if this was the host
+      else if (game.hostSocket && game.hostSocket.id === socket.id) {
+        console.log(`Host disconnected from game ${code}`);
+        // Optionally clean up the game or transfer host to first player
+        clearInterval(game.timer);
+        games.delete(code);
+        console.log(`Game ${code} cleaned up - host disconnected`);
         break;
       }
     }
