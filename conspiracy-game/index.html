@@ -1174,6 +1174,9 @@
         updateStartButton(0); // Start with 0 players
         hideTransition();
         
+        // Play background music for host
+        gameAudio.playMusic('backgroundMusic');
+
         // Show audio controls for host
         showAudioControls();
       });
