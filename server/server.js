@@ -39,9 +39,7 @@ class Game {
     
     this.prompts = [
       "Why does Kaige Omen REALLY want to destroy Waterdeep?",
-      "What is Oberon actually doing as a beggar in the city?",
       "The TRUTH behind why all the Masked Lords keep getting assassinated",
-      "What Dusara al'Abhook's real plan is now that she can walk in sunlight",
       "Why the Stone of Golorr is causing so much chaos between the guilds",
       "The secret reason Captain Maverick keeps getting promoted",
       "What Thorn is ACTUALLY planning with Deepwater Mercantile",
