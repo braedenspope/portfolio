@@ -1214,6 +1214,9 @@
         gameState.hasSubmitted = false;
         gameState.hasVoted = false;
         
+        // Reset all counters for the new round
+        resetCountersForNewRound();
+        
         document.getElementById('current-round').textContent = round;
         document.getElementById('writing-prompt').textContent = prompt;
         
@@ -1239,6 +1242,9 @@
       });
 
       socket.on('votingPhase', ({ submissions }) => {
+        // Reset voting counters
+        resetVotingCounters();
+        
         showVotingScreen();
         displayAnswersForVoting(submissions);
         
@@ -1306,6 +1312,30 @@
         showError(message);
         console.error('Game error:', message);
       });
+    }
+
+    // Function to reset counters for new round
+    function resetCountersForNewRound() {
+      // Reset submission counters
+      document.getElementById('submitted-count').textContent = '0';
+      document.getElementById('total-players').textContent = '0';
+      
+      // Reset voting counters
+      resetVotingCounters();
+    }
+
+    // Function to reset voting counters
+    function resetVotingCounters() {
+      document.getElementById('voted-count').textContent = '0';
+      document.getElementById('total-players-voting').textContent = '0';
+      document.getElementById('host-voted-count').textContent = '0';
+      document.getElementById('host-total-players-voting').textContent = '0';
+      
+      // Reset voting status message
+      const statusDiv = document.getElementById('voting-status');
+      if (statusDiv) {
+        statusDiv.innerHTML = '<p><span class="waiting-indicator">⏳</span> Waiting for all players to vote...</p><p><strong>Voted:</strong> <span id="voted-count">0</span>/<span id="total-players-voting">0</span></p>';
+      }
     }
 
     // Enhanced screen transition system

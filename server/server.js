@@ -39,15 +39,37 @@ class Game {
     
     this.prompts = [
       "Why does Kaige Omen REALLY want to destroy Waterdeep?",
-      "The TRUTH behind why all the Masked Lords keep getting assassinated",
+      "The TRUTH behind why all the Masked Lords kept getting assassinated",
       "Why the Stone of Golorr is causing so much chaos between the guilds",
       "The secret reason Captain Maverick keeps getting promoted",
       "What Thorn is ACTUALLY planning with Deepwater Mercantile",
       "Why Mielikki's power has been waning recently",
       "The real reason Duncan betrayed the party",
-      "What Winter's Herald is ACTUALLY testing the party for",
+      "What Winter's Herald was ACTUALLY testing the party for",
       "Why Sprig looks exactly like Oberon (and it's not what you think)",
-      "The truth about what happened to Apoch's creator Meepo"
+      "The truth about what happened to Apoch's creator Meepo",
+      "The REAL reason Oberon disappeared from the Feywild",
+      "What Elonzo Hearst is really smuggling",
+      "The real reason Grand Civilar Stonefist was so upset about Damocles not contacting her",
+      "Why Mielikki chose Xarrai specifically (and it's not random)",
+      "What the surviving Masked Lords are hiding from the public",
+      "What Thavran's spell actually does",
+      "Why Salazar REALLY wanted the party to work for Force Gray",
+      "The truth about what Salazar's family does when he's not around",
+      "What happened to Lif?",
+      "What Bonnie the 'good' doppleganger is REALLY up to",
+      "The truth about who's REALLY running the Unseen organization",
+      "Why Deepwater Mercantile specifically smuggles weapons (what are they arming?)",
+      "What Daphne's parents actually think happened to her",
+      "Why Salazar's wife Nuala lost the election to Lord Thavran",
+      "Why Apoch was remotely deactivated at that specific moment in the campaign",
+      "Why Hlam lives on Mount Waterdeep",
+      "What Volo's REAL agenda was in giving away a valuable property",
+      "The real reason Salazar was assigned to handle the party",
+      "What the Stone of Golorr actually does besides point to treasure",
+      "The secret reason multiple gods are fighting over Waterdeep",
+      "The REAL reason Sprig was summoned to the Summer Court right now",
+
     ];
   }
 
@@ -79,16 +101,25 @@ class Game {
     const availablePrompts = this.prompts.filter(p => p !== this.currentPrompt);
     this.currentPrompt = availablePrompts[Math.floor(Math.random() * availablePrompts.length)];
     
+    // Clear previous round data
     this.submissions.clear();
     this.votes.clear();
     this.phase = 'writing';
     this.timeLeft = 60;
     
     this.startTimer();
+    
+    // Send round start with reset counters
     this.broadcast('roundStart', {
       round: this.currentRound,
       prompt: this.currentPrompt,
       timeLeft: this.timeLeft
+    });
+    
+    // Immediately send initial counter update to ensure counters are reset
+    this.broadcast('submissionUpdate', {
+      submitted: 0,
+      total: this.players.size
     });
   }
 
@@ -121,6 +152,12 @@ class Game {
       }
       
       this.broadcast('votingPhase', { submissions });
+      
+      // Send initial vote count update with reset counters
+      this.broadcast('voteUpdate', {
+        voted: 0,
+        total: this.players.size
+      });
     } else if (this.phase === 'voting') {
       this.showResults();
     }
