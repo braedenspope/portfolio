@@ -1336,6 +1336,15 @@
       if (statusDiv) {
         statusDiv.innerHTML = '<p><span class="waiting-indicator">⏳</span> Waiting for all players to vote...</p><p><strong>Voted:</strong> <span id="voted-count">0</span>/<span id="total-players-voting">0</span></p>';
       }
+      
+      // Reset player voting interface
+      if (!gameState.isHost) {
+        gameState.hasVoted = false;
+        // Clear any previous vote styling
+        document.querySelectorAll('.answer-item').forEach(el => {
+          el.classList.remove('voted', 'non-clickable');
+        });
+      }
     }
 
     // Enhanced screen transition system
