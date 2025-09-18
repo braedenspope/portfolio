@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Coursework — Braeden Pope</title>
+  <meta name="description" content="Academic projects and coursework repositories by Braeden Pope." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- NAV -->
+  <nav><div class="container nav-inner"><div class="brand"><a href="/">Braeden Pope</a></div><ul class="nav-links"><li><a data-page="/" href="/">Home</a></li><li><a data-page="projects" href="projects">Projects</a></li><li><a data-page="coursework" href="coursework">Coursework</a></li><li><a data-page="about" href="about">About</a></li><li><a data-page="contact" href="contact">Contact</a></li></ul></div></nav>
+
+  <header class="hero container">
+    <h1>Coursework</h1>
+    <p>Academic projects and assignments from my Software Engineering program at BYU-Idaho.</p>
+  </header>
+
+  <main class="container grid cards">
+    <!-- Algorithm Design Course -->
+    <article class="card">
+      <h3>Algorithm Design - Core Computer Science Algorithms</h3>
+      <p>Comprehensive implementation of fundamental algorithms including binary search, selection sort, and the Sieve of Eratosthenes. Each assignment includes detailed design documentation with pseudocode, trace tables, and Big O complexity analysis.</p>
+      <p><strong>Technologies:</strong> Python, JSON file handling, mathematical algorithms</p>
+      <p><strong>Key Projects:</strong> Binary Search (O(log n)), Selection Sort (O(n²)), Prime Number Generation, François Sequence, Authentication System</p>
+      <p><strong>Concepts:</strong> Algorithm efficiency, divide-and-conquer, sorting algorithms, sequence generation, error handling, assertion testing</p>
+      <p><a href="https://github.com/braedenspope/algorithm-design">GitHub</a> · <a href="#" onclick="showAlgorithmDetails()">View Details</a></p>
+    </article>
+
+    <!-- Modularization Design Course -->
+    <article class="card">
+      <h3>Modularization Design - Software Engineering Principles</h3>
+      <p>Advanced software engineering course emphasizing modular programming, system architecture, and professional documentation. Includes comprehensive structure charts, coupling/cohesion analysis, and sophisticated algorithm implementations like recursive quicksort and merge sort.</p>
+      <p><strong>Technologies:</strong> Python, JSON, recursive algorithms, modular design patterns</p>
+      <p><strong>Key Projects:</strong> Tic-Tac-Toe (game state management), Interactive Sudoku editor, Calendar system, Advanced sorting algorithms</p>
+      <p><strong>Engineering Focus:</strong> Structure charts, data flow diagrams, coupling/cohesion analysis, professional testing methodologies</p>
+      <p><a href="https://github.com/braedenspope/modularization-design">GitHub</a></p>
+    </article>
+
+    <!-- Designing Data Structures Course -->
+    <article class="card">
+      <h3>Designing Data Structures - STL Implementation Mastery</h3>
+      <p>Complete custom implementation of C++ Standard Template Library containers from scratch. Features advanced template metaprogramming, memory management with custom allocators, red-black tree self-balancing, and enterprise-level performance optimization. Represents the pinnacle of computer science education.</p>
+      <p><strong>Technologies:</strong> C++, Template Metaprogramming, Custom Allocators, RAII, Move Semantics</p>
+      <p><strong>Key Implementations:</strong> Vector, List, Deque, Set/Map (Red-Black BST), Hash Table, Priority Queue, Stack</p>
+      <p><strong>Advanced Features:</strong> STL compliance, iterator patterns, exception safety, O(log n) balanced trees, separate chaining hash tables</p>
+      <p><a href="https://github.com/braedenspope/designing-data-structures">GitHub</a></p>
+    </article>
+
+    <!-- Coming Soon placeholder for additional repos -->
+    <article class="card">
+      <h3>More Coursework Coming Soon</h3>
+      <p>Additional academic project repositories will be added here, including Object-Oriented Programming, Database Design, and Software Architecture projects.</p>
+      <p><strong>Upcoming:</strong> System Design, Web Development, Mobile Applications, Capstone Projects</p>
+    </article>
+
+  </main>
+
+  <footer><div class="container small">© <span id="y"></span> Braeden Pope</div></footer>
+  <script src="script.js"></script>
+  <script>document.getElementById('y').textContent=new Date().getFullYear()</script>
+</body>
+</html>
