@@ -1217,14 +1217,11 @@
         // Reset all counters for the new round
         resetCountersForNewRound();
         
+        // Update the prompt display BEFORE showing the screen
         document.getElementById('current-round').textContent = round;
         document.getElementById('writing-prompt').textContent = prompt;
         
-        // Reset player writing interface for new round
-        if (!gameState.isHost) {
-          resetWritingInterface();
-        }
-        
+        // Show the writing screen for ALL users (host and players)
         showWritingScreen();
         updateTimer(timeLeft);
         
@@ -1247,9 +1244,8 @@
       });
 
       socket.on('votingPhase', ({ submissions }) => {
-        // Reset voting counters and player voting state
+        // Reset voting counters
         resetVotingCounters();
-        gameState.hasVoted = false;
         
         showVotingScreen();
         displayAnswersForVoting(submissions);
@@ -1341,15 +1337,6 @@
       const statusDiv = document.getElementById('voting-status');
       if (statusDiv) {
         statusDiv.innerHTML = '<p><span class="waiting-indicator">⏳</span> Waiting for all players to vote...</p><p><strong>Voted:</strong> <span id="voted-count">0</span>/<span id="total-players-voting">0</span></p>';
-      }
-      
-      // Reset player voting interface
-      if (!gameState.isHost) {
-        gameState.hasVoted = false;
-        // Clear any previous vote styling
-        document.querySelectorAll('.answer-item').forEach(el => {
-          el.classList.remove('voted', 'non-clickable');
-        });
       }
     }
 
@@ -1758,9 +1745,7 @@
         
         if (grid) grid.innerHTML = hostHTML;
       } else {
-        // Player view - reset voting state and enable voting for new theories
-        gameState.hasVoted = false;
-        
+        // Player view - can vote (original logic)
         const playerHTML = submissions.map(sub => {
           const isOwnTheory = sub.id === gameState.playerId;
           const clickHandler = isOwnTheory ? '' : `onclick="voteForAnswer('${sub.id}')"`;

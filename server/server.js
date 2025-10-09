@@ -107,20 +107,21 @@ class Game {
     this.phase = 'writing';
     this.timeLeft = 60;
     
-    this.startTimer();
-    
-    // Send round start with reset counters
-    this.broadcast('roundStart', {
+    // First broadcast the round start to all players
+    this.broadcastToAll('roundStart', {
       round: this.currentRound,
       prompt: this.currentPrompt,
       timeLeft: this.timeLeft
     });
     
     // Immediately send initial counter update to ensure counters are reset
-    this.broadcast('submissionUpdate', {
+    this.broadcastToAll('submissionUpdate', {
       submitted: 0,
       total: this.players.size
     });
+    
+    // Start the timer after broadcasting
+    this.startTimer();
   }
 
   startTimer() {
