@@ -1319,23 +1319,35 @@
     // Function to reset counters for new round
     function resetCountersForNewRound() {
       // Reset submission counters
-      document.getElementById('submitted-count').textContent = '0';
-      document.getElementById('total-players').textContent = '0';
+      const submittedCount = document.getElementById('submitted-count');
+      const totalPlayers = document.getElementById('total-players');
+      if (submittedCount) submittedCount.textContent = '0';
+      if (totalPlayers) totalPlayers.textContent = '0';
       
       // Reset voting counters
       resetVotingCounters();
+      
+      // Reset game state flags
+      gameState.hasSubmitted = false;
+      gameState.hasVoted = false;
     }
 
     // Function to reset voting counters
     function resetVotingCounters() {
-      document.getElementById('voted-count').textContent = '0';
-      document.getElementById('total-players-voting').textContent = '0';
-      document.getElementById('host-voted-count').textContent = '0';
-      document.getElementById('host-total-players-voting').textContent = '0';
+      const votedCount = document.getElementById('voted-count');
+      const totalVoting = document.getElementById('total-players-voting');
+      const hostVotedCount = document.getElementById('host-voted-count');
+      const hostTotalVoting = document.getElementById('host-total-players-voting');
       
-      // Reset voting status message
+      if (votedCount) votedCount.textContent = '0';
+      if (totalVoting) totalVoting.textContent = '0';
+      if (hostVotedCount) hostVotedCount.textContent = '0';
+      if (hostTotalVoting) hostTotalVoting.textContent = '0';
+      
+      // Reset voting status message for players
       const statusDiv = document.getElementById('voting-status');
       if (statusDiv) {
+        statusDiv.style.display = 'block';
         statusDiv.innerHTML = '<p><span class="waiting-indicator">⏳</span> Waiting for all players to vote...</p><p><strong>Voted:</strong> <span id="voted-count">0</span>/<span id="total-players-voting">0</span></p>';
       }
     }
@@ -1451,15 +1463,28 @@
     }
 
     function showWritingScreen() {
+      // First update the display elements
+      document.getElementById('current-round').textContent = gameState.currentRound;
+      document.getElementById('writing-prompt').textContent = gameState.currentPrompt;
+      
+      // Then show the screen
       showScreen('writing-screen', 'Get ready to write...');
       updateProgressBar('writing');
       
       if (gameState.isHost) {
+        // Host view - watching players write
         document.getElementById('host-writing-content').style.display = 'block';
         document.getElementById('player-writing-content').style.display = 'none';
+        
+        // Reset host counters display
+        document.getElementById('submitted-count').textContent = '0';
+        document.getElementById('total-players').textContent = '0';
       } else {
+        // Player view - can write and submit
         document.getElementById('host-writing-content').style.display = 'none';
         document.getElementById('player-writing-content').style.display = 'block';
+        
+        // Reset the writing interface for players
         resetWritingInterface();
       }
     }
@@ -1468,18 +1493,34 @@
       showScreen('voting-screen', 'Time to vote!');
       updateProgressBar('voting');
       
+      // Reset voting state
+      gameState.hasVoted = false;
+      
       if (gameState.isHost) {
         // Host view - just watching
         document.getElementById('voting-screen-title').textContent = 'Players Are Voting';
         document.getElementById('voting-screen-subtitle').textContent = 'Watch as players choose their favorite theories';
         document.getElementById('host-voting-content').style.display = 'block';
         document.getElementById('player-voting-content').style.display = 'none';
+        
+        // Reset host voting counters
+        document.getElementById('host-voted-count').textContent = '0';
+        document.getElementById('host-total-players-voting').textContent = '0';
       } else {
         // Player view - can vote
         document.getElementById('voting-screen-title').textContent = 'Vote for the Best Theory!';
         document.getElementById('voting-screen-subtitle').textContent = 'Choose your favorite conspiracy (you can\'t vote for your own)';
         document.getElementById('host-voting-content').style.display = 'none';
         document.getElementById('player-voting-content').style.display = 'block';
+        
+        // Reset player voting counters and status
+        document.getElementById('voted-count').textContent = '0';
+        document.getElementById('total-players-voting').textContent = '0';
+        
+        const statusDiv = document.getElementById('voting-status');
+        if (statusDiv) {
+          statusDiv.innerHTML = '<p><span class="waiting-indicator">⏳</span> Waiting for all players to vote...</p><p><strong>Voted:</strong> <span id="voted-count">0</span>/<span id="total-players-voting">0</span></p>';
+        }
       }
     }
 
@@ -1509,10 +1550,18 @@
         const continueBtn = document.getElementById('continue-game-btn');
         if (gameState.currentRound >= gameState.maxRounds) {
           continueBtn.textContent = 'Show Final Results 🏆';
-          continueBtn.onclick = () => socket.emit('nextRound', { code: gameState.lobbyCode });
+          continueBtn.onclick = () => {
+            if (gameState.connected && gameState.lobbyCode) {
+              socket.emit('nextRound', { code: gameState.lobbyCode });
+            }
+          };
         } else {
           continueBtn.textContent = `Start Round ${gameState.currentRound + 1} ➡️`;
-          continueBtn.onclick = continueGame;
+          continueBtn.onclick = () => {
+            if (gameState.connected && gameState.lobbyCode) {
+              socket.emit('nextRound', { code: gameState.lobbyCode });
+            }
+          };
         }
       } else {
         document.getElementById('host-scores-controls').style.display = 'none';
@@ -1642,11 +1691,16 @@
       const input = document.getElementById('conspiracy-input');
       const btn = document.getElementById('submit-btn');
       
-      input.value = '';
-      input.disabled = false;
-      btn.disabled = false;
-      btn.textContent = 'Submit Theory';
-      btn.classList.remove('success');
+      if (input) {
+        input.value = '';
+        input.disabled = false;
+      }
+      
+      if (btn) {
+        btn.disabled = false;
+        btn.textContent = 'Submit Theory';
+        btn.classList.remove('success');
+      }
     }
 
     function submitConspiracy() {

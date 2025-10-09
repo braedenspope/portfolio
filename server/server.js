@@ -152,10 +152,11 @@ class Game {
         [submissions[i], submissions[j]] = [submissions[j], submissions[i]];
       }
       
-      this.broadcast('votingPhase', { submissions });
+      // Broadcast voting phase to all (host and players)
+      this.broadcastToAll('votingPhase', { submissions });
       
       // Send initial vote count update with reset counters
-      this.broadcast('voteUpdate', {
+      this.broadcastToAll('voteUpdate', {
         voted: 0,
         total: this.players.size
       });
@@ -235,6 +236,7 @@ class Game {
     if (this.currentRound > this.maxRounds) {
       this.showFinalResults();
     } else {
+      // Start the next round (which will broadcast to all)
       this.startRound();
     }
   }
