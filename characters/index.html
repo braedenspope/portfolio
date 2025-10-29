@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>D&D 5e Level-Up Guide</title>
+  <style>
+    :root{
+      --bg:#0e0f13; --panel:#151823; --ink:#e6e8f2; --muted:#9aa3b2; --accent:#7c9cff; --accent-2:#a7ffdd;
+      --ring: 0 0 0 2px rgba(124,156,255,.35);
+    }
+    html,body{height:100%}
+    body{margin:0;background:radial-gradient(1200px 600px at 60% -20%, rgba(124,156,255,.07), transparent),
+                     radial-gradient(800px 400px at 10% 120%, rgba(167,255,221,.06), transparent),
+                     var(--bg);color:var(--ink);font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";}
+    .wrap{max-width:1100px;margin:40px auto;padding:0 20px;}
+    .card{background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.01));border:1px solid rgba(255,255,255,.08);border-radius:16px;box-shadow:0 20px 40px rgba(0,0,0,.35);}
+    .hdr{display:flex;gap:14px;align-items:center;justify-content:space-between;padding:18px 18px;border-bottom:1px solid rgba(255,255,255,.08)}
+    .title{font-weight:700;letter-spacing:.3px}
+    .controls{display:flex;gap:10px;flex-wrap:wrap}
+    .select, .btn, .level{appearance:none;background:var(--panel);border:1px solid rgba(255,255,255,.14);color:var(--ink);border-radius:10px;padding:10px 12px;font-size:14px}
+    .select:focus, .btn:focus{outline:none;box-shadow:var(--ring)}
+    .btn{cursor:pointer;display:inline-flex;gap:8px;align-items:center}
+    .btn[disabled]{opacity:.4;cursor:not-allowed}
+    .grid{display:grid;grid-template-columns: 1.2fr 1fr;gap:18px;padding:18px}
+    .panel{background:rgba(6,8,12,.55);border:1px dashed rgba(255,255,255,.08);border-radius:12px;padding:16px}
+    .panel h3{margin:.2rem 0 .8rem;font-size:15px;color:var(--accent)}
+    .kv{display:grid;grid-template-columns:160px 1fr;gap:8px;row-gap:10px;font-size:14px}
+    .kv div.key{color:var(--muted)}
+    .features{display:grid;gap:10px}
+    .feat{padding:12px;border:1px solid rgba(255,255,255,.09);border-radius:10px;background:rgba(255,255,255,.03)}
+    .feat h4{margin:0 0 6px;font-size:14px;color:var(--accent-2)}
+    .foot{display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(255,255,255,.08);padding:12px 18px;color:var(--muted);font-size:13px}
+    .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+    .tab{padding:8px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.03);font-size:12px;cursor:pointer}
+    .tab.active{border-color:var(--accent);box-shadow: 0 0 0 2px rgba(124,156,255,.15) inset}
+    .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+    @media (max-width: 900px){.grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card" role="region" aria-label="D&D 5e Level-Up Guide">
+      <div class="hdr">
+        <div class="title">D&D 5e Level‑Up Guide</div>
+        <div class="controls">
+          <label>
+            <span class="sr">Class</span>
+            <select id="classSelect" class="select" aria-label="Select class"></select>
+          </label>
+          <label>
+            <span class="sr">Level</span>
+            <select id="levelSelect" class="select" aria-label="Select level"></select>
+          </label>
+          <button id="prevBtn" class="btn" aria-label="Previous level">◀ Prev</button>
+          <button id="nextBtn" class="btn" aria-label="Next level">Next ▶</button>
+        </div>
+      </div>
+
+      <div class="grid">
+        <section class="panel" aria-live="polite" aria-atomic="true">
+          <h3 id="pageTitle">Class & Level</h3>
+          <div class="kv" id="summaryKV"></div>
+          <div class="tabs" id="subtabs" role="tablist" aria-label="Sections">
+            <!-- Populated: Features / Proficiencies / Spells / Notes -->
+          </div>
+        </section>
+        <section class="panel">
+          <h3 id="sectionTitle">Features</h3>
+          <div id="sectionBody" class="features"></div>
+        </section>
+      </div>
+
+      <div class="foot">
+        <div id="footInfo">Use ← / → to flip pages</div>
+        <div id="shareLink"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /* =====================================================
+       DATA SHAPE (author content goes here)
+       -----------------------------------------------------
+       IMPORTANT: To avoid licensing issues, include your own
+       class text here. The schema supports everything you need.
+       Below we provide SMALL SAMPLE entries to demonstrate.
+       Replace with your full SRD/allowed text as desired.
+       ===================================================== */
+
+    const CLASSES = {
+      Fighter: {
+        hitDie: 'd10',
+        primary: ['Strength', 'Constitution'],
+        saves: ['Strength', 'Constitution'],
+        armor: ['All armor', 'Shields'],
+        weapons: ['Simple', 'Martial'],
+        levels: {
+          1: {
+            proficiencyBonus: '+2',
+            features: [
+              { name: 'Fighting Style', text: 'Choose a style such as Defense, Archery, or Dueling.' },
+              { name: 'Second Wind', text: 'Bonus action to regain 1d10 + fighter level HP once per rest.' }
+            ],
+            proficiencies: ['All armor', 'Shields', 'Simple and martial weapons'],
+            spells: [],
+            notes: 'Build-defining choice at 1st via Fighting Style.'
+          },
+          2: {
+            proficiencyBonus: '+2',
+            features: [
+              { name: 'Action Surge', text: 'Take one additional action on your turn, once per rest.' }
+            ],
+            proficiencies: [],
+            spells: [],
+            notes: 'Peak nova turn when combined with Extra Attack later.'
+          },
+          3: {
+            proficiencyBonus: '+2',
+            features: [
+              { name: 'Martial Archetype', text: 'Choose an archetype (e.g., Champion, Battle Master, Eldritch Knight). Gain its 3rd-level features.' }
+            ],
+            proficiencies: [],
+            spells: [],
+            notes: 'Subclass online; EK starts limited spellcasting.'
+          }
+          // ...continue up to 20
+        }
+      },
+      Wizard: {
+        hitDie: 'd6',
+        primary: ['Intelligence'],
+        saves: ['Intelligence', 'Wisdom'],
+        armor: ['None'],
+        weapons: ['Daggers', 'Darts', 'Slings', 'Quarterstaffs', 'Light crossbows'],
+        levels: {
+          1: {
+            proficiencyBonus: '+2',
+            features: [
+              { name: 'Spellcasting', text: 'Prepare and cast wizard spells using Intelligence.' },
+              { name: 'Arcane Recovery', text: 'Regain expended spell slots on a short rest (sum level ≤ half wizard level, rounded up).'}
+            ],
+            proficiencies: ['Light crossbows', 'Quarterstaffs', 'Daggers', 'No armor'],
+            spells: ['Cantrips known: 3; Spellbook: 6 1st-level spells'],
+            notes: 'Prep list scales with Intelligence modifier + level.'
+          },
+          2: {
+            proficiencyBonus: '+2',
+            features: [{ name: 'Arcane Tradition', text: 'Choose a school (e.g., Evocation, Divination). Gain its 2nd-level features.'}],
+            proficiencies: [],
+            spells: ['Spellbook gains +2 spells when you level'],
+            notes: 'Subclass sets your wizard identity early.'
+          },
+          3: {
+            proficiencyBonus: '+2',
+            features: [{ name: '—', text: 'Core scaling via spell slots and prepared list.' }],
+            proficiencies: [],
+            spells: ['2nd‑level spells'],
+            notes: 'Your school features continue at later levels.'
+          }
+          // ...continue up to 20
+        }
+      }
+      // Add other classes here following the same pattern
+    };
+
+    /* ======= UTILITIES ======= */
+    const clamp = (n,min,max)=> Math.max(min, Math.min(max, n));
+
+    function classesList(){ return Object.keys(CLASSES); }
+    function maxLevelFor(cls){ return Math.max(...Object.keys(CLASSES[cls].levels).map(Number)); }
+
+    function setHash(cls, lvl){
+      const enc = encodeURIComponent;
+      const hash = `#class=${enc(cls)}&level=${enc(lvl)}`;
+      history.replaceState(null, '', hash);
+      document.getElementById('shareLink').innerHTML = `<a href="${hash}" style="color:var(--accent);text-decoration:none">Link to ${cls} ${lvl}</a>`;
+    }
+
+    function parseHash(){
+      const h = location.hash.slice(1);
+      const params = new URLSearchParams(h);
+      let cls = params.get('class');
+      let lvl = parseInt(params.get('level')||'1',10);
+      if(!cls || !CLASSES[cls]){ cls = classesList()[0]; }
+      lvl = Number.isFinite(lvl) ? lvl : 1;
+      return {cls, lvl};
+    }
+
+    /* ======= RENDERING ======= */
+    function renderClassOptions(){
+      const sel = document.getElementById('classSelect');
+      sel.innerHTML = classesList().map(c=>`<option value="${c}">${c}</option>`).join('');
+    }
+
+    function renderLevelOptions(cls){
+      const sel = document.getElementById('levelSelect');
+      const levels = Object.keys(CLASSES[cls].levels).map(Number).sort((a,b)=>a-b);
+      sel.innerHTML = levels.map(l=>`<option value="${l}">Level ${l}</option>`).join('');
+    }
+
+    function renderSummary(cls, lvl){
+      const info = CLASSES[cls];
+      const L = info.levels[lvl];
+      const kv = document.getElementById('summaryKV');
+      document.getElementById('pageTitle').textContent = `${cls} — Level ${lvl}`;
+      kv.innerHTML = `
+        <div class="key">Hit Die</div><div>${info.hitDie}</div>
+        <div class="key">Primary</div><div>${info.primary.join(', ')}</div>
+        <div class="key">Saving Throws</div><div>${info.saves.join(', ')}</div>
+        <div class="key">Weapons</div><div>${info.weapons.join(', ')}</div>
+        <div class="key">Armor</div><div>${info.armor.join(', ')}</div>
+        <div class="key">Prof. Bonus</div><div>${L.proficiencyBonus}</div>
+      `;
+
+      const tabs = [
+        { id:'features', label:'Features', count: L.features?.length || 0 },
+        { id:'profs', label:'Proficiencies', count: L.proficiencies?.length || 0 },
+        { id:'spells', label:'Spells', count: L.spells?.length || 0 },
+        { id:'notes', label:'Notes', count: L.notes ? 1 : 0 }
+      ];
+      const tabEl = document.getElementById('subtabs');
+      tabEl.innerHTML = tabs.map((t,i)=>`<button role="tab" class="tab ${i===0?'active':''}" data-tab="${t.id}">${t.label}${t.count?` (${t.count})`:''}</button>`).join('');
+
+      // Default section: Features
+      renderSection(cls, lvl, 'features');
+    }
+
+    function renderSection(cls, lvl, which){
+      const info = CLASSES[cls];
+      const L = info.levels[lvl];
+      const title = document.getElementById('sectionTitle');
+      const body = document.getElementById('sectionBody');
+
+      document.querySelectorAll('#subtabs .tab').forEach(b=>{
+        b.classList.toggle('active', b.dataset.tab===which);
+      });
+
+      if(which==='features'){
+        title.textContent = 'Features';
+        body.className = 'features';
+        body.innerHTML = (L.features||[]).map(f=>`
+          <article class="feat">
+            <h4>${f.name}</h4>
+            <div>${f.text}</div>
+          </article>
+        `).join('') || `<div class="muted">No features listed for this level.</div>`;
+      } else if(which==='profs'){
+        title.textContent = 'Proficiencies Gained';
+        body.className = 'features';
+        body.innerHTML = (L.proficiencies||[]).map(p=>`<div class="feat">${p}</div>`).join('') || `<div class="muted">No new proficiencies at this level.</div>`;
+      } else if(which==='spells'){
+        title.textContent = 'Spells / Slots';
+        body.className = 'features';
+        body.innerHTML = (L.spells||[]).map(s=>`<div class="feat">${s}</div>`).join('') || `<div class="muted">No spell updates recorded for this level.</div>`;
+      } else if(which==='notes'){
+        title.textContent = 'Notes';
+        body.className = 'features';
+        body.innerHTML = L.notes ? `<div class="feat">${L.notes}</div>` : `<div class="muted">No notes.</div>`;
+      }
+    }
+
+    function goTo(cls, lvl){
+      const maxLvl = maxLevelFor(cls);
+      lvl = clamp(lvl, 1, maxLvl);
+      document.getElementById('classSelect').value = cls;
+      renderLevelOptions(cls);
+      document.getElementById('levelSelect').value = String(lvl);
+      renderSummary(cls, lvl);
+      setHash(cls, lvl);
+      updateNavButtons(cls, lvl);
+    }
+
+    function updateNavButtons(cls, lvl){
+      const maxLvl = maxLevelFor(cls);
+      const prev = document.getElementById('prevBtn');
+      const next = document.getElementById('nextBtn');
+      prev.disabled = lvl<=1; next.disabled = lvl>=maxLvl;
+      document.getElementById('footInfo').textContent = `${cls} • Level ${lvl} of ${maxLvl}`;
+    }
+
+    /* ======= EVENT WIRING ======= */
+    document.addEventListener('click', (e)=>{
+      const t = e.target;
+      if(t.matches('#prevBtn')){
+        const cls = document.getElementById('classSelect').value;
+        const lvl = parseInt(document.getElementById('levelSelect').value,10) - 1;
+        goTo(cls, lvl);
+      }
+      if(t.matches('#nextBtn')){
+        const cls = document.getElementById('classSelect').value;
+        const lvl = parseInt(document.getElementById('levelSelect').value,10) + 1;
+        goTo(cls, lvl);
+      }
+      if(t.matches('#subtabs .tab')){
+        const which = t.dataset.tab;
+        const cls = document.getElementById('classSelect').value;
+        const lvl = parseInt(document.getElementById('levelSelect').value,10);
+        renderSection(cls, lvl, which);
+      }
+    });
+
+    document.addEventListener('change', (e)=>{
+      if(e.target.matches('#classSelect')){
+        const cls = e.target.value;
+        goTo(cls, 1);
+      }
+      if(e.target.matches('#levelSelect')){
+        const cls = document.getElementById('classSelect').value;
+        const lvl = parseInt(e.target.value,10);
+        goTo(cls, lvl);
+      }
+    });
+
+    document.addEventListener('keydown', (e)=>{
+      if(['ArrowLeft','ArrowRight'].includes(e.key)){
+        const cls = document.getElementById('classSelect').value;
+        const lvl = parseInt(document.getElementById('levelSelect').value,10);
+        goTo(cls, e.key==='ArrowLeft' ? lvl-1 : lvl+1);
+      }
+    });
+
+    window.addEventListener('hashchange', ()=>{
+      const {cls, lvl} = parseHash();
+      goTo(cls, lvl);
+    });
+
+    /* ======= INIT ======= */
+    (function init(){
+      renderClassOptions();
+      const {cls, lvl} = parseHash();
+      goTo(cls, lvl);
+    })();
+  </script>
+</body>
+</html>
