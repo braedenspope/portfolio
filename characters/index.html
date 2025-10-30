@@ -88,19 +88,41 @@
        Replace with your full SRD/allowed text as desired.
        ===================================================== */
 
+    // === DATA: load external JSON with a safe fallback ===
+    const DATA_JSON_PATH = './dnd5e_srd_classes.json'; // path is correct for your structure
+
+    // Minimal fallback so the UI still works even if the JSON fails to load:
+    const DEFAULT_CLASSES = {
+      Fighter: {
+        hitDie: 'd10',
+        primary: ['Strength or Dexterity'],
+        saves: ['Strength','Constitution'],
+        armor: ['All armor','Shields'],
+        weapons: ['Simple','Martial'],
+        levels: {
+          1: { proficiencyBonus:'+2', features:[{name:'Fighting Style',text:'Choose a style.'},{name:'Second Wind',text:'Regain 1d10+level HP once per rest.'}], proficiencies:[], spells:[], notes:'Fallback data' },
+          2: { proficiencyBonus:'+2', features:[{name:'Action Surge',text:'One extra action once per rest.'}], proficiencies:[], spells:[], notes:'' },
+          3: { proficiencyBonus:'+2', features:[{name:'Martial Archetype',text:'Pick a subclass.'}], proficiencies:[], spells:[], notes:'' }
+        }
+      }
+    };
+
     let CLASSES = {};
-    fetch('dnd5e_srd_classes.json')
-      .then(r => r.json())
-      .then(data => {
-        // data.classes is an object keyed by class name
-        CLASSES = data.classes;
-        // re-init the UI after loading:
-        (function initAfterData(){
-          const {cls, lvl} = parseHash();
-          renderClassOptions();
-          goTo(cls || Object.keys(CLASSES)[0], lvl || 1);
-        })();
-      });
+
+    async function loadClasses(){
+      try{
+        const res = await fetch(DATA_JSON_PATH, { cache: 'no-store' });
+        if(!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
+        return (data && data.classes && typeof data.classes === 'object')
+          ? data.classes
+          : DEFAULT_CLASSES;
+      }catch(e){
+        console.error('Failed to load classes JSON:', e);
+        return DEFAULT_CLASSES;
+      }
+    }
+
 
     /* ======= UTILITIES ======= */
     const clamp = (n,min,max)=> Math.max(min, Math.min(max, n));
