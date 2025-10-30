@@ -238,6 +238,26 @@
           // ...continue up to 20
         }
       },
+      Rogue: {
+        hitDie: 'd8',
+        primary: ['Dexterity', 'Intelligence'],
+        saves: ['Dexterity', 'Intelligence'],
+        armor: ['Light armor'],
+        weapons: ['Simple weapons', 'Hand Crossbows', 'Longswords', 'Rapiers', 'Shortswords'],
+        levels: {
+          7: {
+            proficiencyBonus: '+3',
+            features: [
+              { name: 'Evasion', text: "Beginning at 7th level, you can nimbly dodge out of the way of certain area effects, such as a red dragon's fiery breath or an Ice Storm spell. When you are subjected to an effect that allows you to make a Dexterity saving throw to take only half damage, you instead take no damage if you succeed on the saving throw, and only half damage if you fail." },
+              { name: 'Sneak Attack', text: "Your sneak attack damage increases to 4d6"}
+            ],
+            proficiencies: [],
+            spells: [],
+            notes: ''
+          }
+          // ...continue up to 20
+        }
+      }
       // Add other classes here following the same pattern
     };
 
