@@ -88,178 +88,19 @@
        Replace with your full SRD/allowed text as desired.
        ===================================================== */
 
-    const CLASSES = {
-      Fighter: {
-        hitDie: 'd10',
-        primary: ['Strength', 'Constitution'],
-        saves: ['Strength', 'Constitution'],
-        armor: ['All armor', 'Shields'],
-        weapons: ['Simple', 'Martial'],
-        levels: {
-          1: {
-            proficiencyBonus: '+2',
-            features: [
-              { name: 'Fighting Style', text: 'Choose a style such as Defense, Archery, or Dueling.' },
-              { name: 'Second Wind', text: 'Bonus action to regain 1d10 + fighter level HP once per rest.' }
-            ],
-            proficiencies: ['All armor', 'Shields', 'Simple and martial weapons'],
-            spells: [],
-            notes: 'Build-defining choice at 1st via Fighting Style.'
-          },
-          2: {
-            proficiencyBonus: '+2',
-            features: [
-              { name: 'Action Surge', text: 'Take one additional action on your turn, once per rest.' }
-            ],
-            proficiencies: [],
-            spells: [],
-            notes: 'Peak nova turn when combined with Extra Attack later.'
-          },
-          3: {
-            proficiencyBonus: '+2',
-            features: [
-              { name: 'Martial Archetype', text: 'Choose an archetype (e.g., Champion, Battle Master, Eldritch Knight). Gain its 3rd-level features.' }
-            ],
-            proficiencies: [],
-            spells: [],
-            notes: 'Subclass online; EK starts limited spellcasting.'
-          }
-          // ...continue up to 20
-        }
-      },
-      Wizard: {
-        hitDie: 'd6',
-        primary: ['Intelligence'],
-        saves: ['Intelligence', 'Wisdom'],
-        armor: ['None'],
-        weapons: ['Daggers', 'Darts', 'Slings', 'Quarterstaffs', 'Light crossbows'],
-        levels: {
-          1: {
-            proficiencyBonus: '+2',
-            features: [
-              { name: 'Spellcasting', text: 'Prepare and cast wizard spells using Intelligence.' },
-              { name: 'Arcane Recovery', text: 'Regain expended spell slots on a short rest (sum level ≤ half wizard level, rounded up).'}
-            ],
-            proficiencies: ['Light crossbows', 'Quarterstaffs', 'Daggers', 'No armor'],
-            spells: ['Cantrips known: 3; Spellbook: 6 1st-level spells'],
-            notes: 'Prep list scales with Intelligence modifier + level.'
-          },
-          2: {
-            proficiencyBonus: '+2',
-            features: [{ name: 'Arcane Tradition', text: 'Choose a school (e.g., Evocation, Divination). Gain its 2nd-level features.'}],
-            proficiencies: [],
-            spells: ['Spellbook gains +2 spells when you level'],
-            notes: 'Subclass sets your wizard identity early.'
-          },
-          3: {
-            proficiencyBonus: '+2',
-            features: [{ name: '—', text: 'Core scaling via spell slots and prepared list.' }],
-            proficiencies: [],
-            spells: ['2nd‑level spells'],
-            notes: 'Your school features continue at later levels.'
-          }
-          // ...continue up to 20
-        }
-      },
-      Cleric: {
-        hitDie: 'd8',
-        primary: ['Wisdom', 'Constitution'],
-        saves: ['Wisdom', 'Charisma'],
-        armor: ['Light and medium armor', 'Shields'],
-        weapons: ['Simple'],
-        levels: {
-          7: {
-            proficiencyBonus: '+3',
-            features: [
-              { name: '—', text: 'Core scaling via spell slots and prepared list.' }
-            ],
-            proficiencies: [],
-            spells: ['4th level spells'],
-            notes: ''
-          }
-          // ...continue up to 20
-        }
-      },
-      Warlock: {
-        hitDie: 'd8',
-        primary: ['Charisma', 'Constitution'],
-        saves: ['Wisdom', 'Charisma'],
-        armor: ['Light armor'],
-        weapons: ['Simple'],
-        levels: {
-          7: {
-            proficiencyBonus: '+3',
-            features: [
-              { name: 'Eldritch Invocation', text: 'Gain an additional Eldritch Invocation' }
-            ],
-            proficiencies: [],
-            spells: ['Additional spell','4th level spells'],
-            notes: ''
-          }
-          // ...continue up to 20
-        }
-      },
-      Sorcerer: {
-        hitDie: 'd6',
-        primary: ['Charisma', 'Constitution'],
-        saves: ['Constitution', 'Charisma'],
-        armor: ['None'],
-        weapons: ['Darts', 'Daggers', 'Slings', 'Quarterstaffs', 'Light Crossbows'],
-        levels: {
-          7: {
-            proficiencyBonus: '+3',
-            features: [
-              { name: 'Sorcery Points', text: 'Gain an additional sorcery point, total of 7.' }
-            ],
-            proficiencies: [],
-            spells: ['Additional spell','4th level spells'],
-            notes: ''
-          }
-          // ...continue up to 20
-        }
-      },
-      Paladin: {
-        hitDie: 'd10',
-        primary: ['Strength', 'Charisma'],
-        saves: ['Wisdom', 'Charisma'],
-        armor: ['All armor', 'Shields'],
-        weapons: ['All Weapons'],
-        levels: {
-          7: {
-            proficiencyBonus: '+3',
-            features: [
-              { name: 'Sacred Oath Feature', text: 'Gain a feature related to your chose oath' },
-              { name: 'Relentless Avenger', text: "By 7th level, your supernatural focus helps you close off a foe's retreat. When you hit a creature with an opportunity attack, you can move up to half your speed immediately after the attack and as part of the same reaction. This movement doesn't provoke opportunity attacks."}
-            ],
-            proficiencies: [],
-            spells: ['Additional 2nd level spell slot'],
-            notes: ''
-          }
-          // ...continue up to 20
-        }
-      },
-      Rogue: {
-        hitDie: 'd8',
-        primary: ['Dexterity', 'Intelligence'],
-        saves: ['Dexterity', 'Intelligence'],
-        armor: ['Light armor'],
-        weapons: ['Simple weapons', 'Hand Crossbows', 'Longswords', 'Rapiers', 'Shortswords'],
-        levels: {
-          7: {
-            proficiencyBonus: '+3',
-            features: [
-              { name: 'Evasion', text: "Beginning at 7th level, you can nimbly dodge out of the way of certain area effects, such as a red dragon's fiery breath or an Ice Storm spell. When you are subjected to an effect that allows you to make a Dexterity saving throw to take only half damage, you instead take no damage if you succeed on the saving throw, and only half damage if you fail." },
-              { name: 'Sneak Attack', text: "Your sneak attack damage increases to 4d6"}
-            ],
-            proficiencies: [],
-            spells: [],
-            notes: ''
-          }
-          // ...continue up to 20
-        }
-      }
-      // Add other classes here following the same pattern
-    };
+    let CLASSES = {};
+    fetch('dnd5e_srd_classes.json')
+      .then(r => r.json())
+      .then(data => {
+        // data.classes is an object keyed by class name
+        CLASSES = data.classes;
+        // re-init the UI after loading:
+        (function initAfterData(){
+          const {cls, lvl} = parseHash();
+          renderClassOptions();
+          goTo(cls || Object.keys(CLASSES)[0], lvl || 1);
+        })();
+      });
 
     /* ======= UTILITIES ======= */
     const clamp = (n,min,max)=> Math.max(min, Math.min(max, n));

@@ -1,0 +1,2654 @@
+{
+  "_attribution": "Contains content derived from the Systems Reference Document (SRD) 5.1 by Wizards of the Coast LLC, available under the Creative Commons Attribution 4.0 International License (CC BY 4.0).",
+  "classes": {
+    "Barbarian": {
+      "hitDie": "d12",
+      "primary": [
+        "Strength",
+        "Constitution"
+      ],
+      "saves": [
+        "Strength",
+        "Constitution"
+      ],
+      "armor": [
+        "Light",
+        "Medium",
+        "Shields"
+      ],
+      "weapons": [
+        "Simple",
+        "Martial"
+      ],
+      "levels": {
+        "1": {
+          "proficiencyBonus": "+2",
+          "features": [
+            {
+              "name": "Rage",
+              "text": "Enter a battle fury a limited number of times per long rest."
+            },
+            {
+              "name": "Unarmored Defense",
+              "text": "AC = 10 + Dex + Con while not wearing armor."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": "Add your subclass features where indicated."
+        },
+        "2": {
+          "proficiencyBonus": "+2",
+          "features": [
+            {
+              "name": "Reckless Attack",
+              "text": "Grant yourself advantage on Str melee attacks this turn; attackers gain advantage against you until next turn."
+            },
+            {
+              "name": "Danger Sense",
+              "text": "Advantage on Dex saves against effects you can see."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "3": {
+          "proficiencyBonus": "+2",
+          "features": [
+            {
+              "name": "Primal Path",
+              "text": "Choose a path; gain subclass features."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "4": {
+          "proficiencyBonus": "+2",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "5": {
+          "proficiencyBonus": "+3",
+          "features": [
+            {
+              "name": "Extra Attack",
+              "text": "Attack twice when you take the Attack action."
+            },
+            {
+              "name": "Fast Movement",
+              "text": "Your speed increases while not wearing heavy armor."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "6": {
+          "proficiencyBonus": "+3",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "7": {
+          "proficiencyBonus": "+3",
+          "features": [
+            {
+              "name": "Feral Instinct",
+              "text": "Advantage on initiative; can act normally when surprised if you rage first."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "8": {
+          "proficiencyBonus": "+3",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "9": {
+          "proficiencyBonus": "+4",
+          "features": [
+            {
+              "name": "Brutal Critical (1 die)",
+              "text": "Add one extra weapon damage die on crits."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "10": {
+          "proficiencyBonus": "+4",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "11": {
+          "proficiencyBonus": "+4",
+          "features": [
+            {
+              "name": "Relentless Rage",
+              "text": "When at 0 HP while raging, make a Con save to drop to 1 HP instead."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "12": {
+          "proficiencyBonus": "+4",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "13": {
+          "proficiencyBonus": "+5",
+          "features": [
+            {
+              "name": "Brutal Critical (2 dice)",
+              "text": "Add two extra weapon damage dice on crits."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "14": {
+          "proficiencyBonus": "+5",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "15": {
+          "proficiencyBonus": "+5",
+          "features": [
+            {
+              "name": "Persistent Rage",
+              "text": "Your rage ends early only if you fall unconscious or choose to end it."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "16": {
+          "proficiencyBonus": "+5",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "17": {
+          "proficiencyBonus": "+6",
+          "features": [
+            {
+              "name": "Brutal Critical (3 dice)",
+              "text": "Add three extra weapon damage dice on crits."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "18": {
+          "proficiencyBonus": "+6",
+          "features": [
+            {
+              "name": "Indomitable Might",
+              "text": "If your Str check total is less than your Str score, use the score instead."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "19": {
+          "proficiencyBonus": "+6",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "20": {
+          "proficiencyBonus": "+6",
+          "features": [
+            {
+              "name": "Primal Champion",
+              "text": "Str and Con scores increase by 4, and their maximums increase to 24."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        }
+      }
+    },
+    "Bard": {
+      "hitDie": "d8",
+      "primary": [
+        "Charisma"
+      ],
+      "saves": [
+        "Dexterity",
+        "Charisma"
+      ],
+      "armor": [
+        "Light"
+      ],
+      "weapons": [
+        "Simple",
+        "Hand Crossbows",
+        "Longswords",
+        "Rapiers",
+        "Shortswords"
+      ],
+      "levels": {
+        "1": {
+          "proficiencyBonus": "+2",
+          "features": [
+            {
+              "name": "Bardic Inspiration (d6)",
+              "text": "Bonus action to inspire an ally; die size scales with level."
+            },
+            {
+              "name": "Spellcasting",
+              "text": "Cast bard spells using Charisma."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": "Insert subclass features for your chosen College."
+        },
+        "2": {
+          "proficiencyBonus": "+2",
+          "features": [
+            {
+              "name": "Jack of All Trades",
+              "text": "Add half proficiency (round down) to ability checks without proficiency."
+            },
+            {
+              "name": "Song of Rest (d6)",
+              "text": "Allies regain extra HP on short rests; die scales with level."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "3": {
+          "proficiencyBonus": "+2",
+          "features": [
+            {
+              "name": "Bard College",
+              "text": "Choose a college; gain subclass features."
+            },
+            {
+              "name": "Expertise",
+              "text": "Choose two proficient skills to double proficiency bonus."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "4": {
+          "proficiencyBonus": "+2",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "5": {
+          "proficiencyBonus": "+3",
+          "features": [
+            {
+              "name": "Bardic Inspiration (d8)",
+              "text": "Die increases to d8."
+            },
+            {
+              "name": "Font of Inspiration",
+              "text": "Regain uses of Bardic Inspiration on a short rest."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "6": {
+          "proficiencyBonus": "+3",
+          "features": [
+            {
+              "name": "Countercharm",
+              "text": "Action to grant allies advantage vs charm and frighten."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "7": {
+          "proficiencyBonus": "+3",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "8": {
+          "proficiencyBonus": "+3",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "9": {
+          "proficiencyBonus": "+4",
+          "features": [
+            {
+              "name": "Song of Rest (d8)",
+              "text": "Die increases to d8."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "10": {
+          "proficiencyBonus": "+4",
+          "features": [
+            {
+              "name": "Magical Secrets",
+              "text": "Learn two spells from any list; counts as bard spells."
+            },
+            {
+              "name": "Expertise",
+              "text": "Choose two more proficient skills to double proficiency."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "11": {
+          "proficiencyBonus": "+4",
+          "features": [
+            {
+              "name": "Bardic Inspiration (d10)",
+              "text": "Die increases to d10."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "12": {
+          "proficiencyBonus": "+4",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "13": {
+          "proficiencyBonus": "+5",
+          "features": [
+            {
+              "name": "Song of Rest (d10)",
+              "text": "Die increases to d10."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "14": {
+          "proficiencyBonus": "+5",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "15": {
+          "proficiencyBonus": "+5",
+          "features": [
+            {
+              "name": "Bardic Inspiration (d12)",
+              "text": "Die increases to d12."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "16": {
+          "proficiencyBonus": "+5",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "17": {
+          "proficiencyBonus": "+6",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "18": {
+          "proficiencyBonus": "+6",
+          "features": [
+            {
+              "name": "Magical Secrets",
+              "text": "Learn two more spells from any list."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "19": {
+          "proficiencyBonus": "+6",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "20": {
+          "proficiencyBonus": "+6",
+          "features": [
+            {
+              "name": "Superior Inspiration",
+              "text": "Regain one use of Bardic Inspiration if you roll initiative with none left."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        }
+      }
+    },
+    "Cleric": {
+      "hitDie": "d8",
+      "primary": [
+        "Wisdom"
+      ],
+      "saves": [
+        "Wisdom",
+        "Charisma"
+      ],
+      "armor": [
+        "Light",
+        "Medium",
+        "Shields"
+      ],
+      "weapons": [
+        "Simple"
+      ],
+      "levels": {
+        "1": {
+          "proficiencyBonus": "+2",
+          "features": [
+            {
+              "name": "Spellcasting",
+              "text": "Prepare and cast cleric spells using Wisdom."
+            },
+            {
+              "name": "Divine Domain",
+              "text": "Choose a domain; gain features and domain spells."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": "Add your Domain features and spells where indicated."
+        },
+        "2": {
+          "proficiencyBonus": "+2",
+          "features": [
+            {
+              "name": "Channel Divinity (1/rest)",
+              "text": "Use divine energy for effects such as Turn Undead; uses scale with level."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "3": {
+          "proficiencyBonus": "+2",
+          "features": [
+            {
+              "name": "—",
+              "text": "Core progression via spell slots and prepared list."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "4": {
+          "proficiencyBonus": "+2",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "5": {
+          "proficiencyBonus": "+3",
+          "features": [
+            {
+              "name": "Destroy Undead (CR 1/2)",
+              "text": "Turn Undead destroys creatures of CR threshold or lower."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "6": {
+          "proficiencyBonus": "+3",
+          "features": [
+            {
+              "name": "Channel Divinity (2/rest)",
+              "text": "You can use Channel Divinity twice between rests."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "7": {
+          "proficiencyBonus": "+3",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "8": {
+          "proficiencyBonus": "+3",
+          "features": [
+            {
+              "name": "Destroy Undead (CR 1)",
+              "text": "CR threshold increases."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "9": {
+          "proficiencyBonus": "+4",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "10": {
+          "proficiencyBonus": "+4",
+          "features": [
+            {
+              "name": "Divine Intervention",
+              "text": "Request help from your deity; success chance equals cleric level percent."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "11": {
+          "proficiencyBonus": "+4",
+          "features": [
+            {
+              "name": "Destroy Undead (CR 2)",
+              "text": "CR threshold increases."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "12": {
+          "proficiencyBonus": "+4",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "13": {
+          "proficiencyBonus": "+5",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "14": {
+          "proficiencyBonus": "+5",
+          "features": [
+            {
+              "name": "Destroy Undead (CR 3)",
+              "text": "CR threshold increases."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "15": {
+          "proficiencyBonus": "+5",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "16": {
+          "proficiencyBonus": "+5",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "17": {
+          "proficiencyBonus": "+6",
+          "features": [
+            {
+              "name": "Destroy Undead (CR 4)",
+              "text": "CR threshold increases."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "18": {
+          "proficiencyBonus": "+6",
+          "features": [
+            {
+              "name": "Channel Divinity (3/rest)",
+              "text": "You can use Channel Divinity three times between rests."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "19": {
+          "proficiencyBonus": "+6",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "20": {
+          "proficiencyBonus": "+6",
+          "features": [
+            {
+              "name": "Divine Intervention Improvement",
+              "text": "Divine Intervention succeeds automatically; resets after 7 days."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        }
+      }
+    },
+    "Druid": {
+      "hitDie": "d8",
+      "primary": [
+        "Wisdom"
+      ],
+      "saves": [
+        "Intelligence",
+        "Wisdom"
+      ],
+      "armor": [
+        "Light (nonmetal)",
+        "Medium (nonmetal)",
+        "Shields (nonmetal)"
+      ],
+      "weapons": [
+        "Clubs",
+        "Daggers",
+        "Darts",
+        "Javelins",
+        "Maces",
+        "Quarterstaffs",
+        "Scimitars",
+        "Sickles",
+        "Slings",
+        "Spears"
+      ],
+      "levels": {
+        "1": {
+          "proficiencyBonus": "+2",
+          "features": [
+            {
+              "name": "Druidic",
+              "text": "Secret language of druids."
+            },
+            {
+              "name": "Spellcasting",
+              "text": "Prepare and cast druid spells using Wisdom."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": "Insert Circle features and spell notes as needed."
+        },
+        "2": {
+          "proficiencyBonus": "+2",
+          "features": [
+            {
+              "name": "Wild Shape",
+              "text": "Magically assume beast form with limitations that improve with level."
+            },
+            {
+              "name": "Druid Circle",
+              "text": "Choose a circle; gain subclass features."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "3": {
+          "proficiencyBonus": "+2",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "4": {
+          "proficiencyBonus": "+2",
+          "features": [
+            {
+              "name": "Wild Shape Improvement",
+              "text": "New CR / movement options per level table."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "5": {
+          "proficiencyBonus": "+3",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "6": {
+          "proficiencyBonus": "+3",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "7": {
+          "proficiencyBonus": "+3",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "8": {
+          "proficiencyBonus": "+3",
+          "features": [
+            {
+              "name": "Wild Shape Improvement",
+              "text": "New CR / movement options per level table."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "9": {
+          "proficiencyBonus": "+4",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "10": {
+          "proficiencyBonus": "+4",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "11": {
+          "proficiencyBonus": "+4",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "12": {
+          "proficiencyBonus": "+4",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "13": {
+          "proficiencyBonus": "+5",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "14": {
+          "proficiencyBonus": "+5",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "15": {
+          "proficiencyBonus": "+5",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "16": {
+          "proficiencyBonus": "+5",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "17": {
+          "proficiencyBonus": "+6",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "18": {
+          "proficiencyBonus": "+6",
+          "features": [
+            {
+              "name": "Timeless Body",
+              "text": "Suffer none of the frailty of old age."
+            },
+            {
+              "name": "Beast Spells",
+              "text": "Cast many spells while in Wild Shape."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "19": {
+          "proficiencyBonus": "+6",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "20": {
+          "proficiencyBonus": "+6",
+          "features": [
+            {
+              "name": "Archdruid",
+              "text": "Unlimited Wild Shape uses; can ignore material components that lack a cost."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        }
+      }
+    },
+    "Fighter": {
+      "hitDie": "d10",
+      "primary": [
+        "Strength or Dexterity"
+      ],
+      "saves": [
+        "Strength",
+        "Constitution"
+      ],
+      "armor": [
+        "All armor",
+        "Shields"
+      ],
+      "weapons": [
+        "Simple",
+        "Martial"
+      ],
+      "levels": {
+        "1": {
+          "proficiencyBonus": "+2",
+          "features": [
+            {
+              "name": "Fighting Style",
+              "text": "Choose a style such as Defense, Archery, or Dueling."
+            },
+            {
+              "name": "Second Wind",
+              "text": "Bonus action to regain 1d10 + level HP once per rest."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": "Add subclass features where indicated."
+        },
+        "2": {
+          "proficiencyBonus": "+2",
+          "features": [
+            {
+              "name": "Action Surge (1 use)",
+              "text": "Take one additional action on your turn, once per short/long rest."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "3": {
+          "proficiencyBonus": "+2",
+          "features": [
+            {
+              "name": "Martial Archetype",
+              "text": "Choose a fighter archetype; gain subclass features."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "4": {
+          "proficiencyBonus": "+2",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "5": {
+          "proficiencyBonus": "+3",
+          "features": [
+            {
+              "name": "Extra Attack",
+              "text": "Attack twice when you take the Attack action."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "6": {
+          "proficiencyBonus": "+3",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "7": {
+          "proficiencyBonus": "+3",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "8": {
+          "proficiencyBonus": "+3",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "9": {
+          "proficiencyBonus": "+4",
+          "features": [
+            {
+              "name": "Indomitable (1 use)",
+              "text": "Reroll a failed saving throw; uses scale with level."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "10": {
+          "proficiencyBonus": "+4",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "11": {
+          "proficiencyBonus": "+4",
+          "features": [
+            {
+              "name": "Extra Attack (2)",
+              "text": "Attack three times when you take the Attack action."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "12": {
+          "proficiencyBonus": "+4",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "13": {
+          "proficiencyBonus": "+5",
+          "features": [
+            {
+              "name": "Indomitable (2 uses)",
+              "text": "Two uses between long rests."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "14": {
+          "proficiencyBonus": "+5",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "15": {
+          "proficiencyBonus": "+5",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "16": {
+          "proficiencyBonus": "+5",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "17": {
+          "proficiencyBonus": "+6",
+          "features": [
+            {
+              "name": "Action Surge (2 uses)",
+              "text": "Two uses between rests."
+            },
+            {
+              "name": "Indomitable (3 uses)",
+              "text": "Three uses between long rests."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "18": {
+          "proficiencyBonus": "+6",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "19": {
+          "proficiencyBonus": "+6",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "20": {
+          "proficiencyBonus": "+6",
+          "features": [
+            {
+              "name": "Extra Attack (3)",
+              "text": "Attack four times when you take the Attack action."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        }
+      }
+    },
+    "Monk": {
+      "hitDie": "d8",
+      "primary": [
+        "Dexterity",
+        "Wisdom"
+      ],
+      "saves": [
+        "Strength",
+        "Dexterity"
+      ],
+      "armor": [
+        "None"
+      ],
+      "weapons": [
+        "Simple",
+        "Shortswords"
+      ],
+      "levels": {
+        "1": {
+          "proficiencyBonus": "+2",
+          "features": [
+            {
+              "name": "Unarmored Defense",
+              "text": "AC = 10 + Dex + Wis while unarmored and unshielded."
+            },
+            {
+              "name": "Martial Arts",
+              "text": "Use Dex for unarmed/monk weapons; bonus unarmed strike; die scales with level."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": "Insert tradition features at the marked levels."
+        },
+        "2": {
+          "proficiencyBonus": "+2",
+          "features": [
+            {
+              "name": "Ki",
+              "text": "Spend points for Flurry of Blows, Patient Defense, Step of the Wind."
+            },
+            {
+              "name": "Unarmored Movement",
+              "text": "Your speed increases while unarmored."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "3": {
+          "proficiencyBonus": "+2",
+          "features": [
+            {
+              "name": "Monastic Tradition",
+              "text": "Choose a tradition; gain subclass features."
+            },
+            {
+              "name": "Deflect Missiles",
+              "text": "Use reaction to reduce damage from a ranged weapon attack; can catch."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "4": {
+          "proficiencyBonus": "+2",
+          "features": [
+            {
+              "name": "Slow Fall",
+              "text": "Use reaction to reduce fall damage."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "5": {
+          "proficiencyBonus": "+3",
+          "features": [
+            {
+              "name": "Extra Attack",
+              "text": "Attack twice with Attack action."
+            },
+            {
+              "name": "Stunning Strike",
+              "text": "Attempt to stun a target you hit with melee weapon attack."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "6": {
+          "proficiencyBonus": "+3",
+          "features": [
+            {
+              "name": "Ki-Empowered Strikes",
+              "text": "Your unarmed strikes count as magical for overcoming resistance."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "7": {
+          "proficiencyBonus": "+3",
+          "features": [
+            {
+              "name": "Evasion",
+              "text": "On Dex save for half, take none on success; half on failure."
+            },
+            {
+              "name": "Stillness of Mind",
+              "text": "Use action to end one effect causing charm or frighten."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "8": {
+          "proficiencyBonus": "+3",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "9": {
+          "proficiencyBonus": "+4",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "10": {
+          "proficiencyBonus": "+4",
+          "features": [
+            {
+              "name": "Purity of Body",
+              "text": "Immune to disease and poison."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "11": {
+          "proficiencyBonus": "+4",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "12": {
+          "proficiencyBonus": "+4",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "13": {
+          "proficiencyBonus": "+5",
+          "features": [
+            {
+              "name": "Tongue of Sun and Moon",
+              "text": "Understand and be understood by any creature that knows a language."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "14": {
+          "proficiencyBonus": "+5",
+          "features": [
+            {
+              "name": "Diamond Soul",
+              "text": "Proficiency in all saves; spend Ki to reroll a failed save."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "15": {
+          "proficiencyBonus": "+5",
+          "features": [
+            {
+              "name": "Timeless Body",
+              "text": "Suffer none of the frailty of old age."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "16": {
+          "proficiencyBonus": "+5",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "17": {
+          "proficiencyBonus": "+6",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "18": {
+          "proficiencyBonus": "+6",
+          "features": [
+            {
+              "name": "Empty Body",
+              "text": "Turn invisible and resist all damage except force; can astral project."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "19": {
+          "proficiencyBonus": "+6",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "20": {
+          "proficiencyBonus": "+6",
+          "features": [
+            {
+              "name": "Perfect Self",
+              "text": "If you have no Ki at initiative, regain 4."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        }
+      }
+    },
+    "Paladin": {
+      "hitDie": "d10",
+      "primary": [
+        "Strength",
+        "Charisma"
+      ],
+      "saves": [
+        "Wisdom",
+        "Charisma"
+      ],
+      "armor": [
+        "All armor",
+        "Shields"
+      ],
+      "weapons": [
+        "Simple",
+        "Martial"
+      ],
+      "levels": {
+        "1": {
+          "proficiencyBonus": "+2",
+          "features": [
+            {
+              "name": "Divine Sense",
+              "text": "Detect celestials, fiends, and undead until next turn a number of times equal to 1 + Cha mod per long rest."
+            },
+            {
+              "name": "Lay on Hands",
+              "text": "Pool of healing equal to 5 × paladin level; touch to restore HP or cure disease/poison."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": "Add Oath features and spells where indicated."
+        },
+        "2": {
+          "proficiencyBonus": "+2",
+          "features": [
+            {
+              "name": "Fighting Style",
+              "text": "Choose a style."
+            },
+            {
+              "name": "Spellcasting",
+              "text": "Cast paladin spells using Charisma."
+            },
+            {
+              "name": "Divine Smite",
+              "text": "Spend a spell slot to deal radiant damage on a hit."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "3": {
+          "proficiencyBonus": "+2",
+          "features": [
+            {
+              "name": "Divine Health",
+              "text": "Immune to disease."
+            },
+            {
+              "name": "Sacred Oath",
+              "text": "Choose an oath; gain features and oath spells."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "4": {
+          "proficiencyBonus": "+2",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "5": {
+          "proficiencyBonus": "+3",
+          "features": [
+            {
+              "name": "Extra Attack",
+              "text": "Attack twice with the Attack action."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "6": {
+          "proficiencyBonus": "+3",
+          "features": [
+            {
+              "name": "Aura of Protection",
+              "text": "You and allies within 10 ft add your Cha mod to saves; range increases later."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "7": {
+          "proficiencyBonus": "+3",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "8": {
+          "proficiencyBonus": "+3",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "9": {
+          "proficiencyBonus": "+4",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "10": {
+          "proficiencyBonus": "+4",
+          "features": [
+            {
+              "name": "Aura of Courage",
+              "text": "You and allies within 10 ft cannot be frightened while you are conscious."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "11": {
+          "proficiencyBonus": "+4",
+          "features": [
+            {
+              "name": "Improved Divine Smite",
+              "text": "Your melee weapon attacks deal extra radiant damage."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "12": {
+          "proficiencyBonus": "+4",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "13": {
+          "proficiencyBonus": "+5",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "14": {
+          "proficiencyBonus": "+5",
+          "features": [
+            {
+              "name": "Cleansing Touch",
+              "text": "End a spell on yourself or willing creature a number of times per long rest equal to Cha mod."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "15": {
+          "proficiencyBonus": "+5",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "16": {
+          "proficiencyBonus": "+5",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "17": {
+          "proficiencyBonus": "+6",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "18": {
+          "proficiencyBonus": "+6",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "19": {
+          "proficiencyBonus": "+6",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "20": {
+          "proficiencyBonus": "+6",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        }
+      }
+    },
+    "Ranger": {
+      "hitDie": "d10",
+      "primary": [
+        "Dexterity",
+        "Wisdom"
+      ],
+      "saves": [
+        "Strength",
+        "Dexterity"
+      ],
+      "armor": [
+        "Light",
+        "Medium",
+        "Shields"
+      ],
+      "weapons": [
+        "Simple",
+        "Martial"
+      ],
+      "levels": {
+        "1": {
+          "proficiencyBonus": "+2",
+          "features": [
+            {
+              "name": "Favored Enemy",
+              "text": "Choose a type of foe; bonuses to tracking and recall."
+            },
+            {
+              "name": "Natural Explorer",
+              "text": "Travel and exploration benefits in chosen terrain."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": "Add Archetype features and spells where indicated."
+        },
+        "2": {
+          "proficiencyBonus": "+2",
+          "features": [
+            {
+              "name": "Fighting Style",
+              "text": "Choose a style."
+            },
+            {
+              "name": "Spellcasting",
+              "text": "Cast ranger spells using Wisdom."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "3": {
+          "proficiencyBonus": "+2",
+          "features": [
+            {
+              "name": "Ranger Archetype",
+              "text": "Choose an archetype; gain subclass features."
+            },
+            {
+              "name": "Primeval Awareness",
+              "text": "Sense presence of certain creature types by expending spell slots."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "4": {
+          "proficiencyBonus": "+2",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "5": {
+          "proficiencyBonus": "+3",
+          "features": [
+            {
+              "name": "Extra Attack",
+              "text": "Attack twice with the Attack action."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "6": {
+          "proficiencyBonus": "+3",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "7": {
+          "proficiencyBonus": "+3",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "8": {
+          "proficiencyBonus": "+3",
+          "features": [
+            {
+              "name": "Land’s Stride",
+              "text": "Move through nonmagical difficult terrain; resist plants' impediments."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "9": {
+          "proficiencyBonus": "+4",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "10": {
+          "proficiencyBonus": "+4",
+          "features": [
+            {
+              "name": "Hide in Plain Sight",
+              "text": "Craft camouflage to gain a big bonus to Stealth while motionless."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "11": {
+          "proficiencyBonus": "+4",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "12": {
+          "proficiencyBonus": "+4",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "13": {
+          "proficiencyBonus": "+5",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "14": {
+          "proficiencyBonus": "+5",
+          "features": [
+            {
+              "name": "Vanish",
+              "text": "Hide as a bonus action; cannot be tracked by nonmagical means unless you choose."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "15": {
+          "proficiencyBonus": "+5",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "16": {
+          "proficiencyBonus": "+5",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "17": {
+          "proficiencyBonus": "+6",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "18": {
+          "proficiencyBonus": "+6",
+          "features": [
+            {
+              "name": "Feral Senses",
+              "text": "You can effectively see invisible creatures within 30 ft unless obscured."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "19": {
+          "proficiencyBonus": "+6",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "20": {
+          "proficiencyBonus": "+6",
+          "features": [
+            {
+              "name": "Foe Slayer",
+              "text": "Add Wis mod to attack or damage rolls against favored enemies each turn."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        }
+      }
+    },
+    "Rogue": {
+      "hitDie": "d8",
+      "primary": [
+        "Dexterity"
+      ],
+      "saves": [
+        "Dexterity",
+        "Intelligence"
+      ],
+      "armor": [
+        "Light"
+      ],
+      "weapons": [
+        "Simple",
+        "Hand Crossbows",
+        "Longswords",
+        "Rapiers",
+        "Shortswords"
+      ],
+      "levels": {
+        "1": {
+          "proficiencyBonus": "+2",
+          "features": [
+            {
+              "name": "Sneak Attack (1d6)",
+              "text": "Sneak Attack damage increases."
+            },
+            {
+              "name": "Sneak Attack (1d6)",
+              "text": "Once per turn, add extra damage when you have advantage or a qualifying ally."
+            },
+            {
+              "name": "Thieves’ Cant",
+              "text": "Secret mix of dialect, jargon, and code."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": "Add Archetype features where indicated."
+        },
+        "2": {
+          "proficiencyBonus": "+2",
+          "features": [
+            {
+              "name": "Cunning Action",
+              "text": "Dash, Disengage, or Hide as a bonus action."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "3": {
+          "proficiencyBonus": "+2",
+          "features": [
+            {
+              "name": "Sneak Attack (2d6)",
+              "text": "Sneak Attack damage increases."
+            },
+            {
+              "name": "Roguish Archetype",
+              "text": "Choose an archetype; gain subclass features."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "4": {
+          "proficiencyBonus": "+2",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "5": {
+          "proficiencyBonus": "+3",
+          "features": [
+            {
+              "name": "Sneak Attack (3d6)",
+              "text": "Sneak Attack damage increases."
+            },
+            {
+              "name": "Uncanny Dodge",
+              "text": "Use reaction to halve damage from an attacker you can see."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "6": {
+          "proficiencyBonus": "+3",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "7": {
+          "proficiencyBonus": "+3",
+          "features": [
+            {
+              "name": "Sneak Attack (4d6)",
+              "text": "Sneak Attack damage increases."
+            },
+            {
+              "name": "Evasion",
+              "text": "On Dex save for half, take none on success; half on failure."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "8": {
+          "proficiencyBonus": "+3",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "9": {
+          "proficiencyBonus": "+4",
+          "features": [
+            {
+              "name": "Sneak Attack (5d6)",
+              "text": "Sneak Attack damage increases."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "10": {
+          "proficiencyBonus": "+4",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "11": {
+          "proficiencyBonus": "+4",
+          "features": [
+            {
+              "name": "Sneak Attack (5d6)",
+              "text": "Sneak Attack damage increases."
+            },
+            {
+              "name": "Reliable Talent",
+              "text": "Treat rolls of 9 or lower on proficient checks as 10."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "12": {
+          "proficiencyBonus": "+4",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "13": {
+          "proficiencyBonus": "+5",
+          "features": [
+            {
+              "name": "Sneak Attack (6d6)",
+              "text": "Sneak Attack damage increases."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "14": {
+          "proficiencyBonus": "+5",
+          "features": [
+            {
+              "name": "Blindsense",
+              "text": "If you can hear, you are aware of hidden or invisible creatures within 10 ft."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "15": {
+          "proficiencyBonus": "+5",
+          "features": [
+            {
+              "name": "Sneak Attack (7d6)",
+              "text": "Sneak Attack damage increases."
+            },
+            {
+              "name": "Slippery Mind",
+              "text": "Gain proficiency in Wisdom saving throws."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "16": {
+          "proficiencyBonus": "+5",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "17": {
+          "proficiencyBonus": "+6",
+          "features": [
+            {
+              "name": "Sneak Attack (8d6)",
+              "text": "Sneak Attack damage increases."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "18": {
+          "proficiencyBonus": "+6",
+          "features": [
+            {
+              "name": "Elusive",
+              "text": "No attack roll has advantage against you while you aren’t incapacitated."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "19": {
+          "proficiencyBonus": "+6",
+          "features": [
+            {
+              "name": "Sneak Attack (9d6)",
+              "text": "Sneak Attack damage increases."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "20": {
+          "proficiencyBonus": "+6",
+          "features": [
+            {
+              "name": "Stroke of Luck",
+              "text": "Once per short/long rest, turn a miss into a hit or a failed ability check into a 20."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        }
+      }
+    },
+    "Sorcerer": {
+      "hitDie": "d6",
+      "primary": [
+        "Charisma"
+      ],
+      "saves": [
+        "Constitution",
+        "Charisma"
+      ],
+      "armor": [
+        "None"
+      ],
+      "weapons": [
+        "Daggers",
+        "Darts",
+        "Slings",
+        "Quarterstaffs",
+        "Light Crossbows"
+      ],
+      "levels": {
+        "1": {
+          "proficiencyBonus": "+2",
+          "features": [
+            {
+              "name": "Sorcerous Origin",
+              "text": "Choose an origin; gain subclass features."
+            },
+            {
+              "name": "Spellcasting",
+              "text": "Cast sorcerer spells using Charisma."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": "Insert Origin features where indicated."
+        },
+        "2": {
+          "proficiencyBonus": "+2",
+          "features": [
+            {
+              "name": "Font of Magic",
+              "text": "Create and convert sorcery points and spell slots."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "3": {
+          "proficiencyBonus": "+2",
+          "features": [
+            {
+              "name": "Metamagic",
+              "text": "Modify spells with options like Careful, Quickened, Twinned."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "4": {
+          "proficiencyBonus": "+2",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "5": {
+          "proficiencyBonus": "+3",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "6": {
+          "proficiencyBonus": "+3",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "7": {
+          "proficiencyBonus": "+3",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "8": {
+          "proficiencyBonus": "+3",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "9": {
+          "proficiencyBonus": "+4",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "10": {
+          "proficiencyBonus": "+4",
+          "features": [
+            {
+              "name": "Metamagic",
+              "text": "Gain an additional Metamagic option."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "11": {
+          "proficiencyBonus": "+4",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "12": {
+          "proficiencyBonus": "+4",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "13": {
+          "proficiencyBonus": "+5",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "14": {
+          "proficiencyBonus": "+5",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "15": {
+          "proficiencyBonus": "+5",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "16": {
+          "proficiencyBonus": "+5",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "17": {
+          "proficiencyBonus": "+6",
+          "features": [
+            {
+              "name": "Metamagic",
+              "text": "Gain another Metamagic option."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "18": {
+          "proficiencyBonus": "+6",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "19": {
+          "proficiencyBonus": "+6",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "20": {
+          "proficiencyBonus": "+6",
+          "features": [
+            {
+              "name": "Sorcerous Restoration",
+              "text": "Regain sorcery points on a short rest."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        }
+      }
+    },
+    "Warlock": {
+      "hitDie": "d8",
+      "primary": [
+        "Charisma"
+      ],
+      "saves": [
+        "Wisdom",
+        "Charisma"
+      ],
+      "armor": [
+        "Light"
+      ],
+      "weapons": [
+        "Simple"
+      ],
+      "levels": {
+        "1": {
+          "proficiencyBonus": "+2",
+          "features": [
+            {
+              "name": "Otherworldly Patron",
+              "text": "Choose a patron; gain features."
+            },
+            {
+              "name": "Pact Magic",
+              "text": "Spell slots refresh on a short rest; cast using Charisma."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": "Add Patron and Pact features where indicated."
+        },
+        "2": {
+          "proficiencyBonus": "+2",
+          "features": [
+            {
+              "name": "Eldritch Invocations",
+              "text": "Learn special invocations that grant abilities or spells."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "3": {
+          "proficiencyBonus": "+2",
+          "features": [
+            {
+              "name": "Pact Boon",
+              "text": "Choose Chain, Blade, or Tome; gain features."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "4": {
+          "proficiencyBonus": "+2",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "5": {
+          "proficiencyBonus": "+3",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "6": {
+          "proficiencyBonus": "+3",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "7": {
+          "proficiencyBonus": "+3",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "8": {
+          "proficiencyBonus": "+3",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "9": {
+          "proficiencyBonus": "+4",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "10": {
+          "proficiencyBonus": "+4",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "11": {
+          "proficiencyBonus": "+4",
+          "features": [
+            {
+              "name": "Mystic Arcanum (6th)",
+              "text": "Learn one 6th-level spell to cast once per long rest."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "12": {
+          "proficiencyBonus": "+4",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "13": {
+          "proficiencyBonus": "+5",
+          "features": [
+            {
+              "name": "Mystic Arcanum (7th)",
+              "text": "Learn one 7th-level spell to cast once per long rest."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "14": {
+          "proficiencyBonus": "+5",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "15": {
+          "proficiencyBonus": "+5",
+          "features": [
+            {
+              "name": "Mystic Arcanum (8th)",
+              "text": "Learn one 8th-level spell to cast once per long rest."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "16": {
+          "proficiencyBonus": "+5",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "17": {
+          "proficiencyBonus": "+6",
+          "features": [
+            {
+              "name": "Mystic Arcanum (9th)",
+              "text": "Learn one 9th-level spell to cast once per long rest."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "18": {
+          "proficiencyBonus": "+6",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "19": {
+          "proficiencyBonus": "+6",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "20": {
+          "proficiencyBonus": "+6",
+          "features": [
+            {
+              "name": "Eldritch Master",
+              "text": "Regain all Pact Magic slots after 1 minute of entreaty to your patron."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        }
+      }
+    },
+    "Wizard": {
+      "hitDie": "d6",
+      "primary": [
+        "Intelligence"
+      ],
+      "saves": [
+        "Intelligence",
+        "Wisdom"
+      ],
+      "armor": [
+        "None"
+      ],
+      "weapons": [
+        "Daggers",
+        "Darts",
+        "Slings",
+        "Quarterstaffs",
+        "Light Crossbows"
+      ],
+      "levels": {
+        "1": {
+          "proficiencyBonus": "+2",
+          "features": [
+            {
+              "name": "Spellcasting",
+              "text": "Prepare and cast wizard spells using Intelligence."
+            },
+            {
+              "name": "Arcane Recovery",
+              "text": "Regain expended spell slots on a short rest (sum levels ≤ half wizard level, rounded up)."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": "Insert Tradition features and spell notes where desired."
+        },
+        "2": {
+          "proficiencyBonus": "+2",
+          "features": [
+            {
+              "name": "Arcane Tradition",
+              "text": "Choose a school; gain subclass features."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "3": {
+          "proficiencyBonus": "+2",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "4": {
+          "proficiencyBonus": "+2",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "5": {
+          "proficiencyBonus": "+3",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "6": {
+          "proficiencyBonus": "+3",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "7": {
+          "proficiencyBonus": "+3",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "8": {
+          "proficiencyBonus": "+3",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "9": {
+          "proficiencyBonus": "+4",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "10": {
+          "proficiencyBonus": "+4",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "11": {
+          "proficiencyBonus": "+4",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "12": {
+          "proficiencyBonus": "+4",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "13": {
+          "proficiencyBonus": "+5",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "14": {
+          "proficiencyBonus": "+5",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "15": {
+          "proficiencyBonus": "+5",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "16": {
+          "proficiencyBonus": "+5",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "17": {
+          "proficiencyBonus": "+6",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "18": {
+          "proficiencyBonus": "+6",
+          "features": [
+            {
+              "name": "Spell Mastery",
+              "text": "Choose a 1st- and 2nd-level spell to cast at will."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "19": {
+          "proficiencyBonus": "+6",
+          "features": [],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        },
+        "20": {
+          "proficiencyBonus": "+6",
+          "features": [
+            {
+              "name": "Signature Spells",
+              "text": "Choose two 3rd-level spells as signature; cast without expending slots once per short rest."
+            }
+          ],
+          "proficiencies": [],
+          "spells": [],
+          "notes": ""
+        }
+      }
+    }
+  }
+}
