@@ -160,7 +160,84 @@
           }
           // ...continue up to 20
         }
-      }
+      },
+      Cleric: {
+        hitDie: 'd8',
+        primary: ['Wisdom', 'Constitution'],
+        saves: ['Wisdom', 'Charisma'],
+        armor: ['Light and medium armor', 'Shields'],
+        weapons: ['Simple'],
+        levels: {
+          7: {
+            proficiencyBonus: '+3',
+            features: [
+              { name: '—', text: 'Core scaling via spell slots and prepared list.' }
+            ],
+            proficiencies: [],
+            spells: ['4th level spells'],
+            notes: ''
+          }
+          // ...continue up to 20
+        }
+      },
+      Warlock: {
+        hitDie: 'd8',
+        primary: ['Charisma', 'Constitution'],
+        saves: ['Wisdom', 'Charisma'],
+        armor: ['Light armor'],
+        weapons: ['Simple'],
+        levels: {
+          7: {
+            proficiencyBonus: '+3',
+            features: [
+              { name: 'Eldritch Invocation', text: 'Gain an additional Eldritch Invocation' }
+            ],
+            proficiencies: [],
+            spells: ['Additional spell','4th level spells'],
+            notes: ''
+          }
+          // ...continue up to 20
+        }
+      },
+      Sorcerer: {
+        hitDie: 'd6',
+        primary: ['Charisma', 'Constitution'],
+        saves: ['Constitution', 'Charisma'],
+        armor: ['None'],
+        weapons: ['Darts', 'Daggers', 'Slings', 'Quarterstaffs', 'Light Crossbows'],
+        levels: {
+          7: {
+            proficiencyBonus: '+3',
+            features: [
+              { name: 'Sorcery Points', text: 'Gain an additional sorcery point, total of 7.' }
+            ],
+            proficiencies: [],
+            spells: ['Additional spell','4th level spells'],
+            notes: ''
+          }
+          // ...continue up to 20
+        }
+      },
+      Paladin: {
+        hitDie: 'd10',
+        primary: ['Strength', 'Charisma'],
+        saves: ['Wisdom', 'Charisma'],
+        armor: ['All armor', 'Shields'],
+        weapons: ['All Weapons'],
+        levels: {
+          7: {
+            proficiencyBonus: '+3',
+            features: [
+              { name: 'Sacred Oath Feature', text: 'Gain a feature related to your chose oath' },
+              { name: 'Relentless Avenger', text: "By 7th level, your supernatural focus helps you close off a foe's retreat. When you hit a creature with an opportunity attack, you can move up to half your speed immediately after the attack and as part of the same reaction. This movement doesn't provoke opportunity attacks."}
+            ],
+            proficiencies: [],
+            spells: ['Additional 2nd level spell slot'],
+            notes: ''
+          }
+          // ...continue up to 20
+        }
+      },
       // Add other classes here following the same pattern
     };
 
