@@ -9,7 +9,7 @@
     {
       "id": "north-ward",
       "name": "North Ward",
-      "desc": "Residential heart of Waterdeep, home to quiet nobility and the (infamous) Burning Pumpkin tavern.",
+      "desc": "Noble heart of Waterdeep, home to quiet nobility and the (infamous) Burning Pumpkin tavern.",
       "locations": [
         {
           "id": "burning-pumpkin",
@@ -170,6 +170,24 @@
           "npcs": ["xarrai", "ajax"],
           "events": ["mielikki_chosen", "feywild_journey"],
           "status": "holy"
+        }
+      ]
+    },
+    {
+      "id": "southern-ward",
+      "name": "Southern Ward",
+      "desc": "Residential Quarter of the City of Splendors, much of the common folk that don't live in their businesses live here.",
+      "locations": [
+        {
+          "id": "phaulkonmere",
+          "name": "Phaulkonmere",
+          "type": "estate",
+          "desc": "A noble estate home to the Phaulkon Family, most notably the former Chosen of Mielikki, Jereth Phaulkon.",
+          "coords": [0.7465, 0.7392],
+          "factions": ["Emerald Enclave"],
+          "npcs": [],
+          "events": [],
+          "status": "closed"
         }
       ]
     }
