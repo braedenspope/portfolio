@@ -1,85 +1,25 @@
-// Basic image-map with Leaflet, treating the map image as a 1x1 coordinate space
-const MAP_IMG = './img/waterdeep-map.jpg';
-const DATA_URL = './data/waterdeep.json';
+// Minimal working demo — renders an image map + a test pin
+const MAP_IMG = './img/waterdeep-map.jpg';     // make sure this file exists
+const DATA_URL = './data/waterdeep.json';      // optional for now
 
 const map = L.map('map', {
   crs: L.CRS.Simple,
-  zoomControl: false,
+  zoomControl: true,
   minZoom: -1,
   maxZoom: 2
 });
 
-const bounds = [[0,0],[1000,1000]]; // a virtual 1000x1000 space
-const image = L.imageOverlay(MAP_IMG, bounds).addTo(map);
+// Virtual 1000x1000 coordinate space for the image
+const bounds = [[0,0],[1000,1000]];
+L.imageOverlay(MAP_IMG, bounds).addTo(map);
 map.fitBounds(bounds);
 
-fetch(DATA_URL).then(r => r.json()).then(init);
+// Test pin at center so you know Leaflet is working
+L.marker(L.latLng(500, 500)).addTo(map).bindPopup('Center test pin');
 
-const panel = document.getElementById('panel');
-const panelContent = document.getElementById('panelContent');
-document.getElementById('closePanel').onclick = () => panel.classList.add('hidden');
-
-// helper: normalized coords [0..1, 0..1] -> our 1000-space
-function pt([nx, ny]) {
-  return L.latLng(1000 * (1 - ny), 1000 * nx); // flip Y so top is 0
-}
-
-function init(data) {
-  // draw district pins (optional) + location pins
-  data.districts.forEach(d => {
-    d.locations.forEach(loc => {
-      const marker = L.marker(pt(loc.coords), {
-        title: loc.name
-      }).addTo(map);
-
-      marker.on('click', () => {
-        openPanel(renderLocation(loc, d, data));
-      });
-    });
-  });
-}
-
-function openPanel(html) {
-  panelContent.innerHTML = html;
-  panel.classList.remove('hidden');
-}
-
-function renderLocation(loc, district, data) {
-  const npcs = (loc.npcs || [])
-    .map(id => data.npcs.find(n => n.id.toLowerCase() === id.toLowerCase()))
-    .filter(Boolean);
-  const events = (loc.events || [])
-    .map(id => data.events.find(e => e.id === id))
-    .filter(Boolean);
-
-  return `
-    <div class="card">
-      <h2>${loc.name}</h2>
-      <p class="muted">${district.name} • ${loc.type}</p>
-
-      ${loc.desc ? `<p>${loc.desc}</p>` : ''}
-
-      ${npcs.length ? `
-        <h3>Notables</h3>
-        <ul>${npcs.map(n => `<li><strong>${n.name}</strong> <span class="tag">${(n.status||'').toUpperCase()}</span></li>`).join('')}</ul>
-      ` : ''}
-
-      ${events.length ? `
-        <h3>Recorded Events</h3>
-        <ul>${events.map(e => `<li><em>${e.title}</em> — ${e.summary}</li>`).join('')}</ul>
-      ` : ''}
-
-      ${loc.factions?.length ? `
-        <div class="factions">
-          ${loc.factions.map(f => `<span class="sigil">${f}</span>`).join('')}
-        </div>
-      ` : ''}
-
-      <div class="lore">
-        <blockquote>
-          “The city remembers…”
-        </blockquote>
-      </div>
-    </div>
-  `;
-}
+// Optional: try loading your data to verify the path (won’t break the map if missing)
+fetch(DATA_URL).then(r => {
+  if (!r.ok) throw new Error('Cannot load waterdeep.json');
+  return r.json();
+}).then(data => console.log('Loaded JSON:', data))
+  .catch(err => console.warn('JSON load issue:', err.message));

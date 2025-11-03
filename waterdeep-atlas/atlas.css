@@ -1,63 +1,19 @@
-:root {
-  --paper: url('./img/parchment.png');
-}
+:root { --paper: none; }
 
-html, body {
-  height: 100%;
-  margin: 0;
-  background: #0e0a07;
-  color: #eaded0;
-  font-family: ui-serif, Georgia, "Times New Roman", serif;
-}
+html, body { height: 100%; margin: 0; background: #0e0a07; color: #eaded0; font-family: Georgia, serif; }
+.atlas-header { text-align: center; padding: 1rem 0 0.5rem; }
+.title { margin: 0; text-transform: uppercase; letter-spacing: 1px; }
+.subtitle { opacity: .7; font-size: .9rem; }
 
-.atlas-header {
-  text-align: center;
-  padding: 1rem 0 0.5rem;
-}
+.atlas-wrap { position: relative; height: calc(100% - 90px); }
+#map { height: 100%; filter: sepia(.25) contrast(1.05); }
 
-.title {
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  margin: 0;
-}
-
-.subtitle {
-  opacity: 0.7;
-  font-size: 0.9rem;
-}
-
-.atlas-wrap {
-  position: relative;
-  height: calc(100% - 90px);
-}
-
-#map {
-  height: 100%;
-  filter: sepia(0.25) contrast(1.05);
-}
-
-.panel {
-  position: absolute;
-  right: 1rem;
-  top: 1rem;
-  width: min(380px, 90vw);
-  max-height: calc(100% - 2rem);
-  overflow: auto;
-  background: rgba(0,0,0,0.5);
-  backdrop-filter: blur(2px);
-  border: 2px solid #6f573f;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-  border-radius: 12px;
-}
-
+.panel { position: absolute; right: 1rem; top: 1rem; width: min(380px, 90vw); max-height: calc(100% - 2rem);
+  overflow: auto; background: rgba(0,0,0,.5); backdrop-filter: blur(2px); border: 2px solid #6f573f;
+  box-shadow: 0 10px 30px rgba(0,0,0,.5); border-radius: 12px; }
 .panel.hidden { display: none; }
+#panelContent { padding: .8rem; color: #2d1f15; }
 
-#panelContent {
-  padding: 0.8rem;
-  background: var(--paper);
-  background-size: cover;
-  color: #2d1f15;
-}
 
 .card h2 { margin: 0 0 0.25rem; }
 .muted { opacity: 0.7; margin: 0 0 1rem; }
