@@ -1,6 +1,6 @@
 {
   "meta": {
-    "title": "Cartographica Waterdeepis",
+    "title": "Waterdeep Interactive Map",
     "version": 1,
     "description": "An enchanted map recording the deeds, places, and people shaping the fate of Waterdeep."
   },
@@ -9,20 +9,19 @@
     {
       "id": "north-ward",
       "name": "North Ward",
-      "desc": "Residential heart of Waterdeep, home to quiet nobility and the Burning Pumpkin tavern.",
+      "desc": "Residential heart of Waterdeep, home to quiet nobility and the (infamous) Burning Pumpkin tavern.",
       "locations": [
         {
           "id": "burning-pumpkin",
           "name": "The Burning Pumpkin",
           "type": "tavern",
-          "desc": "Once Trollskull Manor, now the headquarters and home of the party. The tavern glows warmly with pumpkin-shaped lanterns.",
+          "desc": "Once Trollskull Manor, now the a popular tavern and home of the party. The tavern glows warmly with pumpkin-shaped lanterns. Half off for city watch!",
           "coords": [0.6584, 0.2261],
-          "factions": ["Force Gray", "Harpers", "Emerald Enclave"],
-          "npcs": ["damocles", "xarrai", "daphne", "louis"],
+          "factions": ["The Party"],
+          "npcs": ["damocles", "xarrai", "daphne", "lif"],
           "events": ["fireball_incident", "warehouse_aftermath"],
           "rumors": [
-            "Patrons whisper of the Raven Queen’s shadow passing through these halls.",
-            "Some swear the warforged Apoch still guards the cellar."
+            "Patrons whisper of the Raven Queen’s shadow passing through these halls."
           ],
           "status": "open"
         },
@@ -30,7 +29,7 @@
           "id": "shrines-of-nature",
           "name": "Shrines of Nature",
           "type": "temple",
-          "desc": "A peaceful grove within the city walls, dedicated to Mielikki and Silvanus. Xarrai often prays here.",
+          "desc": "A peaceful grove within the city walls, dedicated to Mielikki and Silvanus.",
           "coords": [0.1952, 0.1579],
           "factions": ["Emerald Enclave"],
           "npcs": ["xarrai", "ajax"],
@@ -41,7 +40,7 @@
           "id": "gentle-mermaid",
           "name": "The Gentle Mermaid Casino",
           "type": "casino",
-          "desc": "Lavish casino owned by Merrick Wolfram — secretly Jack Rose. Once the site of the Golden Night Gala.",
+          "desc": "Lavish casino formerly owned by Merrick Wolfram — secretly the infamous Jack Rose. Once the site of the Golden Night Gala, as well as the center of a money laundering operation run by Jack for Kaige Omen.",
           "coords": [0.5596, 0.2812],
           "factions": ["Kaige Omen Network", "Zhentarim"],
           "npcs": ["jackrose", "daphne", "louis"],
@@ -52,7 +51,7 @@
           "id": "gralhund-villa",
           "name": "Gralhund Villa",
           "type": "estate",
-          "desc": "A noble estate that became the center of violence and treachery. Its teleportation circle links to Kaige Omen’s hideouts.",
+          "desc": "A noble estate that proved to be a central hideout for Zhentarim operations. Home to the Gralhund family, Its teleportation circle links to Kaige Omen’s hideouts.",
           "coords": [0.7494, 0.2255],
           "factions": ["Zhentarim"],
           "npcs": ["yalah", "urstul"],
@@ -71,7 +70,7 @@
           "id": "halls-of-justice",
           "name": "Halls of Justice",
           "type": "temple",
-          "desc": "Temple of Tyr, god of justice. Vaelen Halosyne calls this place his spiritual home.",
+          "desc": "Temple of Tyr, god of justice. Center for the Order of the Gauntlet, an organization focused on spreading justic throughout the sword coast.",
           "coords": [0.3323, 0.3776],
           "factions": ["City Watch"],
           "npcs": ["vaelen"],
@@ -82,7 +81,7 @@
           "id": "castle-waterdeep",
           "name": "Castle Waterdeep",
           "type": "stronghold",
-          "desc": "Fortress of Grand Civilar Stonefist, command center of the Watch. Now under threat from Kaige Omen’s assassins.",
+          "desc": "Center of political power in waterdeep, home to Grand Civilar Stonefist, the Open Lord Laeral Silverhand, as well as the mysterious masked Lords.",
           "coords": [0.4989, 0.5899],
           "factions": ["City Watch", "Force Gray"],
           "npcs": ["stonefist", "salazar"],
@@ -118,11 +117,28 @@
           "id": "scarecrow-fields",
           "name": "Scarecrow Fields",
           "type": "farmland",
-          "desc": "Fields plagued by magical scarecrows crafted with  fey magic.",
+          "desc": "Fields plagued by magical scarecrows crafted with fey magic.",
           "coords": [0.736, 0.0287],
           "factions": [],
           "events": ["fieldward_scarecrows"],
           "status": "tainted"
+        }
+      ]
+    },
+    {
+      "id": "sea-ward",
+      "name": "Sea Ward",
+      "desc": "Spiritual Center of the City of Splendors, many of the temples and holy sites lie within the Sea Ward.",
+      "locations": [
+        {
+          "id": "blackstaff-tower",
+          "name": "Blackstaff Tower",
+          "type": "stronghold",
+          "desc": "Arcane Tower home to the Blackstaff, the prominent magical influence in the city and leader of Force Gray.",
+          "coords": [0.2776, 0.3919],
+          "factions": ["Force Gray"],
+          "events": [],
+          "status": "open"
         }
       ]
     }
