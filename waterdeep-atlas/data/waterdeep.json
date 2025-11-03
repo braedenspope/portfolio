@@ -153,7 +153,7 @@
           "id": "house-of-the-moon",
           "name": "House of the Moon",
           "type": "temple",
-          "desc": "Temple of Selûne. The tallest tower of any temple in the city. Many people go here for help in planning journeys.",
+          "desc": "Temple of Selûne. The tallest tower of any temple in the city. Home to the (now drained) Wand of Four Moons. Many people go here for help in planning journeys.",
           "coords": [0.2154, 0.2544],
           "factions": ["City Watch"],
           "npcs": ["vaelen"],
