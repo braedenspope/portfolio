@@ -5,38 +5,64 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>D&D 5e Level-Up Guide</title>
   <style>
-    :root{
-      --bg:#0e0f13; --panel:#151823; --ink:#e6e8f2; --muted:#9aa3b2; --accent:#7c9cff; --accent-2:#a7ffdd;
-      --ring: 0 0 0 2px rgba(124,156,255,.35);
-    }
-    html,body{height:100%}
-    body{margin:0;background:radial-gradient(1200px 600px at 60% -20%, rgba(124,156,255,.07), transparent),
-                     radial-gradient(800px 400px at 10% 120%, rgba(167,255,221,.06), transparent),
-                     var(--bg);color:var(--ink);font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";}
-    .wrap{max-width:1100px;margin:40px auto;padding:0 20px;}
-    .card{background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.01));border:1px solid rgba(255,255,255,.08);border-radius:16px;box-shadow:0 20px 40px rgba(0,0,0,.35);}
-    .hdr{display:flex;gap:14px;align-items:center;justify-content:space-between;padding:18px 18px;border-bottom:1px solid rgba(255,255,255,.08)}
-    .title{font-weight:700;letter-spacing:.3px}
-    .controls{display:flex;gap:10px;flex-wrap:wrap}
-    .select, .btn, .level{appearance:none;background:var(--panel);border:1px solid rgba(255,255,255,.14);color:var(--ink);border-radius:10px;padding:10px 12px;font-size:14px}
-    .select:focus, .btn:focus{outline:none;box-shadow:var(--ring)}
-    .btn{cursor:pointer;display:inline-flex;gap:8px;align-items:center}
-    .btn[disabled]{opacity:.4;cursor:not-allowed}
-    .grid{display:grid;grid-template-columns: 1.2fr 1fr;gap:18px;padding:18px}
-    .panel{background:rgba(6,8,12,.55);border:1px dashed rgba(255,255,255,.08);border-radius:12px;padding:16px}
-    .panel h3{margin:.2rem 0 .8rem;font-size:15px;color:var(--accent)}
-    .kv{display:grid;grid-template-columns:160px 1fr;gap:8px;row-gap:10px;font-size:14px}
-    .kv div.key{color:var(--muted)}
-    .features{display:grid;gap:10px}
-    .feat{padding:12px;border:1px solid rgba(255,255,255,.09);border-radius:10px;background:rgba(255,255,255,.03)}
-    .feat h4{margin:0 0 6px;font-size:14px;color:var(--accent-2)}
-    .foot{display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(255,255,255,.08);padding:12px 18px;color:var(--muted);font-size:13px}
-    .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
-    .tab{padding:8px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.03);font-size:12px;cursor:pointer}
-    .tab.active{border-color:var(--accent);box-shadow: 0 0 0 2px rgba(124,156,255,.15) inset}
-    .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
-    @media (max-width: 900px){.grid{grid-template-columns:1fr}}
-  </style>
+:root{
+  /* D&D parchment + crimson & gold theme */
+  --bg:#2a1d16; /* deep brown backdrop */
+  --paper:#f1e6cf; /* parchment */
+  --paper-ink:#24180f; /* dark sepia text */
+  --ink:#24180f; /* main text color */
+  --muted:#6e5a47; /* muted labels */
+  --accent:#7a0e0e; /* deep crimson */
+  --accent-2:#c19a2b; /* antique gold */
+  --edge:#b0892f; /* gold edge */
+  --panel:#efe4ca; /* light parchment panels */
+  --ring: 0 0 0 2px rgba(193,154,43,.35);
+  }
+  html,body{margin:0;min-height:100%;
+  background:
+  radial-gradient(1200px 600px at 60% -20%, rgba(122,14,14,.15), transparent),
+  linear-gradient(0deg, rgba(0,0,0,.35), rgba(0,0,0,.35)),
+  url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2240%22 height=%2240%22 viewBox=%220 0 40 40%22><filter id=%22n%22><feTurbulence baseFrequency=%220.9%22 numOctaves=%222%22 seed=%229%22 type=%22fractalNoise%22/></filter><rect width=%2240%22 height=%2240%22 filter=%22url(%23n)%22 opacity=%220.05%22/></svg>'),
+  var(--bg);
+  color:var(--ink);
+  font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;}
+  .wrap{max-width:1100px;margin:40px auto;padding:0 20px;}
+  body{margin:0;background:radial-gradient(1200px 600px at 60% -20%, rgba(124,156,255,.07), transparent),
+  radial-gradient(800px 400px at 10% 120%, rgba(167,255,221,.06), transparent),
+  var(--bg);color:var(--ink);font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";}
+  .wrap{max-width:1100px;margin:40px auto;padding:0 20px;}
+  .card{background:
+  linear-gradient(180deg, rgba(255,255,255,.65), rgba(255,255,255,.4)),
+  radial-gradient(800px 400px at 20% 0%, rgba(193,154,43,.18), transparent),
+  var(--paper);
+  color:var(--paper-ink);
+  border:2px solid var(--edge);
+  border-radius:18px;box-shadow:0 20px 40px rgba(0,0,0,.45), inset 0 0 0 1px rgba(0,0,0,.08);}
+  .hdr{display:flex;gap:14px;align-items:center;justify-content:space-between;padding:18px 18px;border-bottom:3px double var(--edge);background:linear-gradient(180deg, rgba(193,154,43,.08), transparent);}
+  .title{font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:var(--accent);
+  background:linear-gradient(90deg, var(--accent-2), #e8cf7e, var(--accent-2));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  text-shadow:0 1px 0 #fff4, 0 0 24px rgba(193,154,43,.25);}
+  .controls{display:flex;gap:10px;flex-wrap:wrap}
+  .select, .btn, .level{appearance:none;background:var(--panel);border:1px solid rgba(36,24,15,.2);color:var(--ink);border-radius:10px;padding:10px 12px;font-size:14px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.35);}
+  .select:focus, .btn:focus{outline:none;box-shadow:var(--ring)}
+  .btn{cursor:pointer;display:inline-flex;gap:8px;align-items:center;background:linear-gradient(180deg,#7a0e0e,#580a0a);color:#f7ead0;border:1px solid #360606;border-radius:10px;padding:10px 14px;box-shadow:0 2px 0 #360606, 0 6px 14px rgba(0,0,0,.25);}
+  .btn[disabled]{opacity:.4;cursor:not-allowed}
+  .grid{display:grid;grid-template-columns: 1.2fr 1fr;gap:18px;padding:18px;background:linear-gradient(180deg, rgba(193,154,43,.06), transparent);}
+  .panel{background:linear-gradient(180deg, rgba(255,255,255,.6), rgba(255,255,255,.4)), var(--panel);border:1px solid rgba(36,24,15,.25);border-radius:12px;padding:16px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.3);}
+  .panel h3{margin:.2rem 0 .8rem;font-size:15px;color:var(--accent);text-transform:uppercase;letter-spacing:.08em;}
+  .kv{display:grid;grid-template-columns:160px 1fr;gap:8px;row-gap:10px;font-size:14px}
+  .kv div.key{color:var(--muted)}
+  .features{display:grid;gap:10px}
+  .feat{padding:12px;border:1px solid rgba(36,24,15,.2);border-radius:10px;background:linear-gradient(180deg, rgba(255,255,255,.6), rgba(255,255,255,.35));}
+  .feat h4{margin:0 0 6px;font-size:14px;color:var(--accent-2);text-shadow:0 1px 0 #fff8;}
+  .foot{display:flex;justify-content:space-between;align-items:center;border-top:3px double var(--edge);padding:12px 18px;color:var(--muted);font-size:13px}
+  .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+  .tab{padding:8px 10px;border-radius:999px;border:1px solid rgba(36,24,15,.25);background:linear-gradient(180deg, #f6edd8, #e8dcc3);font-size:12px;cursor:pointer;color:var(--ink);}
+  .tab.active{border-color:var(--edge);box-shadow: 0 0 0 2px rgba(193,154,43,.25) inset, 0 0 0 1px rgba(193,154,43,.45);}
+  .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+  @media (max-width: 900px){.grid{grid-template-columns:1fr}}
+</style>
 </head>
 <body>
   <div class="wrap">
