@@ -8,11 +8,25 @@ html, body { height: 100%; margin: 0; background: #0e0a07; color: #eaded0; font-
 .atlas-wrap { position: relative; height: calc(100% - 90px); }
 #map { height: 100%; filter: sepia(.25) contrast(1.05); }
 
-.panel { position: absolute; right: 1rem; top: 1rem; width: min(380px, 90vw); max-height: calc(100% - 2rem);
-  overflow: auto; background: rgba(0,0,0,.5); backdrop-filter: blur(2px); border: 2px solid #6f573f;
-  box-shadow: 0 10px 30px rgba(0,0,0,.5); border-radius: 12px; }
-.panel.hidden { display: none; }
-#panelContent { padding: .8rem; color: #2d1f15; }
+.panel {
+  background: #f3e7cc;
+  border: 2px solid #b79b6f;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+}
+
+#panelContent {
+  color: #2b1a0a;
+  text-shadow: none;
+}
+
+#panelContent h2,
+#panelContent h3 {
+  color: #5b3510;
+  border-bottom: 1px solid rgba(0,0,0,0.2);
+  margin-bottom: .4rem;
+  padding-bottom: .2rem;
+}
+
 
 
 .card h2 { margin: 0 0 0.25rem; }
