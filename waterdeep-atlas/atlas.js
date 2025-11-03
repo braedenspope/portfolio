@@ -1,6 +1,6 @@
 // Minimal working demo — renders an image map + a test pin
-const MAP_IMG = './img/waterdeep-map.jpg';     // make sure this file exists
-const DATA_URL = './data/waterdeep.json';      // optional for now
+const MAP_IMG = '/waterdeep-atlas/img/waterdeep-map.jpg';     // make sure this file exists
+const DATA_URL = '/waterdeep-atlas/data/waterdeep.json';      // optional for now
 
 const map = L.map('map', {
   crs: L.CRS.Simple,
