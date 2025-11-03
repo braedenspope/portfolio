@@ -88,10 +88,10 @@
        Replace with your full SRD/allowed text as desired.
        ===================================================== */
 
-    // === DATA: load external JSON with a safe fallback ===
-    const DATA_JSON_PATH = './dnd5e_srd_classes.json'; // path is correct for your structure
+    // === DATA: load external JSON then init ===
+    const DATA_JSON_PATH = './dnd5e_srd_classes.json'; // your folder layout supports this
 
-    // Minimal fallback so the UI still works even if the JSON fails to load:
+    // Minimal fallback so the UI still works even if the JSON fails to load
     const DEFAULT_CLASSES = {
       Fighter: {
         hitDie: 'd10',
@@ -320,11 +320,24 @@
     });
 
     /* ======= INIT ======= */
-    (function init(){
+    (async function init(){
+      CLASSES = await loadClasses();
+
+      // Safety: if nothing loaded, show a friendly message and stop.
+      const list = Object.keys(CLASSES || {});
+      if(!list.length){
+        document.getElementById('sectionBody').innerHTML =
+          '<div class="feat">Failed to load class data.</div>';
+        return;
+      }
+
       renderClassOptions();
       const {cls, lvl} = parseHash();
-      goTo(cls, lvl);
+      const chosen = (cls && CLASSES[cls]) ? cls : list[0];
+      goTo(chosen, Number.isFinite(lvl) ? lvl : 1);
     })();
+
+
   </script>
 </body>
 </html>
