@@ -87,6 +87,16 @@
           "npcs": ["stonefist", "salazar"],
           "events": ["stonefist_assassination_attempt"],
           "status": "fortified"
+        },
+        {
+          "id": "blackstaff-tower",
+          "name": "Blackstaff Tower",
+          "type": "stronghold",
+          "desc": "Arcane Tower home to the Blackstaff, the prominent magical influence in the city and leader of Force Gray.",
+          "coords": [0.2776, 0.3919],
+          "factions": ["Force Gray"],
+          "events": [],
+          "status": "open"
         }
       ]
     },
@@ -130,16 +140,7 @@
       "name": "Sea Ward",
       "desc": "Spiritual Center of the City of Splendors, many of the temples and holy sites lie within the Sea Ward.",
       "locations": [
-        {
-          "id": "blackstaff-tower",
-          "name": "Blackstaff Tower",
-          "type": "stronghold",
-          "desc": "Arcane Tower home to the Blackstaff, the prominent magical influence in the city and leader of Force Gray.",
-          "coords": [0.2776, 0.3919],
-          "factions": ["Force Gray"],
-          "events": [],
-          "status": "open"
-        }
+        
       ]
     }
   ],
