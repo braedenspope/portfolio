@@ -46,6 +46,17 @@
           "npcs": ["yalah", "urstul"],
           "events": ["gralhund_bloodbath", "kaige_hideout"],
           "status": "guarded"
+        },
+        {
+            "id": "northwatch-post",
+            "name": "North Ward Watch Post",
+            "type": "watch-post",
+            "desc": "Captain Aeren Maverick’s command. The party often checks in here.",
+            "coords": [0.5941, 0.1338],
+            "factions": ["City Watch"],
+            "npcs": ["salazar", "stonefist"],
+            "events": [],
+            "status": "active"
         }
       ]
     },
@@ -86,6 +97,26 @@
           "factions": ["Force Gray"],
           "events": [],
           "status": "open"
+        },
+        {
+        "id": "yawning-portal",
+        "name": "The Yawning Portal",
+        "type": "tavern",
+        "desc": "Where the party first met and tangled with Zhentarim and Xanathar agents.",
+        "coords": [0.5768, 0.6168],
+        "factions": [],
+        "events": ["fireball_incident"],
+        "status": "open"
+        },
+        {
+        "id": "market",
+        "name": "The Market",
+        "type": "market",
+        "desc": "Where whispers and rumors flow as freely as coin.",
+        "coords": [0.5121, 0.3737],
+        "factions": [],
+        "events": [],
+        "status": "open"
         }
       ]
     },
@@ -164,12 +195,22 @@
           "id": "shrines-of-nature",
           "name": "Shrines of Nature",
           "type": "temple",
-          "desc": "A peaceful grove within the city walls, dedicated to Mielikki and Silvanus.",
+          "desc": "A peaceful grove within the city walls, dedicated to Mielikki and Silvanus. Also home to the planar anchor to the Feywild, in the form of a Fey Circle that is unstable due to the disappearance of Oberon.",
           "coords": [0.1952, 0.1579],
           "factions": ["Emerald Enclave"],
           "npcs": ["xarrai", "ajax"],
           "events": ["mielikki_chosen", "feywild_journey"],
           "status": "holy"
+        },
+        {
+        "id": "house-of-inspired-hands",
+        "name": "House of Inspired Hands",
+        "type": "temple",
+        "desc": "Temple to Gond. Source of the nimblewright involved in the Fireball trail. Last known location of the infamous Meepo.",
+        "coords": [0.1954, 0.2208],
+        "factions": [],
+        "events": ["fireball_incident"],
+        "status": "open"
         }
       ]
     },
@@ -182,7 +223,7 @@
           "id": "phaulkonmere",
           "name": "Phaulkonmere",
           "type": "estate",
-          "desc": "A noble estate home to the Phaulkon Family, most notably the former Chosen of Mielikki, Jereth Phaulkon.",
+          "desc": "A noble estate home to the Phaulkon Family, most notably the former Chosen of Mielikki, Jereth Phaulkon. Also acted as the planar anchor to Mount Celestia, until corrupted by the Cult of Orcus.",
           "coords": [0.7465, 0.7392],
           "factions": ["Emerald Enclave"],
           "npcs": [],
