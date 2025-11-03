@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Cartographica Waterdeepis</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Leaflet for lightweight pan/zoom on a custom image map -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
+  <link rel="stylesheet" href="./atlas.css" />
+</head>
+<body>
+  <header class="atlas-header">
+    <h1 class="title">Cartographica Waterdeepis</h1>
+    <span class="subtitle">A Living Record of the City</span>
+  </header>
+
+  <main class="atlas-wrap">
+    <div id="map"></div>
+    <aside id="panel" class="panel hidden">
+      <button id="closePanel" aria-label="Close">×</button>
+      <div id="panelContent"></div>
+    </aside>
+  </main>
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script type="module" src="./atlas.js"></script>
+</body>
+</html>

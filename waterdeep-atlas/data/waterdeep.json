@@ -1,0 +1,323 @@
+{
+  "meta": {
+    "title": "Cartographica Waterdeepis",
+    "version": 1,
+    "description": "An enchanted map recording the deeds, places, and people shaping the fate of Waterdeep."
+  },
+
+  "districts": [
+    {
+      "id": "north-ward",
+      "name": "North Ward",
+      "desc": "Residential heart of Waterdeep, home to quiet nobility and the Burning Pumpkin tavern.",
+      "locations": [
+        {
+          "id": "burning-pumpkin",
+          "name": "The Burning Pumpkin",
+          "type": "tavern",
+          "desc": "Once Trollskull Manor, now the headquarters and home of the party. The tavern glows warmly with pumpkin-shaped lanterns.",
+          "coords": [0.55, 0.42],
+          "factions": ["Force Gray", "Harpers", "Emerald Enclave"],
+          "npcs": ["damocles", "xarrai", "daphne", "louis"],
+          "events": ["fireball_incident", "warehouse_aftermath"],
+          "rumors": [
+            "Patrons whisper of the Raven Queen’s shadow passing through these halls.",
+            "Some swear the warforged Apoch still guards the cellar."
+          ],
+          "status": "open"
+        },
+        {
+          "id": "shrines-of-nature",
+          "name": "Shrines of Nature",
+          "type": "temple",
+          "desc": "A peaceful grove within the city walls, dedicated to Mielikki and Silvanus. Xarrai often prays here.",
+          "coords": [0.62, 0.38],
+          "factions": ["Emerald Enclave"],
+          "npcs": ["xarrai", "ajax"],
+          "events": ["mielikki_chosen", "feywild_journey"],
+          "status": "holy"
+        }
+      ]
+    },
+
+    {
+      "id": "castle-ward",
+      "name": "Castle Ward",
+      "desc": "Seat of power and order in Waterdeep, housing Castle Waterdeep and the Halls of Justice.",
+      "locations": [
+        {
+          "id": "halls-of-justice",
+          "name": "Halls of Justice",
+          "type": "temple",
+          "desc": "Temple of Tyr, god of justice. Vaelen Halosyne calls this place his spiritual home.",
+          "coords": [0.49, 0.52],
+          "factions": ["City Watch"],
+          "npcs": ["vaelen"],
+          "events": ["kaelen_attack_temple"],
+          "status": "under-threat"
+        },
+        {
+          "id": "castle-waterdeep",
+          "name": "Castle Waterdeep",
+          "type": "stronghold",
+          "desc": "Fortress of Grand Civilar Stonefist, command center of the Watch. Now under threat from Kaige Omen’s assassins.",
+          "coords": [0.45, 0.55],
+          "factions": ["City Watch", "Force Gray"],
+          "npcs": ["stonefist", "salazar"],
+          "events": ["stonefist_assassination_attempt"],
+          "status": "fortified"
+        }
+      ]
+    },
+
+    {
+      "id": "dock-ward",
+      "name": "Dock Ward",
+      "desc": "The roughest and most chaotic district, filled with warehouses, corruption, and murder mysteries.",
+      "locations": [
+        {
+          "id": "dockward-alleys",
+          "name": "Dock Ward Alleys",
+          "type": "investigation",
+          "desc": "Scene of the Dock Ward murders. Vaelen Halosyne and the party uncovered Kaelen’s ritual killings here.",
+          "coords": [0.63, 0.72],
+          "factions": ["City Watch"],
+          "npcs": ["vaelen", "kaelen"],
+          "events": ["dockward_murders", "moonstone_chalice"],
+          "status": "investigated"
+        },
+        {
+          "id": "deepwater-warehouse",
+          "name": "Deepwater Mercantile Warehouse",
+          "type": "warehouse",
+          "desc": "Owned by Daphne’s family, the Hursts. Once a hub of smuggling and corruption — and the site of a bloody betrayal.",
+          "coords": [0.61, 0.75],
+          "factions": ["Deepwater Mercantile", "Zhentarim"],
+          "npcs": ["daphne", "elonzo", "duncan"],
+          "events": ["warehouse_heist"],
+          "status": "ruined"
+        }
+      ]
+    },
+
+    {
+      "id": "trade-ward",
+      "name": "Trade Ward",
+      "desc": "Bustling center of commerce and intrigue, where guilds and merchants vie for control.",
+      "locations": [
+        {
+          "id": "gentle-mermaid",
+          "name": "The Gentle Mermaid Casino",
+          "type": "casino",
+          "desc": "Lavish casino owned by Merrick Wolfram — secretly Jack Rose. Once the site of the Golden Night Gala.",
+          "coords": [0.53, 0.64],
+          "factions": ["Kaige Omen Network", "Zhentarim"],
+          "npcs": ["jackrose", "daphne", "louis"],
+          "events": ["golden_night_gala", "jackrose_revelation"],
+          "status": "abandoned"
+        },
+        {
+          "id": "gralhund-villa",
+          "name": "Gralhund Villa",
+          "type": "estate",
+          "desc": "A noble estate that became the center of violence and treachery. Its teleportation circle links to Kaige Omen’s hideouts.",
+          "coords": [0.51, 0.62],
+          "factions": ["Zhentarim"],
+          "npcs": ["yalah", "urstul"],
+          "events": ["gralhund_bloodbath", "kaige_hideout"],
+          "status": "guarded"
+        }
+      ]
+    },
+
+    {
+      "id": "field-ward",
+      "name": "Field Ward",
+      "desc": "Poverty-stricken outskirts beyond the northern gates, where danger and desperation fester.",
+      "locations": [
+        {
+          "id": "scarecrow-fields",
+          "name": "Scarecrow Fields",
+          "type": "farmland",
+          "desc": "Fields plagued by magical scarecrows crafted with Zafara’s fey magic.",
+          "coords": [0.56, 0.25],
+          "factions": ["Zafara Coven"],
+          "events": ["fieldward_scarecrows"],
+          "status": "tainted"
+        }
+      ]
+    }
+  ],
+
+  "npcs": [
+    {
+      "id": "damocles",
+      "name": "Alaric Vane (Damocles)",
+      "factions": ["Raven Queen", "Force Gray"],
+      "status": "alive",
+      "notes": "Resurrected warlock of the Raven Queen. Marked by Winter’s Herald."
+    },
+    {
+      "id": "daphne",
+      "name": "Daphne Hurst",
+      "factions": ["Burning Pumpkin", "Assassins"],
+      "status": "alive",
+      "notes": "Runaway noble seeking revenge on her family at Deepwater Mercantile."
+    },
+    {
+      "id": "xarrai",
+      "name": "Xarrai Bloodstone",
+      "factions": ["Emerald Enclave", "Clergy of Mielikki"],
+      "status": "alive",
+      "notes": "Chosen of Mielikki, hunted by Malar’s servants."
+    },
+    {
+      "id": "vaelen",
+      "name": "Vaelen Halosyne",
+      "factions": ["Halls of Justice", "City Watch"],
+      "status": "alive",
+      "notes": "Paladin of Tyr investigating his brother’s murders."
+    },
+    {
+      "id": "kaelen",
+      "name": "Kaelen Halosyne",
+      "factions": ["Kaige Omen Network", "Cult of Orcus"],
+      "status": "at-large",
+      "notes": "Fallen Aasimar obsessed with eternal power. Responsible for Dock Ward murders."
+    },
+    {
+      "id": "salazar",
+      "name": "Salazar Dalen",
+      "factions": ["Force Gray"],
+      "status": "alive",
+      "notes": "Gunslinger and ally. His loyalty is tested after Kaige threatens his family."
+    },
+    {
+      "id": "stonefist",
+      "name": "Grand Civilar Stonefist",
+      "factions": ["City Watch"],
+      "status": "alive",
+      "notes": "Leader of the Watch. Once Damocles’ mentor."
+    },
+    {
+      "id": "jackrose",
+      "name": "Jack Rose (Merrick Wolfram)",
+      "factions": ["Kaige Omen Network"],
+      "status": "presumed-dead",
+      "notes": "Infamous con artist forced to fund Kaige Omen; father of Rachel Rose."
+    },
+    {
+      "id": "zafara",
+      "name": "Zafara",
+      "factions": ["Fey Coven"],
+      "status": "alive",
+      "notes": "Evil hag who cursed Oberon and Lord Favren; ally of Kaige."
+    },
+    {
+      "id": "ajax",
+      "name": "Ajax",
+      "factions": ["Emerald Enclave"],
+      "status": "alive",
+      "notes": "Talking bear and agent of Mielikki."
+    }
+  ],
+
+  "events": [
+    {
+      "id": "fireball_incident",
+      "title": "The Fireball Incident",
+      "summary": "A mysterious explosion killed a courier carrying the Stone of Golorr outside the Burning Pumpkin.",
+      "when": "Early Campaign"
+    },
+    {
+      "id": "warehouse_heist",
+      "title": "Deepwater Warehouse Heist",
+      "summary": "The party exposed Captain Zelmazar’s corruption and survived Duncan’s betrayal.",
+      "when": "Mid Campaign"
+    },
+    {
+      "id": "warehouse_aftermath",
+      "title": "Aftermath of the Warehouse Heist",
+      "summary": "Apoch’s death left a lasting scar on the party; they gained official City Watch recognition.",
+      "when": "Mid Campaign"
+    },
+    {
+      "id": "mielikki_chosen",
+      "title": "Chosen of Mielikki",
+      "summary": "Xarrai was anointed by Mielikki and marked as prey by the god Malar.",
+      "when": "Mid Campaign"
+    },
+    {
+      "id": "feywild_journey",
+      "title": "Journey to the Feywild",
+      "summary": "The party accidentally entered the Feywild and discovered Sprig’s connection to Oberon.",
+      "when": "Mid Campaign"
+    },
+    {
+      "id": "dockward_murders",
+      "title": "Dock Ward Murders",
+      "summary": "Vaelen joined the party to hunt his brother Kaelen after ritual killings surfaced near the docks.",
+      "when": "Late Campaign"
+    },
+    {
+      "id": "moonstone_chalice",
+      "title": "The Moonstone Chalice Incident",
+      "summary": "Kaelen stole the Moonstone Chalice to summon a soul wraith. The ritual was disrupted but he escaped.",
+      "when": "Late Campaign"
+    },
+    {
+      "id": "jackrose_revelation",
+      "title": "The Jack Rose Revelation",
+      "summary": "Merrick Wolfram revealed himself as the legendary con artist Jack Rose, forced to serve Kaige Omen.",
+      "when": "Late Campaign"
+    },
+    {
+      "id": "kaige_hideout",
+      "title": "Confrontation at Kaige’s Hideout",
+      "summary": "The party confronted Kaige Omen, who declared war on them and unleashed five simultaneous attacks.",
+      "when": "Current Crisis"
+    },
+    {
+      "id": "kaelen_attack_temple",
+      "title": "Attack on the Temple of Tyr",
+      "summary": "Kaelen struck the Halls of Justice, seeking to destroy his brother’s faith and the temple’s anchor of order.",
+      "when": "Current Crisis"
+    },
+    {
+      "id": "stonefist_assassination_attempt",
+      "title": "Assassination Attempt on Stonefist",
+      "summary": "Kaige Omen sent assassins to kill Grand Civilar Stonefist within Castle Waterdeep.",
+      "when": "Current Crisis"
+    },
+    {
+      "id": "fieldward_scarecrows",
+      "title": "The Scarecrow Plague",
+      "summary": "Cursed scarecrows animated by Zafara’s magic terrorized the Field Ward.",
+      "when": "Early Campaign"
+    },
+    {
+      "id": "golden_night_gala",
+      "title": "Golden Night Gala",
+      "summary": "The party attended the Gentle Mermaid casino gala and encountered new allies and enemies.",
+      "when": "Mid Campaign"
+    },
+    {
+      "id": "gralhund_bloodbath",
+      "title": "Gralhund Villa Bloodbath",
+      "summary": "Zhentarim agents clashed with nobles at Gralhund Villa; Urstul Floxin escaped with the Stone of Golorr.",
+      "when": "Early Campaign"
+    }
+  ],
+
+  "factions": [
+    { "id": "force-gray", "name": "Force Gray" },
+    { "id": "harpers", "name": "Harpers" },
+    { "id": "emerald-enclave", "name": "Emerald Enclave" },
+    { "id": "city-watch", "name": "City Watch" },
+    { "id": "zhentarim", "name": "Zhentarim" },
+    { "id": "xanathar", "name": "Xanathar Guild" },
+    { "id": "deepwater-mercantile", "name": "Deepwater Mercantile" },
+    { "id": "kaige-omen-network", "name": "Kaige Omen Network" },
+    { "id": "fey-coven", "name": "Fey Coven" }
+  ]
+}
