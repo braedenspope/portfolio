@@ -72,9 +72,6 @@ img.onload = () => {
   map.setMaxBounds(bounds);
   map.fitBounds(bounds);
 
-  // Center test pin so you can verify geometry looks right
-  L.marker(L.latLng(h / 2, w / 2)).addTo(map).bindPopup('Center');
-
   // If you have normalized coords in your JSON (0..1),
   // convert them to pixel-space using the real w/h:
   const pt = ([nx, ny]) => L.latLng(h * (1 - ny), w * nx); // flip Y so 0 is top
