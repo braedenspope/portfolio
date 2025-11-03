@@ -8,23 +8,27 @@ html, body { height: 100%; margin: 0; background: #0e0a07; color: #eaded0; font-
 .atlas-wrap { position: relative; height: calc(100% - 90px); }
 #map { height: 100%; filter: sepia(.25) contrast(1.05); }
 
+/* Make panel more readable */
 .panel {
-  background: #f3e7cc;
-  border: 2px solid #b79b6f;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+  background: rgba(0, 0, 0, 0.75); /* darker glass */
+  border-color: #b79b6f;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7);
 }
 
 #panelContent {
-  color: #2b1a0a;
-  text-shadow: none;
+  background: rgba(20, 10, 0, 0.6); /* subtle parchment tint */
+  color: #f3e7cc;                   /* pale gold text */
+  text-shadow: 0 0 4px #000;        /* glow against map */
 }
 
 #panelContent h2,
 #panelContent h3 {
-  color: #5b3510;
-  border-bottom: 1px solid rgba(0,0,0,0.2);
-  margin-bottom: .4rem;
-  padding-bottom: .2rem;
+  color: #ffdb99; /* golden headers */
+}
+
+#panelContent a {
+  color: #ffd580;
+  text-decoration: underline;
 }
 
 
