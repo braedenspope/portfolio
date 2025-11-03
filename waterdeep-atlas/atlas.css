@@ -12,7 +12,7 @@ html, body { height: 100%; margin: 0; background: #0e0a07; color: #eaded0; font-
   overflow: auto; background: rgba(0,0,0,.5); backdrop-filter: blur(2px); border: 2px solid #ffd580;
   box-shadow: 0 10px 30px rgba(0,0,0,.5); border-radius: 12px; }
 .panel.hidden { display: none; }
-#panelContent { padding: .8rem; color: #2d1f15; }
+#panelContent { padding: .8rem; color: #ffd580; }
 
 
 .card h2 { margin: 0 0 0.25rem; }
