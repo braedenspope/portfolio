@@ -16,6 +16,53 @@ img.src = MAP_IMG;
 img.onload = () => {
   const w = img.naturalWidth;
   const h = img.naturalHeight;
+    
+  // --- DEV MODE: click to get normalized [x, y] and drop a temp marker --- //
+    const params = new URLSearchParams(location.search);
+    if (params.get('dev') === '1') {
+    const devHud = document.createElement('div');
+    devHud.style.position = 'absolute';
+    devHud.style.left = '8px';
+    devHud.style.bottom = '8px';
+    devHud.style.padding = '6px 8px';
+    devHud.style.background = 'rgba(0,0,0,0.6)';
+    devHud.style.color = '#ffe7b3';
+    devHud.style.font = '12px/1.2 monospace';
+    devHud.style.border = '1px solid #b79b6f';
+    devHud.style.borderRadius = '6px';
+    devHud.style.zIndex = 9999;
+    devHud.textContent = 'Click map to get normalized coords…';
+    document.querySelector('.atlas-wrap').appendChild(devHud);
+
+    let ghost;
+    map.on('click', (e) => {
+        const y = e.latlng.lat;     // pixel-space (0..h)
+        const x = e.latlng.lng;     // pixel-space (0..w)
+        const nx = +(x / w).toFixed(4);
+        const ny = +(1 - (y / h)).toFixed(4); // flip Y for top-origin
+
+        const text = `[${nx}, ${ny}]`;
+        devHud.textContent = `coords: ${text}  (copied)`;
+
+        if (ghost) map.removeLayer(ghost);
+        ghost = L.marker(e.latlng, { draggable: true }).addTo(map).bindPopup(text).openPopup();
+
+        // Copy to clipboard
+        navigator.clipboard?.writeText(text).catch(()=>{});
+
+        // Also log normalized coords on drag end for fine tuning
+        ghost.on('dragend', () => {
+        const ll = ghost.getLatLng();
+        const nx2 = +(ll.lng / w).toFixed(4);
+        const ny2 = +(1 - (ll.lat / h)).toFixed(4);
+        const t2 = `[${nx2}, ${ny2}]`;
+        ghost.setPopupContent(t2).openPopup();
+        devHud.textContent = `coords: ${t2}  (copied)`;
+        navigator.clipboard?.writeText(t2).catch(()=>{});
+        });
+    });
+    }
+
 
   // Use the *true* image aspect for bounds: [ [y0,x0], [y1,x1] ]
   const bounds = [[0, 0], [h, w]];
