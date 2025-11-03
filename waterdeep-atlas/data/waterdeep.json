@@ -25,17 +25,6 @@
           ],
           "status": "open"
         },
-        {
-          "id": "shrines-of-nature",
-          "name": "Shrines of Nature",
-          "type": "temple",
-          "desc": "A peaceful grove within the city walls, dedicated to Mielikki and Silvanus.",
-          "coords": [0.1952, 0.1579],
-          "factions": ["Emerald Enclave"],
-          "npcs": ["xarrai", "ajax"],
-          "events": ["mielikki_chosen", "feywild_journey"],
-          "status": "holy"
-        },
          {
           "id": "gentle-mermaid",
           "name": "The Gentle Mermaid Casino",
@@ -106,7 +95,16 @@
       "name": "Dock Ward",
       "desc": "The roughest and most chaotic district, filled with warehouses, corruption, and murder mysteries.",
       "locations": [
-        
+        {
+          "id": "dragon-lair",
+          "name": "Zelifarn's Lair",
+          "type": "stronghold",
+          "desc": "Underwater territory of Zelifarn, a friendly bronze dragon. Willing to trade for treasures!",
+          "coords": [0.3865, 0.7763],
+          "factions": [],
+          "events": [],
+          "status": "open"
+        }
       ]
     },
 
@@ -115,6 +113,17 @@
       "name": "Trade Ward",
       "desc": "Bustling center of commerce and intrigue, where guilds and merchants vie for control.",
       "locations": [
+        {
+          "id": "deepwater-mercantile-office",
+          "name": "Deepwater Mercantile",
+          "type": "business",
+          "desc": "Main Office of Deepwater Mercantile, the shipping (and smuggling) business run by the Hearst Family.",
+          "coords": [0.656, 0.5521],
+          "factions": ["Deepwater-Mercantile"],
+          "npcs": [],
+          "events": [],
+          "status": "open"
+        }
       ]
     },
 
@@ -140,7 +149,28 @@
       "name": "Sea Ward",
       "desc": "Spiritual Center of the City of Splendors, many of the temples and holy sites lie within the Sea Ward.",
       "locations": [
-        
+        {
+          "id": "house-of-the-moon",
+          "name": "House of the Moon",
+          "type": "temple",
+          "desc": "Temple of Selûne. The tallest tower of any temple in the city. Many people go here for help in planning journeys.",
+          "coords": [0.3323, 0.3776],
+          "factions": ["City Watch"],
+          "npcs": ["vaelen"],
+          "events": ["kaelen_attack_temple"],
+          "status": "under-threat"
+        },
+        {
+          "id": "shrines-of-nature",
+          "name": "Shrines of Nature",
+          "type": "temple",
+          "desc": "A peaceful grove within the city walls, dedicated to Mielikki and Silvanus.",
+          "coords": [0.1952, 0.1579],
+          "factions": ["Emerald Enclave"],
+          "npcs": ["xarrai", "ajax"],
+          "events": ["mielikki_chosen", "feywild_journey"],
+          "status": "holy"
+        }
       ]
     }
   ],
