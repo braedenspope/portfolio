@@ -105,7 +105,7 @@
         "desc": "Where the party first met and tangled with Zhentarim and Xanathar agents.",
         "coords": [0.5768, 0.6168],
         "factions": [],
-        "events": ["fireball_incident"],
+        "events": [],
         "status": "open"
         },
         {
