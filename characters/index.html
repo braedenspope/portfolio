@@ -79,265 +79,178 @@
   </div>
 
   <script>
-    /* =====================================================
-       DATA SHAPE (author content goes here)
-       -----------------------------------------------------
-       IMPORTANT: To avoid licensing issues, include your own
-       class text here. The schema supports everything you need.
-       Below we provide SMALL SAMPLE entries to demonstrate.
-       Replace with your full SRD/allowed text as desired.
-       ===================================================== */
+// === CONFIG ===
+const DATA_JSON_PATH = '/characters/dnd5e_srd_classes.json'; // <-- or './dnd5e_srd_classes.json' if page is under /characters/
 
-    // === DATA: load external JSON then init ===
-    const DATA_JSON_PATH = './dnd5e_srd_classes.json'; // your folder layout supports this
-
-    // Minimal fallback so the UI still works even if the JSON fails to load
-    const DEFAULT_CLASSES = {
-      Fighter: {
-        hitDie: 'd10',
-        primary: ['Strength or Dexterity'],
-        saves: ['Strength','Constitution'],
-        armor: ['All armor','Shields'],
-        weapons: ['Simple','Martial'],
-        levels: {
-          1: { proficiencyBonus:'+2', features:[{name:'Fighting Style',text:'Choose a style.'},{name:'Second Wind',text:'Regain 1d10+level HP once per rest.'}], proficiencies:[], spells:[], notes:'Fallback data' },
-          2: { proficiencyBonus:'+2', features:[{name:'Action Surge',text:'One extra action once per rest.'}], proficiencies:[], spells:[], notes:'' },
-          3: { proficiencyBonus:'+2', features:[{name:'Martial Archetype',text:'Pick a subclass.'}], proficiencies:[], spells:[], notes:'' }
-        }
-      }
-    };
-
-    let CLASSES = {};
-
-    async function loadClasses(){
-      try{
-        const res = await fetch(DATA_JSON_PATH, { cache: 'no-store' });
-        if(!res.ok) throw new Error(`HTTP ${res.status}`);
-        const data = await res.json();
-        return (data && data.classes && typeof data.classes === 'object')
-          ? data.classes
-          : DEFAULT_CLASSES;
-      }catch(e){
-        console.error('Failed to load classes JSON:', e);
-        return DEFAULT_CLASSES;
-      }
+// Tiny fallback so UI still works if JSON can't load
+const DEFAULT_CLASSES = {
+  Fighter: {
+    hitDie: 'd10',
+    primary: ['Strength or Dexterity'],
+    saves: ['Strength','Constitution'],
+    armor: ['All armor','Shields'],
+    weapons: ['Simple','Martial'],
+    levels: {
+      1: { proficiencyBonus:'+2', features:[{name:'Fighting Style',text:'Choose a style.'},{name:'Second Wind',text:'Regain 1d10+level HP once per rest.'}], proficiencies:[], spells:[], notes:'Fallback data' },
+      2: { proficiencyBonus:'+2', features:[{name:'Action Surge',text:'One extra action once per rest.'}], proficiencies:[], spells:[], notes:'' },
+      3: { proficiencyBonus:'+2', features:[{name:'Martial Archetype',text:'Pick a subclass.'}], proficiencies:[], spells:[], notes:'' }
     }
+  }
+};
 
+let CLASSES = {};
 
-    /* ======= UTILITIES ======= */
-    const clamp = (n,min,max)=> Math.max(min, Math.min(max, n));
+async function loadClasses(){
+  try{
+    const res = await fetch(DATA_JSON_PATH, { cache: 'no-store' });
+    if(!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    return (data && data.classes && typeof data.classes === 'object') ? data.classes : DEFAULT_CLASSES;
+  }catch(e){
+    console.error('Failed to load classes JSON:', e);
+    return DEFAULT_CLASSES;
+  }
+}
 
-    function classesList(){
-      return Object.keys(CLASSES || {});
-    }
+/* ======= UTILITIES ======= */
+const clamp = (n,min,max)=> Math.max(min, Math.min(max, n));
+function classesList(){ return Object.keys(CLASSES || {}); }
+function maxLevelFor(cls){
+  const levels = (CLASSES && CLASSES[cls] && CLASSES[cls].levels) ? CLASSES[cls].levels : {1:{}};
+  return Math.max(...Object.keys(levels).map(Number));
+}
 
-    function maxLevelFor(cls){
-      // Guard against missing classes/levels
-      const levels = (CLASSES && CLASSES[cls] && CLASSES[cls].levels) ? CLASSES[cls].levels : { 1: {} };
-      return Math.max(...Object.keys(levels).map(Number));
-    }
+function setHash(cls, lvl){
+  const enc = encodeURIComponent;
+  const hash = `#class=${enc(cls)}&level=${enc(lvl)}`;
+  history.replaceState(null, '', hash);
+  document.getElementById('shareLink').innerHTML =
+    `<a href="${hash}" style="color:var(--accent);text-decoration:none">Link to ${cls} ${lvl}</a>`;
+}
 
+function parseHash(){
+  const params = new URLSearchParams(location.hash.slice(1));
+  let cls = params.get('class') || '';
+  let lvl = parseInt(params.get('level') || '1', 10);
+  const list = classesList();
+  if (!list.length) return { cls:'', lvl:1 };
+  if (!CLASSES[cls]) cls = list[0];
+  if (!Number.isFinite(lvl)) lvl = 1;
+  const keys = Object.keys((CLASSES[cls] && CLASSES[cls].levels) || {1:{}}).map(Number).sort((a,b)=>a-b);
+  const minL = keys[0] || 1, maxL = keys[keys.length-1] || 1;
+  lvl = Math.min(Math.max(lvl, minL), maxL);
+  return { cls, lvl };
+}
 
+/* ======= RENDERING ======= */
+function renderClassOptions(){
+  const sel = document.getElementById('classSelect');
+  sel.innerHTML = classesList().map(c=>`<option value="${c}">${c}</option>`).join('');
+}
+function renderLevelOptions(cls){
+  const sel = document.getElementById('levelSelect');
+  const Ls = (CLASSES[cls] && CLASSES[cls].levels) ? CLASSES[cls].levels : {1:{}};
+  const levels = Object.keys(Ls).map(Number).sort((a,b)=>a-b);
+  sel.innerHTML = levels.map(l=>`<option value="${l}">Level ${l}</option>`).join('');
+}
+function renderSummary(cls, lvl){
+  const info = CLASSES[cls];
+  const L = info.levels[lvl];
+  const kv = document.getElementById('summaryKV');
+  document.getElementById('pageTitle').textContent = `${cls} — Level ${lvl}`;
+  kv.innerHTML = `
+    <div class="key">Hit Die</div><div>${info.hitDie}</div>
+    <div class="key">Primary</div><div>${info.primary.join(', ')}</div>
+    <div class="key">Saving Throws</div><div>${info.saves.join(', ')}</div>
+    <div class="key">Weapons</div><div>${info.weapons.join(', ')}</div>
+    <div class="key">Armor</div><div>${info.armor.join(', ')}</div>
+    <div class="key">Prof. Bonus</div><div>${L.proficiencyBonus}</div>
+  `;
+  const tabs = [
+    { id:'features', label:'Features', count: L.features?.length || 0 },
+    { id:'profs', label:'Proficiencies', count: L.proficiencies?.length || 0 },
+    { id:'spells', label:'Spells', count: L.spells?.length || 0 },
+    { id:'notes', label:'Notes', count: L.notes ? 1 : 0 }
+  ];
+  const tabEl = document.getElementById('subtabs');
+  tabEl.innerHTML = tabs.map((t,i)=>`<button role="tab" class="tab ${i===0?'active':''}" data-tab="${t.id}">${t.label}${t.count?` (${t.count})`:''}</button>`).join('');
+  renderSection(cls, lvl, 'features');
+}
+function renderSection(cls, lvl, which){
+  const info = CLASSES[cls];
+  const L = info.levels[lvl];
+  const title = document.getElementById('sectionTitle');
+  const body = document.getElementById('sectionBody');
+  document.querySelectorAll('#subtabs .tab').forEach(b=>b.classList.toggle('active', b.dataset.tab===which));
+  if(which==='features'){
+    title.textContent = 'Features'; body.className = 'features';
+    body.innerHTML = (L.features||[]).map(f=>`
+      <article class="feat"><h4>${f.name}</h4><div>${f.text}</div></article>
+    `).join('') || `<div class="muted">No features listed for this level.</div>`;
+  } else if(which==='profs'){
+    title.textContent = 'Proficiencies Gained'; body.className = 'features';
+    body.innerHTML = (L.proficiencies||[]).map(p=>`<div class="feat">${p}</div>`).join('') || `<div class="muted">No new proficiencies at this level.</div>`;
+  } else if(which==='spells'){
+    title.textContent = 'Spells / Slots'; body.className = 'features';
+    body.innerHTML = (L.spells||[]).map(s=>`<div class="feat">${s}</div>`).join('') || `<div class="muted">No spell updates recorded for this level.</div>`;
+  } else if(which==='notes'){
+    title.textContent = 'Notes'; body.className = 'features';
+    body.innerHTML = L.notes ? `<div class="feat">${L.notes}</div>` : `<div class="muted">No notes.</div>`;
+  }
+}
+function goTo(cls, lvl){
+  const list = classesList(); if (!list.length) return;
+  if (!CLASSES[cls]) cls = list[0];
+  const maxLvl = maxLevelFor(cls);
+  lvl = clamp(lvl, 1, maxLvl);
+  document.getElementById('classSelect').value = cls;
+  renderLevelOptions(cls);
+  document.getElementById('levelSelect').value = String(lvl);
+  renderSummary(cls, lvl);
+  setHash(cls, lvl);
+  updateNavButtons(cls, lvl);
+}
+function updateNavButtons(cls, lvl){
+  const maxLvl = maxLevelFor(cls);
+  const prev = document.getElementById('prevBtn');
+  const next = document.getElementById('nextBtn');
+  prev.disabled = lvl<=1; next.disabled = lvl>=maxLvl;
+  document.getElementById('footInfo').textContent = `${cls} • Level ${lvl} of ${maxLvl}`;
+}
 
+/* ======= EVENTS ======= */
+document.addEventListener('click', (e)=>{
+  const t = e.target;
+  if(t.matches('#prevBtn')){ const cls = classSelect.value; const lvl = parseInt(levelSelect.value,10)-1; goTo(cls, lvl); }
+  if(t.matches('#nextBtn')){ const cls = classSelect.value; const lvl = parseInt(levelSelect.value,10)+1; goTo(cls, lvl); }
+  if(t.matches('#subtabs .tab')){ const which = t.dataset.tab; const cls = classSelect.value; const lvl = parseInt(levelSelect.value,10); renderSection(cls, lvl, which); }
+});
+document.addEventListener('change', (e)=>{
+  if(e.target.matches('#classSelect')) goTo(e.target.value, 1);
+  if(e.target.matches('#levelSelect')){ const cls = classSelect.value; goTo(cls, parseInt(e.target.value,10)); }
+});
+document.addEventListener('keydown', (e)=>{
+  if(['ArrowLeft','ArrowRight'].includes(e.key)){
+    const cls = classSelect.value; const lvl = parseInt(levelSelect.value,10);
+    goTo(cls, e.key==='ArrowLeft' ? lvl-1 : lvl+1);
+  }
+});
+window.addEventListener('hashchange', ()=>{ const {cls, lvl} = parseHash(); goTo(cls, lvl); });
 
-    function setHash(cls, lvl){
-      const enc = encodeURIComponent;
-      const hash = `#class=${enc(cls)}&level=${enc(lvl)}`;
-      history.replaceState(null, '', hash);
-      document.getElementById('shareLink').innerHTML = `<a href="${hash}" style="color:var(--accent);text-decoration:none">Link to ${cls} ${lvl}</a>`;
-    }
+/* ======= INIT ======= */
+(async function init(){
+  CLASSES = await loadClasses();
+  const list = classesList();
+  if(!list.length){
+    document.getElementById('sectionBody').innerHTML = '<div class="feat">Failed to load class data.</div>';
+    return;
+  }
+  renderClassOptions();
+  const {cls, lvl} = parseHash();
+  const chosen = (cls && CLASSES[cls]) ? cls : list[0];
+  goTo(chosen, Number.isFinite(lvl) ? lvl : 1);
+})();
+</script>
 
-    function parseHash(){
-      const params = new URLSearchParams(location.hash.slice(1));
-      let cls = params.get('class') || '';
-      let lvl = parseInt(params.get('level') || '1', 10);
-
-      const list = classesList();
-      if (!list.length) return { cls: '', lvl: 1 };
-
-      // If hash class is unknown, fall back to the first known class
-      if (!CLASSES[cls]) cls = list[0];
-      if (!Number.isFinite(lvl)) lvl = 1;
-
-      // Clamp level to actual keys for this class
-      const levelKeys = Object.keys((CLASSES[cls] && CLASSES[cls].levels) || {1:{}})
-        .map(Number)
-        .sort((a,b)=>a-b);
-      const minL = levelKeys[0] || 1;
-      const maxL = levelKeys[levelKeys.length - 1] || 1;
-      lvl = Math.min(Math.max(lvl, minL), maxL);
-
-      return { cls, lvl };
-    }
-
-
-
-    /* ======= RENDERING ======= */
-    function renderClassOptions(){
-      const sel = document.getElementById('classSelect');
-      sel.innerHTML = classesList().map(c=>`<option value="${c}">${c}</option>`).join('');
-    }
-
-    function renderLevelOptions(cls){
-      const sel = document.getElementById('levelSelect');
-      const Ls = (CLASSES[cls] && CLASSES[cls].levels) ? CLASSES[cls].levels : {1:{}};
-      const levels = Object.keys(Ls).map(Number).sort((a,b)=>a-b);
-      sel.innerHTML = levels.map(l=>`<option value="${l}">Level ${l}</option>`).join('');
-    }
-
-
-
-    function renderSummary(cls, lvl){
-      const info = CLASSES[cls];
-      const L = info.levels[lvl];
-      const kv = document.getElementById('summaryKV');
-      document.getElementById('pageTitle').textContent = `${cls} — Level ${lvl}`;
-      kv.innerHTML = `
-        <div class="key">Hit Die</div><div>${info.hitDie}</div>
-        <div class="key">Primary</div><div>${info.primary.join(', ')}</div>
-        <div class="key">Saving Throws</div><div>${info.saves.join(', ')}</div>
-        <div class="key">Weapons</div><div>${info.weapons.join(', ')}</div>
-        <div class="key">Armor</div><div>${info.armor.join(', ')}</div>
-        <div class="key">Prof. Bonus</div><div>${L.proficiencyBonus}</div>
-      `;
-
-      const tabs = [
-        { id:'features', label:'Features', count: L.features?.length || 0 },
-        { id:'profs', label:'Proficiencies', count: L.proficiencies?.length || 0 },
-        { id:'spells', label:'Spells', count: L.spells?.length || 0 },
-        { id:'notes', label:'Notes', count: L.notes ? 1 : 0 }
-      ];
-      const tabEl = document.getElementById('subtabs');
-      tabEl.innerHTML = tabs.map((t,i)=>`<button role="tab" class="tab ${i===0?'active':''}" data-tab="${t.id}">${t.label}${t.count?` (${t.count})`:''}</button>`).join('');
-
-      // Default section: Features
-      renderSection(cls, lvl, 'features');
-    }
-
-    function renderSection(cls, lvl, which){
-      const info = CLASSES[cls];
-      const L = info.levels[lvl];
-      const title = document.getElementById('sectionTitle');
-      const body = document.getElementById('sectionBody');
-
-      document.querySelectorAll('#subtabs .tab').forEach(b=>{
-        b.classList.toggle('active', b.dataset.tab===which);
-      });
-
-      if(which==='features'){
-        title.textContent = 'Features';
-        body.className = 'features';
-        body.innerHTML = (L.features||[]).map(f=>`
-          <article class="feat">
-            <h4>${f.name}</h4>
-            <div>${f.text}</div>
-          </article>
-        `).join('') || `<div class="muted">No features listed for this level.</div>`;
-      } else if(which==='profs'){
-        title.textContent = 'Proficiencies Gained';
-        body.className = 'features';
-        body.innerHTML = (L.proficiencies||[]).map(p=>`<div class="feat">${p}</div>`).join('') || `<div class="muted">No new proficiencies at this level.</div>`;
-      } else if(which==='spells'){
-        title.textContent = 'Spells / Slots';
-        body.className = 'features';
-        body.innerHTML = (L.spells||[]).map(s=>`<div class="feat">${s}</div>`).join('') || `<div class="muted">No spell updates recorded for this level.</div>`;
-      } else if(which==='notes'){
-        title.textContent = 'Notes';
-        body.className = 'features';
-        body.innerHTML = L.notes ? `<div class="feat">${L.notes}</div>` : `<div class="muted">No notes.</div>`;
-      }
-    }
-
-    function goTo(cls, lvl){
-      const list = classesList();
-      if (!list.length) return;             // no data, bail safely
-      if (!CLASSES[cls]) cls = list[0];     // fix unknown class
-
-      const maxLvl = maxLevelFor(cls);
-      lvl = clamp(lvl, 1, maxLvl);
-
-      document.getElementById('classSelect').value = cls;
-      renderLevelOptions(cls);
-      document.getElementById('levelSelect').value = String(lvl);
-      renderSummary(cls, lvl);
-      setHash(cls, lvl);
-      updateNavButtons(cls, lvl);
-    }
-
-
-    function updateNavButtons(cls, lvl){
-      const maxLvl = maxLevelFor(cls);
-      const prev = document.getElementById('prevBtn');
-      const next = document.getElementById('nextBtn');
-      prev.disabled = lvl<=1; next.disabled = lvl>=maxLvl;
-      document.getElementById('footInfo').textContent = `${cls} • Level ${lvl} of ${maxLvl}`;
-    }
-
-    /* ======= EVENT WIRING ======= */
-    document.addEventListener('click', (e)=>{
-      const t = e.target;
-      if(t.matches('#prevBtn')){
-        const cls = document.getElementById('classSelect').value;
-        const lvl = parseInt(document.getElementById('levelSelect').value,10) - 1;
-        goTo(cls, lvl);
-      }
-      if(t.matches('#nextBtn')){
-        const cls = document.getElementById('classSelect').value;
-        const lvl = parseInt(document.getElementById('levelSelect').value,10) + 1;
-        goTo(cls, lvl);
-      }
-      if(t.matches('#subtabs .tab')){
-        const which = t.dataset.tab;
-        const cls = document.getElementById('classSelect').value;
-        const lvl = parseInt(document.getElementById('levelSelect').value,10);
-        renderSection(cls, lvl, which);
-      }
-    });
-
-    document.addEventListener('change', (e)=>{
-      if(e.target.matches('#classSelect')){
-        const cls = e.target.value;
-        goTo(cls, 1);
-      }
-      if(e.target.matches('#levelSelect')){
-        const cls = document.getElementById('classSelect').value;
-        const lvl = parseInt(e.target.value,10);
-        goTo(cls, lvl);
-      }
-    });
-
-    document.addEventListener('keydown', (e)=>{
-      if(['ArrowLeft','ArrowRight'].includes(e.key)){
-        const cls = document.getElementById('classSelect').value;
-        const lvl = parseInt(document.getElementById('levelSelect').value,10);
-        goTo(cls, e.key==='ArrowLeft' ? lvl-1 : lvl+1);
-      }
-    });
-
-    window.addEventListener('hashchange', ()=>{
-      const {cls, lvl} = parseHash();
-      goTo(cls, lvl);
-    });
-
-    /* ======= INIT ======= */
-    (async function init(){
-      CLASSES = await loadClasses();
-
-      // Safety: if nothing loaded, show a friendly message and stop.
-      const list = Object.keys(CLASSES || {});
-      if(!list.length){
-        document.getElementById('sectionBody').innerHTML =
-          '<div class="feat">Failed to load class data.</div>';
-        return;
-      }
-
-      renderClassOptions();
-      const {cls, lvl} = parseHash();
-      const chosen = (cls && CLASSES[cls]) ? cls : list[0];
-      goTo(chosen, Number.isFinite(lvl) ? lvl : 1);
-    })();
-
-
-  </script>
 </body>
 </html>
