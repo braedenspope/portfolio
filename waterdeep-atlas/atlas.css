@@ -8,29 +8,11 @@ html, body { height: 100%; margin: 0; background: #0e0a07; color: #eaded0; font-
 .atlas-wrap { position: relative; height: calc(100% - 90px); }
 #map { height: 100%; filter: sepia(.25) contrast(1.05); }
 
-/* Make panel more readable */
-.panel {
-  background: rgba(0, 0, 0, 0.75); /* darker glass */
-  border-color: #b79b6f;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7);
-}
-
-#panelContent {
-  background: rgba(20, 10, 0, 0.6); /* subtle parchment tint */
-  color: #f3e7cc;                   /* pale gold text */
-  text-shadow: 0 0 4px #000;        /* glow against map */
-}
-
-#panelContent h2,
-#panelContent h3 {
-  color: #ffdb99; /* golden headers */
-}
-
-#panelContent a {
-  color: #ffd580;
-  text-decoration: underline;
-}
-
+.panel { position: absolute; right: 1rem; top: 1rem; width: min(380px, 90vw); max-height: calc(100% - 2rem);
+  overflow: auto; background: rgba(0,0,0,.5); backdrop-filter: blur(2px); border: 2px solid #ffd580;
+  box-shadow: 0 10px 30px rgba(0,0,0,.5); border-radius: 12px; }
+.panel.hidden { display: none; }
+#panelContent { padding: .8rem; color: #2d1f15; }
 
 
 .card h2 { margin: 0 0 0.25rem; }
