@@ -132,9 +132,11 @@
     }
 
     function maxLevelFor(cls){
-      const levels = (CLASSES && CLASSES[cls] && CLASSES[cls].levels) ? CLASSES[cls].levels : {1:{}};
+      // Guard against missing classes/levels
+      const levels = (CLASSES && CLASSES[cls] && CLASSES[cls].levels) ? CLASSES[cls].levels : { 1: {} };
       return Math.max(...Object.keys(levels).map(Number));
     }
+
 
 
 
@@ -153,17 +155,21 @@
       const list = classesList();
       if (!list.length) return { cls: '', lvl: 1 };
 
+      // If hash class is unknown, fall back to the first known class
       if (!CLASSES[cls]) cls = list[0];
       if (!Number.isFinite(lvl)) lvl = 1;
 
-      // clamp level to what actually exists for this class
-      const levels = Object.keys(CLASSES[cls].levels || {1:{}}).map(Number).sort((a,b)=>a-b);
-      const minL = levels[0] || 1;
-      const maxL = levels[levels.length - 1] || 1;
+      // Clamp level to actual keys for this class
+      const levelKeys = Object.keys((CLASSES[cls] && CLASSES[cls].levels) || {1:{}})
+        .map(Number)
+        .sort((a,b)=>a-b);
+      const minL = levelKeys[0] || 1;
+      const maxL = levelKeys[levelKeys.length - 1] || 1;
       lvl = Math.min(Math.max(lvl, minL), maxL);
 
       return { cls, lvl };
     }
+
 
 
     /* ======= RENDERING ======= */
@@ -178,6 +184,7 @@
       const levels = Object.keys(Ls).map(Number).sort((a,b)=>a-b);
       sel.innerHTML = levels.map(l=>`<option value="${l}">Level ${l}</option>`).join('');
     }
+
 
 
     function renderSummary(cls, lvl){
@@ -243,8 +250,9 @@
 
     function goTo(cls, lvl){
       const list = classesList();
-      if (!list.length) return;                  // no data, bail safely
-      if (!CLASSES[cls]) cls = list[0];          // fix unknown class
+      if (!list.length) return;             // no data, bail safely
+      if (!CLASSES[cls]) cls = list[0];     // fix unknown class
+
       const maxLvl = maxLevelFor(cls);
       lvl = clamp(lvl, 1, maxLvl);
 
@@ -255,6 +263,7 @@
       setHash(cls, lvl);
       updateNavButtons(cls, lvl);
     }
+
 
     function updateNavButtons(cls, lvl){
       const maxLvl = maxLevelFor(cls);
