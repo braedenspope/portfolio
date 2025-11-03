@@ -135,7 +135,19 @@
           "factions": [],
           "events": [],
           "status": "open"
+        },
+        {
+        "id": "malars-hunting-grounds",
+        "name": "Malar’s Hunting Grounds",
+        "type": "sacred-site",
+        "desc": "A secret underground maze devoted to Malar, god of the savage hunt.",
+        "coords": [0.3556, 0.6415],
+        "factions": ["Malar’s Hunt"],
+        "npcs": ["dhussara"],
+        "events": [],
+        "status": "dangerous"
         }
+
       ]
     },
 
