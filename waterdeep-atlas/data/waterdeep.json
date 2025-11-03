@@ -17,8 +17,8 @@
           "type": "tavern",
           "desc": "Once Trollskull Manor, now the a popular tavern and home of the party. The tavern glows warmly with pumpkin-shaped lanterns. Half off for city watch!",
           "coords": [0.6584, 0.2261],
-          "factions": ["The Party"],
-          "npcs": ["damocles", "xarrai", "daphne", "lif"],
+          "factions": ["force-gray", "harpers", "emerald-enclave"],
+          "npcs": ["damocles", "xarrai", "daphne-hurst"],
           "events": ["fireball_incident", "warehouse_aftermath"],
           "rumors": [
             "Patrons whisper of the Raven Queen’s shadow passing through these halls."
@@ -31,9 +31,9 @@
           "type": "casino",
           "desc": "Lavish casino formerly owned by Merrick Wolfram — secretly the infamous Jack Rose. Once the site of the Golden Night Gala, as well as the center of a money laundering operation run by Jack for Kaige Omen.",
           "coords": [0.5596, 0.2812],
-          "factions": ["Kaige Omen Network", "Zhentarim"],
-          "npcs": ["jackrose", "daphne", "louis"],
-          "events": ["golden_night_gala", "jackrose_revelation"],
+          "factions": ["kaige-omen-network", "zhentarim"],
+          "npcs": ["jack-rose", "daphne-hurst"],
+          "events": ["golden_night_gala"],
           "status": "abandoned"
         },
         {
@@ -42,8 +42,8 @@
           "type": "estate",
           "desc": "A noble estate that proved to be a central hideout for Zhentarim operations. Home to the Gralhund family, Its teleportation circle links to Kaige Omen’s hideouts.",
           "coords": [0.7494, 0.2255],
-          "factions": ["Zhentarim"],
-          "npcs": ["yalah", "urstul"],
+          "factions": ["zhentarim"],
+          "npcs": [],
           "events": ["gralhund_bloodbath", "kaige_hideout"],
           "status": "guarded"
         },
@@ -53,8 +53,8 @@
             "type": "watch-post",
             "desc": "Captain Aeren Maverick’s command. The party often checks in here.",
             "coords": [0.5941, 0.1338],
-            "factions": ["City Watch"],
-            "npcs": ["salazar", "stonefist"],
+            "factions": ["city-watch"],
+            "npcs": ["salazar-dalen", "grand-civilar-stonefist"],
             "events": [],
             "status": "active"
         }
@@ -72,8 +72,8 @@
           "type": "temple",
           "desc": "Temple of Tyr, god of justice. Center for the Order of the Gauntlet, an organization focused on spreading justic throughout the sword coast.",
           "coords": [0.3323, 0.3776],
-          "factions": ["City Watch"],
-          "npcs": ["vaelen"],
+          "factions": ["city-watch"],
+          "npcs": ["vaelen-halosyne"],
           "events": ["kaelen_attack_temple"],
           "status": "under-threat"
         },
@@ -83,8 +83,8 @@
           "type": "stronghold",
           "desc": "Center of political power in waterdeep, home to Grand Civilar Stonefist, the Open Lord Laeral Silverhand, as well as the mysterious masked Lords.",
           "coords": [0.4989, 0.5899],
-          "factions": ["City Watch", "Force Gray"],
-          "npcs": ["stonefist", "salazar"],
+          "factions": ["city-watch", "force-gray"],
+          "npcs": ["grand-civilar-stonefist", "salazar-dalen"],
           "events": ["stonefist_assassination_attempt"],
           "status": "fortified"
         },
@@ -94,7 +94,7 @@
           "type": "stronghold",
           "desc": "Arcane Tower home to the Blackstaff, the prominent magical influence in the city and leader of Force Gray.",
           "coords": [0.2776, 0.3919],
-          "factions": ["Force Gray"],
+          "factions": ["force-gray"],
           "events": [],
           "status": "open"
         },
@@ -142,9 +142,9 @@
         "type": "sacred-site",
         "desc": "A secret underground maze devoted to Malar, god of the savage hunt.",
         "coords": [0.3556, 0.6415],
-        "factions": ["Malar’s Hunt"],
-        "npcs": ["dhussara"],
-        "events": [],
+        "factions": ["malars-hunt"],
+        "npcs": ["dhussara-el-abhuk"],
+        "events": ["dhussara_sun_ritual"],
         "status": "dangerous"
         }
 
@@ -162,8 +162,8 @@
           "type": "business",
           "desc": "Main Office of Deepwater Mercantile, the shipping (and smuggling) business run by the Hearst Family.",
           "coords": [0.656, 0.5521],
-          "factions": ["Deepwater-Mercantile"],
-          "npcs": [],
+          "factions": ["deepwater-mercantile"],
+          "npcs": ["daphne-hurst"],
           "events": [],
           "status": "open"
         }
@@ -198,9 +198,9 @@
           "type": "temple",
           "desc": "Temple of Selûne. The tallest tower of any temple in the city. Home to the (now drained) Wand of Four Moons. Many people go here for help in planning journeys.",
           "coords": [0.2154, 0.2544],
-          "factions": ["City Watch"],
-          "npcs": ["vaelen"],
-          "events": ["kaelen_attack_temple"],
+          "factions": [],
+          "npcs": [],
+          "events": [],
           "status": "under-threat"
         },
         {
@@ -209,8 +209,8 @@
           "type": "temple",
           "desc": "A peaceful grove within the city walls, dedicated to Mielikki and Silvanus. Also home to the planar anchor to the Feywild, in the form of a Fey Circle that is unstable due to the disappearance of Oberon.",
           "coords": [0.1952, 0.1579],
-          "factions": ["Emerald Enclave"],
-          "npcs": ["xarrai", "ajax"],
+          "factions": ["emerald-enclave"],
+          "npcs": ["xarrai"],
           "events": ["mielikki_chosen", "feywild_journey"],
           "status": "holy"
         },
@@ -237,7 +237,7 @@
           "type": "estate",
           "desc": "A noble estate home to the Phaulkon Family, most notably the former Chosen of Mielikki, Jereth Phaulkon. Also acted as the planar anchor to Mount Celestia, until corrupted by the Cult of Orcus.",
           "coords": [0.7465, 0.7392],
-          "factions": ["Emerald Enclave"],
+          "factions": ["emerald-enclave"],
           "npcs": [],
           "events": [],
           "status": "closed"
