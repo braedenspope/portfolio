@@ -40,7 +40,10 @@
   border:2px solid var(--edge);
   border-radius:18px;box-shadow:0 20px 40px rgba(0,0,0,.45), inset 0 0 0 1px rgba(0,0,0,.08);}
   .hdr{display:flex;gap:14px;align-items:center;justify-content:space-between;padding:18px 18px;border-bottom:3px double var(--edge);background:linear-gradient(180deg, rgba(193,154,43,.08), transparent);}
-  .title{ font-family: "UnifrakturMaguntia", ui-serif, Georgia, serif; }
+  .title{font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:var(--accent);
+  background:linear-gradient(90deg, var(--accent-2), #e8cf7e, var(--accent-2));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  text-shadow:0 1px 0 #fff4, 0 0 24px rgba(193,154,43,.25);}
   .controls{display:flex;gap:10px;flex-wrap:wrap}
   .select, .btn, .level{appearance:none;background:var(--panel);border:1px solid rgba(36,24,15,.2);color:var(--ink);border-radius:10px;padding:10px 12px;font-size:14px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.35);}
   .select:focus, .btn:focus{outline:none;box-shadow:var(--ring)}
