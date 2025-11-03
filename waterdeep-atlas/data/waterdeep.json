@@ -154,7 +154,7 @@
           "name": "House of the Moon",
           "type": "temple",
           "desc": "Temple of Selûne. The tallest tower of any temple in the city. Many people go here for help in planning journeys.",
-          "coords": [0.3323, 0.3776],
+          "coords": [0.2154, 0.2544],
           "factions": ["City Watch"],
           "npcs": ["vaelen"],
           "events": ["kaelen_attack_temple"],
