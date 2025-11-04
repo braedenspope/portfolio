@@ -1,7 +1,16 @@
 const DATA_URL = '../data/waterdeep.json';
 
+// Automatically adjusts the card box to match the actual image ratio
+window.fitNPCImage = function (img) {
+  const holder = img.closest('.npc-hero');
+  if (!holder) return;
+  const w = img.naturalWidth;
+  const h = img.naturalHeight;
+  if (w && h) holder.style.aspectRatio = `${w} / ${h}`;
+};
+
 function npcImageSrc(id) {
-  return `img/npcs/${id}.jpg`;
+  return `./img/npcs/${id}.jpg`;
 }
 
 const grid = document.getElementById('grid');
