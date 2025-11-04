@@ -1,5 +1,5 @@
-const MAP_IMG = 'waterdeep-atlas/img/waterdeep-map.jpg';
-const DATA_URL = 'waterdeep-atlas/data/waterdeep.json';
+const MAP_IMG = './img/waterdeep-map.jpg';
+const DATA_URL = './data/waterdeep.json';
 
 const map = L.map('map', {
   crs: L.CRS.Simple,
