@@ -55,19 +55,28 @@ blockquote {
 }
 .npc-link:hover { opacity: 0.85; }
 
+/* Works in the location panel and compendium */
 .npc-card .npc-hero {
   width: 100%;
-  aspect-ratio: 16/9;
-  overflow: hidden;
+  /* A safe default box; images will scale inside this without cropping */
+  aspect-ratio: 4 / 3;         /* fallback shape */
+  max-height: min(42vh, 520px);/* prevents giant portraits in the panel */
+  background: rgba(0,0,0,0.2); /* subtle letterbox color */
   border-radius: 8px;
-  margin-bottom: 0.5rem;
-  background: rgba(0,0,0,0.2);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+
 .npc-card .npc-hero img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;          /* key: no crop, no squish */
+  object-position: center;
+  image-rendering: auto;
 }
+
 
 .btn {
   display: inline-block;
