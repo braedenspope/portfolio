@@ -18,7 +18,7 @@
           "desc": "Once Trollskull Manor, now the a popular tavern and home of the party. The tavern glows warmly with pumpkin-shaped lanterns. Half off for city watch!",
           "coords": [0.6584, 0.2261],
           "factions": ["force-gray", "harpers", "emerald-enclave"],
-          "npcs": ["damocles", "xarrai", "daphne-hurst"],
+          "npcs": ["damocles", "xarrai", "daphne-hearst"],
           "events": ["fireball_incident", "warehouse_aftermath"],
           "rumors": [
             "Patrons whisper of the Raven Queen’s shadow passing through these halls."
@@ -32,8 +32,8 @@
           "desc": "Lavish casino formerly owned by Merrick Wolfram — secretly the infamous Jack Rose. Once the site of the Golden Night Gala, as well as the center of a money laundering operation run by Jack for Kaige Omen.",
           "coords": [0.5596, 0.2812],
           "factions": ["kaige-omen-network", "zhentarim"],
-          "npcs": ["jack-rose", "daphne-hurst"],
-          "events": ["golden_night_gala"],
+          "npcs": ["jack-rose", "daphne-hearst"],
+          "events": ["golden_night_gala", "jack-rose-revelation"],
           "status": "abandoned"
         },
         {
@@ -89,10 +89,21 @@
           "status": "fortified"
         },
         {
+          "id": "accounting-house",
+          "name": "The Accounting House",
+          "type": "stronghold",
+          "desc": "Central office for the City Watch. All fines, debts, and warrants are served here. Also acts as the city watch post for the castle ward.",
+          "coords": [0.3034, 0.5199],
+          "factions": ["city-watch" ],
+          "npcs": ["grand-civilar-stonefist"],
+          "events": ["urstul-floxin-interrogation"],
+          "status": "fortified"
+        },
+        {
           "id": "blackstaff-tower",
           "name": "Blackstaff Tower",
           "type": "stronghold",
-          "desc": "Arcane Tower home to the Blackstaff, the prominent magical influence in the city and leader of Force Gray.",
+          "desc": "Arcane Tower home to the Blackstaff, the prominent magical influence in the city and leader of Force Gray. Main headquarters for the organization.",
           "coords": [0.2776, 0.3919],
           "factions": ["force-gray"],
           "events": [],
@@ -262,7 +273,7 @@
         "role": "Party Warlock / Agent of the Raven Queen",
         "alignment": "Lawful Neutral",
         "status": "alive",
-        "factions": ["Raven Queen", "Force Gray"],
+        "factions": ["Raven Queen", "Burning Pumpkin"],
         "summary": "Once a man of faith, now the Raven Queen’s marked servant. Haunted by his past and guided by divine visions."
     },
     {
@@ -271,12 +282,12 @@
         "role": "Party Cleric / Chosen of Mielikki",
         "alignment": "Neutral Good",
         "status": "alive",
-        "factions": ["Emerald Enclave"],
+        "factions": ["Emerald Enclave", "Burning Pumpkin"],
         "summary": "Blessed vessel of Mielikki, hunted by Malar’s vampire huntmistress. Embodies the balance between nature and civilization."
     },
     {
-        "id": "daphne-hurst",
-        "name": "Daphne Hurst",
+        "id": "daphne-hearst",
+        "name": "Daphne Hearst",
         "role": "Party Assassin / Noble Exile",
         "alignment": "Chaotic Neutral",
         "status": "alive",
@@ -325,7 +336,7 @@
         "role": "Fallen Aasimar Necromancer",
         "alignment": "Lawful Evil",
         "status": "at-large",
-        "factions": ["Kaige Omen Network", "Cult of Orcus"],
+        "factions": ["Kaige Omen Network"],
         "summary": "Vaelen’s twin and murderer of their mother. Obsessed with immortality; worked with Kaige."
     },
     {
@@ -370,7 +381,7 @@
         "role": "Corrupt Magistrate / Fey-Cursed Noble",
         "alignment": "Lawful Evil",
         "status": "alive",
-        "factions": ["Deepwater Mercantile"],
+        "factions": [],
         "summary": "Former noble from Sprig's hometown, now Dock Ward magistrate. Seeks vengeance and holds a hidden fey curse."
     },
     {
@@ -460,13 +471,25 @@
   {
     "id": "golden_night_gala",
     "title": "Golden Night Gala",
-    "summary": "At Merrick Wolfram’s casino, the party uncovered his secret identity as the con artist Jack Rose.",
+    "summary": "At Merrick Wolfram’s casino, the party are introduced to Merrick Wolfram as well as William Zanos over gambling and drinks.",
+    "when": "Late Campaign"
+  },
+  {
+    "id": "jack-rose-revelation",
+    "title": "Jack Rose Revelation",
+    "summary": "After being followed by people working for Merrick Wolfram, the party confronts him, and he revelas he is secretly Jack Rose and being forced to launder money for Kaige Omen.",
     "when": "Late Campaign"
   },
   {
     "id": "moonstone_chalice",
     "title": "Moonstone Chalice Incident",
     "summary": "Kaelen stole the Moonstone Chalice and used it to attempt a necromantic ritual before escaping.",
+    "when": "Late Campaign"
+  },
+  {
+    "id": "urstul-floxin-interrogation",
+    "title": "Ursul Floxin Interrogation",
+    "summary": "Following his arrest, the party question Urstul Floxin about his connections to Kaige Omen and the Zhentarim.",
     "when": "Late Campaign"
   },
   {
@@ -514,7 +537,7 @@
     { "id": "emerald-enclave", "name": "Emerald Enclave", "desc": "Protectors of the natural balance; ally of Mielikki’s faithful in the city." },
     { "id": "zhentarim", "name": "Zhentarim", "desc": "Smuggling and mercenary network at war with the Xanathar Guild." },
     { "id": "xanathar", "name": "Xanathar Guild", "desc": "Criminal empire led by a paranoid beholder; involved in the gang wars." },
-    { "id": "deepwater-mercantile", "name": "Deepwater Mercantile", "desc": "Powerful trade company run by the Hurst family; corrupted by smuggling and political bribes." },
+    { "id": "deepwater-mercantile", "name": "Deepwater Mercantile", "desc": "Powerful trade company run by the Hearst family; corrupted by smuggling and political bribes." },
     { "id": "kaige-omen-network", "name": "Kaige Omen’s Network", "desc": "Cult-like alliance of corrupted officials, necromancers, and monsters working toward Kaige’s destruction of Waterdeep." },
     { "id": "cult-of-orcus", "name": "Cult of Orcus", "desc": "Demonic cult undermining the planar anchors to allow Orcus into the Material Plane." },
     { "id": "fey-coven", "name": "Zafara’s Coven", "desc": "Hag alliance operating in Waterdeep’s outskirts; manipulates fey curses and planar rifts." },
