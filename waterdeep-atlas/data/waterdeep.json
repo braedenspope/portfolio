@@ -346,7 +346,8 @@
         "alignment": "Neutral Evil",
         "status": "alive",
         "factions": ["Malar’s Hunt"],
-        "summary": "Sent by Malar to hunt Xarrai, she performed the Sun Ritual using Selûne’s artifact to walk in daylight."
+        "summary": "Sent by Malar to hunt Xarrai, she performed the Sun Ritual using Selûne’s artifact to walk in daylight.",
+        "revealed": false
     },
     {
         "id": "arthur-morlin",
@@ -355,7 +356,8 @@
         "alignment": "Neutral",
         "status": "alive",
         "factions": [],
-        "summary": "Ancient vampire ruling the city’s undead underworld. Seeks Dhussara’s destruction for trespassing on his territory."
+        "summary": "Ancient vampire ruling the city’s undead underworld. Seeks Dhussara’s destruction for trespassing on his territory.",
+        "revealed": false
     },
     {
         "id": "zaphara",
@@ -364,7 +366,8 @@
         "alignment": "Chaotic Evil",
         "status": "alive",
         "factions": ["Fey Coven", "Kaige Omen Network"],
-        "summary": "Hag responsible for cursing Oberon into a mortal beggar. Provides Kaige with monstrous fey allies."
+        "summary": "Hag responsible for cursing Oberon into a mortal beggar. Provides Kaige with monstrous fey allies.",
+        "revealed": false
     },
     {
         "id": "oberon",
@@ -373,7 +376,8 @@
         "alignment": "Neutral Good",
         "status": "cursed",
         "factions": ["Feywild Court"],
-        "summary": "The archfey Lord of the Hunt, cursed by Zaphara to live as a beggar in Waterdeep, unaware of his true nature."
+        "summary": "The archfey Lord of the Hunt, cursed by Zaphara to live as a beggar in Waterdeep, unaware of his true nature.",
+        "revealed": false
     },
     {
         "id": "thavran",
@@ -400,7 +404,8 @@
         "alignment": "Neutral Evil",
         "status": "at-large",
         "factions": ["The Unseen"],
-        "summary": "Doppelganger crime lord formerly impersonating a Masked Lord. Escaped the party’s exposure and plots revenge."
+        "summary": "Doppelganger crime lord formerly impersonating a Masked Lord. Escaped the party’s exposure and plots revenge.",
+        "revealed": false
     },
     {
         "id": "duncan",
