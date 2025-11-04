@@ -1,7 +1,7 @@
 const DATA_URL = 'data/waterdeep.json';
 
 function npcImageSrc(id) {
-  return `waterdeep-atlas/img/npcs/${id}.jpg`;
+  return `img/npcs/${id}.jpg`;
 }
 
 const grid = document.getElementById('grid');
