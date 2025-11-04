@@ -1,7 +1,7 @@
-const DATA_URL = 'waterdeep-atlas/data/waterdeep.json';
+const DATA_URL = '../data/waterdeep.json';
 
 function npcImageSrc(id) {
-  return `waterdeep-atlas/img/npcs/${id}.jpg`;
+  return `../img/npcs/${id}.jpg`;
 }
 
 const grid = document.getElementById('grid');
@@ -58,7 +58,7 @@ function card(npc) {
   return `
     <div class="card npc-card" data-id="${npc.id}">
       <div class="npc-hero">
-        <img src="${npcImageSrc(npc.id)}" alt="${npc.name}" onerror="this.onerror=null;this.src='./img/npcs/_placeholder.jpg'">
+        <img src="${npcImageSrc(npc.id)}"alt="${npc.name}"onload="fitNPCImage(this)"onerror="this.onerror=null;this.src='./img/npcs/_placeholder.jpg'; fitNPCImage(this)">
       </div>
       <h2>${npc.name}</h2>
       <p class="muted">${npc.role || ''} ${npc.alignment ? '• ' + npc.alignment : ''} ${npc.status ? '• ' + npc.status : ''}</p>
