@@ -33,7 +33,7 @@
           "coords": [0.5596, 0.2812],
           "factions": ["kaige-omen-network", "zhentarim"],
           "npcs": ["jack-rose", "daphne-hearst"],
-          "events": ["golden_night_gala", "jack-rose-revelation"],
+          "events": ["golden_night_gala", "jack-rose-revelation", "jack-rose-fake-death"],
           "status": "abandoned"
         },
         {
@@ -55,7 +55,7 @@
             "coords": [0.5941, 0.1338],
             "factions": ["city-watch"],
             "npcs": ["salazar-dalen", "grand-civilar-stonefist"],
-            "events": [],
+            "events": ["xarrai-confession"],
             "status": "active"
         }
       ]
@@ -106,7 +106,7 @@
           "desc": "Arcane Tower home to the Blackstaff, the prominent magical influence in the city and leader of Force Gray. Main headquarters for the organization.",
           "coords": [0.2776, 0.3919],
           "factions": ["force-gray"],
-          "events": [],
+          "events": ["force-gray recruitment", "salazar-reconnection"],
           "status": "open"
         },
         {
@@ -463,9 +463,27 @@
     "when": "Mid Campaign"
   },
   {
+    "id": "xarra-confession",
+    "title": "Xarrai and Aeren's Confession",
+    "summary": "Xarrai and Aeren admitted they have feelings for each other.",
+    "when": "Mid Campaign"
+  },
+  {
     "id": "feywild_journey",
     "title": "Journey into the Feywild",
     "summary": "The party accidentally crossed into the Feywild and learned Sprig’s father was the archfey Oberon.",
+    "when": "Mid Campaign"
+  },
+  {
+    "id": "force-gray-recruitment",
+    "title": "Force Gray Recruitment",
+    "summary": "The party met with the Blackstaff, Vajra Safahr, and were made probationary members of Force Gray. They were assigned to work with Salazar Dalen.",
+    "when": "Mid Campaign"
+  },
+  {
+    "id": "salazar-reconnection",
+    "title": "Reconnecting with Salazar",
+    "summary": "Following the revelation of Daphne and Damocles' secret identities, the party met with Salazar to fix things and begin to work together.",
     "when": "Mid Campaign"
   },
   {
@@ -478,6 +496,12 @@
     "id": "jack-rose-revelation",
     "title": "Jack Rose Revelation",
     "summary": "After being followed by people working for Merrick Wolfram, the party confronts him, and he revelas he is secretly Jack Rose and being forced to launder money for Kaige Omen.",
+    "when": "Late Campaign"
+  },
+  {
+    "id": "jack-rose-fake-death",
+    "title": "Faking Jack Rose's death",
+    "summary": "With the help of the doppleganger Bonnie, the party faked the death of Merrick Wolfram/Jack Rose, freeing him from Kaige Omen's influence while protecting Rachel Rose.",
     "when": "Late Campaign"
   },
   {
