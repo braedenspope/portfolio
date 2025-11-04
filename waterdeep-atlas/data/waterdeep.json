@@ -221,7 +221,7 @@
         "desc": "Temple to Gond. Source of the nimblewright involved in the Fireball trail. Last known location of the infamous Meepo.",
         "coords": [0.1954, 0.2208],
         "factions": [],
-        "events": ["fireball_incident"],
+        "events": [],
         "status": "open"
         }
       ]
