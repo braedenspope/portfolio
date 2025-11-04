@@ -83,10 +83,6 @@ function card(npc) {
       <p class="muted">${npc.role || ''} ${npc.alignment ? '• ' + npc.alignment : ''} ${npc.status ? '• ' + npc.status : ''}</p>
       ${facs ? `<div class="factions">${facs}</div>` : ''}
       ${npc.summary ? `<p>${npc.summary}</p>` : ''}
-      <div style="display:flex; gap:.5rem; margin-top:.4rem;">
-        <a class="btn" href="./atlas.html?npc=${npc.id}">View on Map</a>
-        <a class="btn" href="#${npc.id}">Link</a>
-      </div>
     </div>
   `;
 }
