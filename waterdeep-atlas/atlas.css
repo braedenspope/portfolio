@@ -92,3 +92,41 @@ blockquote {
 /* optional: stronger panel contrast if needed */
 /* .panel { background: rgba(0,0,0,0.75); } */
 /* #panelContent { color: #f3e7cc; text-shadow: 0 0 4px #000; } */
+
+/* Navigation styling for header button */
+.atlas-header {
+  position: relative;
+  text-align: center;
+  padding: 1rem 0 0.5rem;
+}
+
+.atlas-nav {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+}
+
+.btn.nav-btn {
+  background: rgba(243, 229, 216, 0.1);
+  border: 1px solid #b79b6f;
+  border-radius: 8px;
+  padding: 0.35rem 0.7rem;
+  color: #ffdb99;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.btn.nav-btn:hover {
+  background: rgba(243, 229, 216, 0.25);
+  color: #fff5d7;
+}
+
+.atlas-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: rgba(14, 10, 7, 0.8);
+  backdrop-filter: blur(4px);
+}
+
