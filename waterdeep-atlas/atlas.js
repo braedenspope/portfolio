@@ -10,6 +10,36 @@ const map = L.map('map', {
   wheelPxPerZoomLevel: 80
 });
 
+// Where you'll put images: /waterdeep-atlas/img/npcs/<npc-id>.jpg (or .png)
+// Provide one generic placeholder image named _placeholder.jpg (or .png)
+function npcImageSrc(id) {
+  const base = './img/npcs/';
+  return `${base}${id}.jpg`;
+}
+
+function renderNPC(npc, data) {
+  if (!npc) return '<p>Missing NPC data.</p>';
+  const factions = (npc.factions || []).map(fid => {
+    const f = (data.factions || []).find(ff => ff.id === fid.toLowerCase()) || { name: fid };
+    return `<span class="sigil">${f.name}</span>`;
+  }).join(' ');
+  return `
+    <div class="card npc-card">
+      <div class="npc-hero">
+        <img src="${npcImageSrc(npc.id)}" alt="${npc.name}" onerror="this.onerror=null;this.src='./img/npcs/_placeholder.jpg'">
+      </div>
+      <h2>${npc.name}</h2>
+      <p class="muted">${npc.role || ''} ${npc.alignment ? '• ' + npc.alignment : ''} ${npc.status ? '• ' + npc.status : ''}</p>
+      ${factions ? `<div class="factions">${factions}</div>` : ''}
+      ${npc.summary ? `<p>${npc.summary}</p>` : ''}
+      <div class="npc-actions">
+        <a href="./characters.html#${npc.id}" class="btn">Open in Compendium</a>
+      </div>
+    </div>
+  `;
+}
+
+
 // Load the image to read its actual size
 const img = new Image();
 img.src = MAP_IMG;
@@ -90,6 +120,33 @@ img.onload = () => {
       });
     })
     .catch(err => console.warn(err));
+
+    // Handle clicks on NPC names inside the panel
+    panel.addEventListener('click', (e) => {
+    const btn = e.target.closest('.npc-link');
+    if (!btn) return;
+    const id = btn.getAttribute('data-npc');
+    fetch(DATA_URL).then(r => r.json()).then(data => {
+        const npc = (data.npcs || []).find(n => n.id === id);
+        if (!npc) return;
+        // update URL (optional deep-link)
+        const url = new URL(location.href);
+        url.searchParams.set('npc', id);
+        history.replaceState(null, '', url.toString());
+        openPanel(renderNPC(npc, data));
+    });
+    });
+
+    // Deep-link: if ?npc=<id> is present, open that NPC immediately
+    const urlParams = new URLSearchParams(location.search);
+    const deepNPC = urlParams.get('npc');
+    if (deepNPC) {
+    fetch(DATA_URL).then(r => r.json()).then(data => {
+        const npc = (data.npcs || []).find(n => n.id === deepNPC);
+        if (npc) openPanel(renderNPC(npc, data));
+    });
+    }
+
 };
 
 const panel = document.getElementById('panel');
@@ -114,8 +171,34 @@ function renderLocation(loc, district, data) {
       <h2>${loc.name}</h2>
       <p class="muted">${district.name} • ${loc.type || ''}</p>
       ${loc.desc ? `<p>${loc.desc}</p>` : ''}
-      ${npcs.length ? `<h3>Notables</h3><ul>${npcs.map(n => `<li><strong>${n.name}</strong></li>`).join('')}</ul>` : ''}
-      ${events.length ? `<h3>Recorded Events</h3><ul>${events.map(e => `<li><em>${e.title}</em> — ${e.summary}</li>`).join('')}</ul>` : ''}
+
+      ${npcs.length ? `
+        <h3>Notables</h3>
+        <ul class="npc-list">
+          ${npcs.map(n => `
+            <li>
+              <button class="npc-link" data-npc="${n.id}" title="View ${n.name}">
+                ${n.name}
+              </button>
+            </li>`).join('')}
+        </ul>
+      ` : ''}
+
+      ${events.length ? `
+        <h3>Recorded Events</h3>
+        <ul>${events.map(e => `<li><em>${e.title}</em> — ${e.summary}</li>`).join('')}</ul>
+      ` : ''}
+
+      ${loc.factions?.length ? `
+        <div class="factions">
+          ${loc.factions.map(fid => {
+            const f = (data.factions || []).find(ff => ff.id === fid.toLowerCase());
+            return `<span class="sigil">${(f?.name || fid)}</span>`;
+          }).join('')}
+        </div>
+      ` : ''}
+
     </div>
   `;
 }
+

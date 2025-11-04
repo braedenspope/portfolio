@@ -40,3 +40,46 @@ blockquote {
   font-style: italic;
   opacity: 0.8;
 }
+
+.npc-list { list-style: none; padding-left: 0; }
+.npc-list li { margin: 0.25rem 0; }
+
+.npc-link {
+  background: none;
+  border: none;
+  padding: 0;
+  color: #ffd580;
+  text-decoration: underline;
+  cursor: pointer;
+  font: inherit;
+}
+.npc-link:hover { opacity: 0.85; }
+
+.npc-card .npc-hero {
+  width: 100%;
+  aspect-ratio: 16/9;
+  overflow: hidden;
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
+  background: rgba(0,0,0,0.2);
+}
+.npc-card .npc-hero img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid #b79b6f;
+  border-radius: 6px;
+  background: rgba(243,229,216,0.15);
+  color: #ffdb99;
+  text-decoration: none;
+}
+.btn:hover { background: rgba(243,229,216,0.25); }
+
+/* optional: stronger panel contrast if needed */
+/* .panel { background: rgba(0,0,0,0.75); } */
+/* #panelContent { color: #f3e7cc; text-shadow: 0 0 4px #000; } */
