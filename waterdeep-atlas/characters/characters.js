@@ -10,7 +10,7 @@ window.fitNPCImage = function (img) {
 };
 
 function npcImageSrc(id) {
-  return `./img/npcs/${id}.jpg`;
+  return `./characters/img/npcs/${id}.jpg`;
 }
 
 const grid = document.getElementById('grid');
