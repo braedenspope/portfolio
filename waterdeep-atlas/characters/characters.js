@@ -1,4 +1,4 @@
-const DATA_URL = './data/waterdeep.json';
+const DATA_URL = '../data/waterdeep.json';
 
 function npcImageSrc(id) {
   return `img/npcs/${id}.jpg`;
