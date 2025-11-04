@@ -1,4 +1,4 @@
-const DATA_URL = '../data/waterdeep.json';
+const DATA_URL = './waterdeep-atlas/data/waterdeep.json';
 
 // Automatically adjusts the card box to match the actual image ratio
 window.fitNPCImage = function (img) {
