@@ -1,4 +1,9 @@
 const DATA_URL = '/waterdeep-atlas/data/waterdeep.json';
+const DM_MODE = new URLSearchParams(location.search).get('dm') === '1';
+
+function isRevealed(npc) {
+  return DM_MODE || npc.revealed !== false; // hidden only if explicitly false
+}
 
 // Automatically adjusts the card box to match the actual image ratio
 window.fitNPCImage = function (img) {
@@ -26,7 +31,8 @@ fetch(DATA_URL).then(r => r.json()).then(data => {
 
   // deep-link to npc: /characters.html#<id>
   const hash = location.hash?.slice(1);
-  if (hash) showOne(hash);
+    if (hash && !DM_MODE) history.replaceState(null, '', location.pathname); // strip hidden deep-link in player view
+    if (hash && DM_MODE) showOne(hash);
 });
 
 search.addEventListener('input', () => applyFilters());
@@ -44,11 +50,15 @@ function buildFactionFilter(factions) {
 function applyFilters() {
   const q = (search.value || '').toLowerCase().trim();
   const fac = factionSel.value;
-  const list = (DATA.npcs || []).filter(n => {
-    const nameHit = !q || (n.name?.toLowerCase().includes(q) || n.summary?.toLowerCase().includes(q));
-    const facHit = !fac || (n.factions || []).map(x => x.toLowerCase()).includes(fac.toLowerCase());
-    return nameHit && facHit;
-  });
+
+  const list = (DATA.npcs || [])
+    .filter(isRevealed) // <- hide unrevealed by default
+    .filter(n => {
+      const nameHit = !q || (n.name?.toLowerCase().includes(q) || n.summary?.toLowerCase().includes(q));
+      const facHit  = !fac || (n.factions || []).map(x => x.toLowerCase()).includes(fac.toLowerCase());
+      return nameHit && facHit;
+    });
+
   render(list);
 }
 

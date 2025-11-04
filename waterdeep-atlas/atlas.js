@@ -10,6 +10,10 @@ const map = L.map('map', {
   wheelPxPerZoomLevel: 80
 });
 
+const DM_MODE = new URLSearchParams(location.search).get('dm') === '1';
+function isRevealed(npc) { return DM_MODE || npc.revealed !== false; }
+
+
 // Where you'll put images: /waterdeep-atlas/img/npcs/<npc-id>.jpg (or .png)
 // Provide one generic placeholder image named _placeholder.jpg (or .png)
 function npcImageSrc(id) {
@@ -159,7 +163,8 @@ function openPanel(html) {
 function renderLocation(loc, district, data) {
   const npcs = (loc.npcs || [])
     .map(id => data.npcs.find(n => n.id.toLowerCase() === id.toLowerCase()))
-    .filter(Boolean);
+    .filter(Boolean)
+    .filter(isRevealed);
   const events = (loc.events || [])
     .map(id => data.events.find(e => e.id === id))
     .filter(Boolean);
