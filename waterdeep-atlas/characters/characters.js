@@ -27,7 +27,7 @@ let DATA = { npcs: [], factions: [] };
 fetch(DATA_URL).then(r => r.json()).then(data => {
   DATA = data;
   buildFactionFilter(data.factions || []);
-  render(data.npcs || []);
+  applyFilters();
 
   // deep-link to npc: /characters.html#<id>
   const hash = location.hash?.slice(1);
@@ -93,7 +93,6 @@ function card(npc) {
 
 function showOne(id) {
   const npc = (DATA.npcs || []).find(n => n.id === id);
-  if (!npc) return;
-  // Single view mode: only render this NPC (you can turn this into a modal later)
+  if (!npc || (!DM_MODE && npc.revealed === false)) return;  // block in player view
   grid.innerHTML = card(npc);
 }
