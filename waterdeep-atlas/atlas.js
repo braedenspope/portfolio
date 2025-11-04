@@ -13,8 +13,7 @@ const map = L.map('map', {
 // Where you'll put images: /waterdeep-atlas/img/npcs/<npc-id>.jpg (or .png)
 // Provide one generic placeholder image named _placeholder.jpg (or .png)
 function npcImageSrc(id) {
-  const base = 'waterdeep-atlas/img/npcs/';
-  return `${base}${id}.jpg`;
+  return `./img/npcs/${id}.jpg`;
 }
 
 function renderNPC(npc, data) {
@@ -26,15 +25,14 @@ function renderNPC(npc, data) {
   return `
     <div class="card npc-card">
       <div class="npc-hero">
-        <img src="${npcImageSrc(npc.id)}" alt="${npc.name}" onerror="this.onerror=null;this.src='./img/npcs/_placeholder.jpg'">
+        <img src="${npcImageSrc(npc.id)}" alt="${npc.name}"onerror="this.onerror=null;this.src='./img/npcs/_placeholder.jpg'">
       </div>
       <h2>${npc.name}</h2>
       <p class="muted">${npc.role || ''} ${npc.alignment ? '• ' + npc.alignment : ''} ${npc.status ? '• ' + npc.status : ''}</p>
       ${factions ? `<div class="factions">${factions}</div>` : ''}
       ${npc.summary ? `<p>${npc.summary}</p>` : ''}
       <div class="npc-actions">
-        <a href="./characters.html#${npc.id}" class="btn">Open in Compendium</a>
-      </div>
+      <a href="./characters/#${npc.id}" class="btn">Open in Compendium</a>      </div>
     </div>
   `;
 }
