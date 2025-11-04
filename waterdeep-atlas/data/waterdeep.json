@@ -265,7 +265,8 @@
         "alignment": "Chaotic Evil",
         "status": "alive",
         "factions": ["Kaige Omen Network"],
-        "summary": "Fallen wizard is determined to destroy Waterdeep for its corruption. Master manipulator of factions."
+        "summary": "Fallen wizard is determined to destroy Waterdeep for its corruption. Master manipulator of factions.",
+        "revealed": true
     },
     {
         "id": "damocles",
@@ -274,7 +275,8 @@
         "alignment": "Lawful Neutral",
         "status": "alive",
         "factions": ["Raven Queen", "Burning Pumpkin"],
-        "summary": "Once a man of faith, now the Raven Queen’s marked servant. Haunted by his past and guided by divine visions."
+        "summary": "Once a man of faith, now the Raven Queen’s marked servant. Haunted by his past and guided by divine visions.",
+        "revealed": true
     },
     {
         "id": "xarrai",
@@ -283,7 +285,8 @@
         "alignment": "Neutral Good",
         "status": "alive",
         "factions": ["Emerald Enclave", "Burning Pumpkin"],
-        "summary": "Blessed vessel of Mielikki, hunted by Malar’s vampire huntmistress. Embodies the balance between nature and civilization."
+        "summary": "Blessed vessel of Mielikki, hunted by Malar’s vampire huntmistress. Embodies the balance between nature and civilization.",
+        "revealed": true
     },
     {
         "id": "daphne-hearst",
@@ -292,7 +295,8 @@
         "alignment": "Chaotic Neutral",
         "status": "alive",
         "factions": ["Burning Pumpkin", "Deepwater Mercantile (former)"],
-        "summary": "Runaway noble seeking to dismantle her family’s corrupt trade empire with the help of the Burning Pumpkin crew."
+        "summary": "Runaway noble seeking to dismantle her family’s corrupt trade empire with the help of the Burning Pumpkin crew.",
+        "revealed": true
     },
     {
         "id": "salazar-dalen",
@@ -301,7 +305,8 @@
         "alignment": "Lawful Neutral",
         "status": "alive",
         "factions": ["Force Gray"],
-        "summary": "Waterdeep’s top marksman. Family man and loyal ally, whose devotion to the city will be tested when Kaige threatens his loved ones."
+        "summary": "Waterdeep’s top marksman. Family man and loyal ally, whose devotion to the city will be tested when Kaige threatens his loved ones.",
+        "revealed": true
     },
     {
         "id": "grand-civilar-stonefist",
@@ -310,7 +315,8 @@
         "alignment": "Lawful Good",
         "status": "alive",
         "factions": ["City Watch"],
-        "summary": "Military leader and former mentor to Damocles. Dedicated to purging corruption from within the Watch."
+        "summary": "Military leader and former mentor to Damocles. Dedicated to purging corruption from within the Watch.",
+        "revealed": true
     },
     {
         "id": "aeren-maverick",
@@ -319,7 +325,8 @@
         "alignment": "Lawful Good",
         "status": "alive",
         "factions": ["City Watch"],
-        "summary": "Young, idealistic captain whose promotion was made possible by the party’s exposure of corruption. Close relationship to Xarrai."
+        "summary": "Young, idealistic captain whose promotion was made possible by the party’s exposure of corruption. Close relationship to Xarrai.",
+        "revealed": true
     },
     {
         "id": "vaelen-halosyne",
@@ -328,7 +335,8 @@
         "alignment": "Lawful Good",
         "status": "alive",
         "factions": ["Halls of Justice", "City Watch"],
-        "summary": "Twin brother to Kaelen Halosyne. Sworn to bring his fallen brother to justice after their mother’s murder."
+        "summary": "Twin brother to Kaelen Halosyne. Sworn to bring his fallen brother to justice after their mother’s murder.",
+        "revealed": true
     },
     {
         "id": "kaelen-halosyne",
@@ -337,7 +345,8 @@
         "alignment": "Lawful Evil",
         "status": "at-large",
         "factions": ["Kaige Omen Network"],
-        "summary": "Vaelen’s twin and murderer of their mother. Obsessed with immortality; worked with Kaige."
+        "summary": "Vaelen’s twin and murderer of their mother. Obsessed with immortality; worked with Kaige.",
+        "revealed": true
     },
     {
         "id": "dhussara-el-abhuk",
@@ -386,7 +395,8 @@
         "alignment": "Lawful Evil",
         "status": "alive",
         "factions": [],
-        "summary": "Former noble from Sprig's hometown, now Dock Ward magistrate. Seeks vengeance and holds a hidden fey curse."
+        "summary": "Former noble from Sprig's hometown, now Dock Ward magistrate. Seeks vengeance and holds a hidden fey curse.",
+        "revealed": true
     },
     {
         "id": "bonnie",
@@ -395,7 +405,8 @@
         "alignment": "Neutral Good",
         "status": "alive",
         "factions": ["Harpers"],
-        "summary": "Reformed doppelganger who aided the party against the Unseen. Hiding from her former master Hlaavin."
+        "summary": "Reformed doppelganger who aided the party against the Unseen.",
+        "revealed": true
     },
     {
         "id": "hlaavin",
@@ -414,7 +425,8 @@
         "alignment": "Neutral",
         "status": "alive",
         "factions": ["Zhentarim (debtor)"],
-        "summary": "Once Damocles’ ally, now entangled in Zhentarim debts. His loyalty is uncertain."
+        "summary": "Once Damocles’ ally, now entangled in Zhentarim debts. His loyalty is uncertain.",
+        "revealed": true
     },
     {
         "id": "jack-rose",
@@ -423,7 +435,8 @@
         "alignment": "Chaotic Neutral",
         "status": "presumed-dead",
         "factions": ["Kaige Omen Network"],
-        "summary": "Infamous conman forced to aid Kaige’s schemes. Father to Rachel Rose."
+        "summary": "Infamous conman forced to aid Kaige’s schemes. Father to Rachel Rose.",
+        "revealed": true
     },
     {
         "id": "rachel-rose",
@@ -432,7 +445,8 @@
         "alignment": "Neutral Good",
         "status": "alive",
         "factions": ["Harpers"],
-        "summary": "Head Harper in the city of Waterdeep. Daughter of the infamous Jack Rose."
+        "summary": "Head Harper in the city of Waterdeep. Daughter of the infamous Jack Rose.",
+        "revealed": true
     }
     ],
 
