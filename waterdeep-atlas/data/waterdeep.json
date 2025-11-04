@@ -106,7 +106,7 @@
           "desc": "Arcane Tower home to the Blackstaff, the prominent magical influence in the city and leader of Force Gray. Main headquarters for the organization.",
           "coords": [0.2776, 0.3919],
           "factions": ["force-gray"],
-          "events": ["force-gray recruitment", "salazar-reconnection"],
+          "events": ["force-gray-recruitment", "salazar-reconnection"],
           "status": "open"
         },
         {
