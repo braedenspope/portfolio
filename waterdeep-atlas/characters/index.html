@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Waterdeep Compendium — Characters</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="./atlas.css" />
+  <style>
+    .comp-wrap { max-width: 1100px; margin: 0 auto; padding: 1rem; }
+    .toolbar { display: flex; gap: .5rem; flex-wrap: wrap; margin-bottom: .75rem; }
+    .toolbar input, .toolbar select { padding: .4rem .5rem; border-radius: 6px; border: 1px solid #6f573f; background: rgba(0,0,0,0.3); color: #f3e7cc; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 0.75rem; }
+    .card.npc-card { cursor: pointer; transition: transform .12s ease; }
+    .card.npc-card:hover { transform: translateY(-2px); }
+    .crumbs { margin: .5rem 0 1rem; opacity: .75; }
+  </style>
+</head>
+<body>
+  <header class="atlas-header">
+    <h1 class="title">Waterdeep Compendium</h1>
+    <span class="subtitle">Characters & Allegiances</span>
+  </header>
+
+  <main class="comp-wrap">
+    <div class="crumbs"><a class="btn" href="./atlas.html">← Back to Map</a></div>
+    <div class="toolbar">
+      <input id="search" placeholder="Search characters..." />
+      <select id="faction">
+        <option value="">All factions</option>
+      </select>
+    </div>
+    <div id="grid" class="grid"></div>
+  </main>
+
+  <script type="module" src="./characters.js"></script>
+</body>
+</html>
