@@ -64,9 +64,6 @@ function applyFilters() {
 
 function render(list) {
   grid.innerHTML = list.map(npc => card(npc)).join('');
-//   grid.querySelectorAll('.npc-card').forEach(cardEl => {
-//     cardEl.addEventListener('click', () => showOne(cardEl.dataset.id));
-//   });
 }
 
 function card(npc) {
