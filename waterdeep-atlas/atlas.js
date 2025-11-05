@@ -35,8 +35,6 @@ function renderNPC(npc, data) {
       <p class="muted">${npc.role || ''} ${npc.alignment ? '• ' + npc.alignment : ''} ${npc.status ? '• ' + npc.status : ''}</p>
       ${factions ? `<div class="factions">${factions}</div>` : ''}
       ${npc.summary ? `<p>${npc.summary}</p>` : ''}
-      <div class="npc-actions">
-      <a href="./characters/#${npc.id}" class="btn">Open in Compendium</a>      </div>
     </div>
   `;
 }
