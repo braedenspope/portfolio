@@ -1,5 +1,5 @@
-const MAP_IMG = './img/waterdeep-map.jpg';
-const DATA_URL = './data/waterdeep.json';
+const MAP_IMG = '/waterdeep-atlas/img/waterdeep-map.jpg';
+const DATA_URL = '/waterdeep-atlas/data/waterdeep.json';
 
 const map = L.map('map', {
   crs: L.CRS.Simple,
@@ -17,7 +17,7 @@ function isRevealed(npc) { return DM_MODE || npc.revealed !== false; }
 // Where you'll put images: /waterdeep-atlas/img/npcs/<npc-id>.jpg (or .png)
 // Provide one generic placeholder image named _placeholder.jpg (or .png)
 function npcImageSrc(id) {
-  return `./characters/img/npcs/${id}.jpg`;
+  return `/waterdeep-atlas/characters/img/npcs/${id}.jpg`;
 }
 
 function renderNPC(npc, data) {

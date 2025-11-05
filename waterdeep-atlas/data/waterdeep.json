@@ -265,7 +265,7 @@
         "alignment": "Lawful Neutral",
         "status": "alive",
         "factions": ["Raven Queen", "Burning Pumpkin"],
-        "summary": "Once a man of faith, now the Raven Queen’s marked servant. Haunted by his past and guided by divine visions.",
+        "summary": "Once a man of duty, now the Raven Queen’s marked servant. Haunted by his past and guided by divine visions.",
         "revealed": true
     },
     {
@@ -305,7 +305,7 @@
         "alignment": "Chaotic Neutral",
         "status": "alive",
         "factions": ["City Watch"],
-        "summary": "Noble from a far-away name that has come to Waterdeep in search of his missing brother. Lover of Woman.",
+        "summary": "Noble from a far-away name that has come to Waterdeep in search of his missing brother. Lover of Women.",
         "revealed": true
     },
     {
@@ -315,7 +315,7 @@
         "alignment": "Chaotic Good",
         "status": "missing",
         "factions": [],
-        "summary": "Elven archer with archfey blood coursing through his veins. Bears a similar resemeblence to his father the archfey Oberon.",
+        "summary": "Elven archer with archfey blood coursing through his veins. Bears a unmistakable resemeblence to his father the archfey Oberon.",
         "revealed": true
     },
     {

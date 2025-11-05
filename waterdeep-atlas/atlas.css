@@ -130,3 +130,38 @@ blockquote {
   backdrop-filter: blur(4px);
 }
 
+/* Desktop header button stays as-is */
+.atlas-nav { position: absolute; right: 1rem; top: 1rem; }
+
+/* Mobile FAB: hidden on desktop by default */
+.fab-compendium {
+  position: fixed;
+  right: calc(14px + env(safe-area-inset-right));
+  bottom: calc(14px + env(safe-area-inset-bottom));
+  z-index: 1100;
+  display: none;               /* show only on small screens */
+  padding: 0.8rem 1rem;
+  border-radius: 9999px;
+  border: 1px solid #b79b6f;
+  background: rgba(243,229,216,0.14);
+  color: #ffdb99;
+  text-decoration: none;
+  font-weight: 600;
+  backdrop-filter: blur(4px);
+  box-shadow: 0 10px 24px rgba(0,0,0,.35);
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Touch target >=44px high, hover/active */
+.fab-compendium:after { content: ""; display: block; height: 0; }
+.fab-compendium:hover { background: rgba(243,229,216,0.24); color: #fff5d7; }
+.fab-compendium:active { transform: translateY(1px); }
+
+/* Responsive behavior */
+@media (max-width: 768px) {
+  .atlas-nav { display: none; }      /* hide header button on phones */
+  .fab-compendium { display: inline-flex; align-items: center; }
+}
+
+/* Keep Leaflet UI unobstructed */
+.leaflet-control { z-index: 1200; }   /* zoom stays tappable */
