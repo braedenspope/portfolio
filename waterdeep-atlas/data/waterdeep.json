@@ -619,13 +619,23 @@
         "revealed": true
     },
     {
-        "id": "Nadia Darton",
+        "id": "nadia-darton",
         "name": "Nadia Darton",
         "role": "Former Hearst Family Maid",
-        "alignment": "CHaotic Good",
+        "alignment": "Chaotic Good",
         "status": "alive",
         "factions": ["Deepwater Mercantile (former)"],
         "summary": "Close friend of Daphne. Working to take down Deepwater Mercantile.",
+        "revealed": true
+    },
+    {
+        "id": "nuala-dalen",
+        "name": "Nuala Dalen",
+        "role": "Former City Watch",
+        "alignment": "Chaotic Good",
+        "status": "alive",
+        "factions": ["City Watch"],
+        "summary": "Wife of Salazar Dalen and mother of two.",
         "revealed": true
     },
     {
@@ -639,8 +649,8 @@
         "revealed": true
     },
     {
-        "id": "renear-neverember",
-        "name": "Renear Neverember",
+        "id": "renaer-neverember",
+        "name": "Renaer Neverember",
         "role": "Noble",
         "alignment": "Lawful Good",
         "status": "alive",
