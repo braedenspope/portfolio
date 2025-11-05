@@ -351,7 +351,7 @@
     {
         "id": "aeren-maverick",
         "name": "Captain Aeren Maverick",
-        "role": "Captain of the North Ward Watch",
+        "role": "Captain of the North Ward ",
         "alignment": "Lawful Good",
         "status": "alive",
         "factions": ["City Watch"],
@@ -366,6 +366,36 @@
         "status": "alive",
         "factions": ["City Watch"],
         "summary": "No-nonsense Warden of the Accounting House. Works closely with Daphne in taking down Deepwater Mercantile.",
+        "revealed": true
+    },
+    {
+        "id": "captain-staget",
+        "name": "Captain Staget",
+        "role": "Captain of the Dock Ward",
+        "alignment": "Lawful Neutral",
+        "status": "alive",
+        "factions": ["City Watch"],
+        "summary": "Cynical captain of the dock ward. Works to keep the streets clean, but doesn't care what happens out of sight.",
+        "revealed": true
+    },
+    {
+        "id": "captain-taenfeather",
+        "name": "Captain Taenfeather",
+        "role": "Captain of the Southern Ward",
+        "alignment": "Lawful Neutral",
+        "status": "alive",
+        "factions": ["City Watch"],
+        "summary": "Positive captain of the southern ward watch.",
+        "revealed": true
+    },
+    {
+        "id": "captain-zelmazzar",
+        "name": "Captain Zelmazzar",
+        "role": "Captain of the Trades Ward",
+        "alignment": "Lawful Evil",
+        "status": "dead",
+        "factions": ["City Watch"],
+        "summary": "Corrupt captain of the trades ward. Worked with the Zhentarim and Deepwater Mercantile to extort many of the businesses of his ward. Killed by Sprig.",
         "revealed": true
     },
     {
@@ -496,6 +526,216 @@
         "status": "alive",
         "factions": ["Emerald Enclave"],
         "summary": "Eccentric druid and contact for the party with the Emerald Enclave. Known to sleep in trees.",
+        "revealed": true
+    },
+    {
+        "id": "briosar-helmsing",
+        "name": "Briosar Helmsing",
+        "role": "High Priest of Mielikki",
+        "alignment": "Neutral Good",
+        "status": "dead",
+        "factions": ["Emerald Enclave"],
+        "summary": "Spiritual leader of the followers of Mielikki in Waterdeep. Advisor to Xarrai in her role as Chosen of Mielikki.",
+        "revealed": true
+    },
+    {
+        "id": "anarakin-iriboar",
+        "name": "Anarakin Iriboar",
+        "role": "High Priest of Silvanus",
+        "alignment": "Neutral Good",
+        "status": "dead",
+        "factions": ["Emerald Enclave"],
+        "summary": "Spiritual leader of the followers of Silvanus in Waterdeep. Killed in defending the Shrines of Nature against Malarites.",
+        "revealed": true
+    },
+    {
+        "id": "bartholomew",
+        "name": "Bartholomew",
+        "role": "Feyphant",
+        "alignment": "Chaotic Good",
+        "status": "alive",
+        "factions": ["Feywild Court"],
+        "summary": "Absent-minded creature of the feywild. Happy to be anywhere, even if he doesn't know where he is.",
+        "revealed": true
+    },
+    {
+        "id": "belvarra-bowmantle",
+        "name": "Belvarra Bowmantle",
+        "role": "High Cultist of Orcus",
+        "alignment": "Neutral Evil",
+        "status": "alive",
+        "factions": ["Cult of Orcus"],
+        "summary": "Devoted follower of the cult of Orcus. Took part in the plot to murder all the masked lords and place Braethan Cazondur in charge, until she betrayed him.",
+        "revealed": true
+    },
+    {
+        "id": "braethan-cazondur",
+        "name": "Braethan Cazondur",
+        "role": "Investor and Masked Lord",
+        "alignment": "Lawful Evil",
+        "status": "dead",
+        "factions": ["Masked Lords"],
+        "summary": "Ambitious noble determined to claim power over the city of waterdeep. Assisted by Belvarra, Kaige, and Suthool, but ultimately betrayed and killed by Suthool.",
+        "revealed": true
+    },
+    {
+        "id": "elonzo-hearst",
+        "name": "Elonzo Hearst",
+        "role": "Cocky Noble",
+        "alignment": "Lawful Evil",
+        "status": "alive",
+        "factions": ["Deepwater Mercantile"],
+        "summary": "Spoiled noble of the Hearst family, help runs the legal and illegal aspects of the shipping business.",
+        "revealed": true
+    },
+    {
+        "id": "floon-blagmaar",
+        "name": "Floon Blagmaar",
+        "role": "Drunk Commoner",
+        "alignment": "Neutral",
+        "status": "alive",
+        "factions": [],
+        "summary": "Frequently intoxicated commoner who was mistakenly kidnapped by the Xanathar Guild, then rescued by the party. Friend of Renear and Volo.",
+        "revealed": true
+    },
+    {
+        "id": "jhoadil-zulthind",
+        "name": "Jhoadil Zulthind",
+        "role": "High Seeker of Gond",
+        "alignment": "Lawful Neutral",
+        "status": "alive",
+        "factions": ["House of Inspired Hands"],
+        "summary": "Leader of the followers of Gond and the House of Inspired Hands. Opposed to the rising Automationist movement within the temple.",
+        "revealed": true
+    },
+    {
+        "id": "laeral-silverhand",
+        "name": "Laeral Silverhand",
+        "role": "Open Lord of Waterdeep",
+        "alignment": "Lawful Good",
+        "status": "alive",
+        "factions": ["Masked Lords"],
+        "summary": "Fair minded political leader of the city. Put in place following the ousting of Dagult Neverember for embezzlement.",
+        "revealed": true
+    },
+    {
+        "id": "Nadia Darton",
+        "name": "Nadia Darton",
+        "role": "Former Hearst Family Maid",
+        "alignment": "CHaotic Good",
+        "status": "alive",
+        "factions": ["Deepwater Mercantile (former)"],
+        "summary": "Close friend of Daphne. Working to take down Deepwater Mercantile.",
+        "revealed": true
+    },
+    {
+        "id": "quill",
+        "name": "The Quill",
+        "role": "Infamous Information Broker",
+        "alignment": "Neutral",
+        "status": "alive",
+        "factions": ["Deepwater Mercantile (former)", "Harpers"],
+        "summary": "Information broker with contacts throughout the city. Secretly the presumed-dead Celene Hearst, working to take down Deepwater Mercantile and her family.",
+        "revealed": true
+    },
+    {
+        "id": "renear-neverember",
+        "name": "Renear Neverember",
+        "role": "Noble",
+        "alignment": "Lawful Good",
+        "status": "alive",
+        "factions": [],
+        "summary": "Estranged son of the former Open Lord of Waterdeep.",
+        "revealed": true
+    },
+    {
+        "id": "soul-keeper",
+        "name": "Soul Keeper",
+        "role": "Member of Raven Queen's Court",
+        "alignment": "Neutral",
+        "status": "alive",
+        "factions": ["Raven Queen"],
+        "summary": "Mysterious guardian of the planar anchor to the Shadowfell.",
+        "revealed": true
+    },
+    {
+        "id": "tellgor-cogswrench",
+        "name": "Tellgor Cogswrench",
+        "role": "Follower of Gond",
+        "alignment": "Lawful Good",
+        "status": "alive",
+        "factions": ["House of Inspired Hands"],
+        "summary": "Mute craftsman and tinkerer. Friend of the missing Meepo.",
+        "revealed": true
+    },
+    {
+        "id": "thorn",
+        "name": "Thorn",
+        "role": "Talented Assassin",
+        "alignment": "Chaotic Neutral",
+        "status": "alive",
+        "factions": [],
+        "summary": "Skilled assassin and Daphne's mentor. Desires to take over the Deepwater Mercatile illegal business.",
+        "revealed": true
+    },
+    {
+        "id": "urstul-floxin",
+        "name": "Urstul Floxin",
+        "role": "Zhentarim Agent",
+        "alignment": "Neutral Evil",
+        "status": "imprisoned",
+        "factions": ["Zhentarim", "Kaige Omen Network"],
+        "summary": "Zhentarim double agent for Kaige Omen, working to keep the Zhentarim and Xanathar gangs at war. Face burnt in a fireball outside the party's tavern.",
+        "revealed": true
+    },
+    {
+        "id": "vajra-safahr",
+        "name": "Vajra Safahr",
+        "role": "Blackstaff of Force Gray",
+        "alignment": "Neutral Good",
+        "status": "alive",
+        "factions": ["Force Gray"],
+        "summary": "Leader of Force Gray, and wielder of the Blackstaff.",
+        "revealed": true
+    },
+    {
+        "id": "volo",
+        "name": "Volothamp Geddark",
+        "role": "Infamous Writer",
+        "alignment": "Neutral",
+        "status": "alive",
+        "factions": [],
+        "summary": "Pround writer and documenter of all things magical and profitable. Gave the party the Trollskull Manor property for rescuing Floon.",
+        "revealed": true
+    },
+    {
+        "id": "winters-herald",
+        "name": "Winter's Herald",
+        "role": "Member of Raven Queen's Court",
+        "alignment": "Neutral",
+        "status": "alive",
+        "factions": ["Raven Queen"],
+        "summary": "Manifestion of the Queen's dominion over winter. Tested Damocles and the party in the first of the Raven Queen's trials through combat.",
+        "revealed": true
+    },
+    {
+        "id": "yagra-stonefist",
+        "name": "Yagra Stonefist",
+        "role": "Xanathar Agent",
+        "alignment": "Chaotic Neutral",
+        "status": "alive",
+        "factions": ["Xanathar Guild"],
+        "summary": "Member of the Xanathar Guild.",
+        "revealed": true
+    },
+    {
+        "id": "zardoz-zord",
+        "name": "Zardoz Zord",
+        "role": "Captain of the Sea Maiden's Faire",
+        "alignment": "Neutral",
+        "status": "imprisoned",
+        "factions": ["Sea Maiden's Faire"],
+        "summary": "Flamboyant captain and enjoyer of all things. Always looking for a good time or investment.",
         "revealed": true
     }
     ],
