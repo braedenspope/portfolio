@@ -339,6 +339,26 @@
         "revealed": true
     },
     {
+        "id": "nuala-dalen",
+        "name": "Nuala Dalen",
+        "role": "Former City Watch",
+        "alignment": "Chaotic Good",
+        "status": "alive",
+        "factions": ["City Watch"],
+        "summary": "Wife of Salazar Dalen and mother of two.",
+        "revealed": true
+    },
+    {
+        "id": "vajra-safahr",
+        "name": "Vajra Safahr",
+        "role": "Blackstaff of Force Gray",
+        "alignment": "Neutral Good",
+        "status": "alive",
+        "factions": ["Force Gray"],
+        "summary": "Leader of Force Gray, and wielder of the Blackstaff.",
+        "revealed": true
+    },
+    {
         "id": "grand-civilar-stonefist",
         "name": "Grand Civilar Stonefist",
         "role": "Commander of the City Watch",
@@ -399,6 +419,16 @@
         "revealed": true
     },
     {
+        "id": "duncan",
+        "name": "Duncan",
+        "role": "Former Companion of Damocles",
+        "alignment": "Neutral",
+        "status": "alive",
+        "factions": ["Zhentarim (debtor)"],
+        "summary": "Once Damocles’ ally, now entangled in Zhentarim debts. His loyalty is uncertain.",
+        "revealed": true
+    },
+    {
         "id": "kaige-omen",
         "name": "Kaige Omen",
         "role": "Main Antagonist",
@@ -416,6 +446,46 @@
         "status": "at-large",
         "factions": ["Kaige Omen Network"],
         "summary": "Vaelen’s twin and murderer of their mother. Obsessed with immortality; worked with Kaige.",
+        "revealed": true
+    },
+    {
+        "id": "urstul-floxin",
+        "name": "Urstul Floxin",
+        "role": "Zhentarim Agent",
+        "alignment": "Neutral Evil",
+        "status": "imprisoned",
+        "factions": ["Zhentarim", "Kaige Omen Network"],
+        "summary": "Zhentarim double agent for Kaige Omen, working to keep the Zhentarim and Xanathar gangs at war. Face burnt in a fireball outside the party's tavern.",
+        "revealed": true
+    },
+    {
+        "id": "belvarra-bowmantle",
+        "name": "Belvarra Bowmantle",
+        "role": "High Cultist of Orcus",
+        "alignment": "Neutral Evil",
+        "status": "alive",
+        "factions": ["Cult of Orcus"],
+        "summary": "Devoted follower of the cult of Orcus. Took part in the plot to murder all the masked lords and place Braethan Cazondur in charge, until she betrayed him.",
+        "revealed": true
+    },
+    {
+        "id": "braethan-cazondur",
+        "name": "Braethan Cazondur",
+        "role": "Investor and Masked Lord",
+        "alignment": "Lawful Evil",
+        "status": "dead",
+        "factions": ["Masked Lords"],
+        "summary": "Ambitious noble determined to claim power over the city of waterdeep. Assisted by Belvarra, Kaige, and Suthool, but ultimately betrayed and killed by Suthool.",
+        "revealed": true
+    },
+    {
+        "id": "laeral-silverhand",
+        "name": "Laeral Silverhand",
+        "role": "Open Lord of Waterdeep",
+        "alignment": "Lawful Good",
+        "status": "alive",
+        "factions": ["Masked Lords"],
+        "summary": "Fair minded political leader of the city. Put in place following the ousting of Dagult Neverember for embezzlement.",
         "revealed": true
     },
     {
@@ -469,6 +539,16 @@
         "revealed": true
     },
     {
+        "id": "bartholomew",
+        "name": "Bartholomew",
+        "role": "Feyphant",
+        "alignment": "Chaotic Good",
+        "status": "alive",
+        "factions": ["Feywild Court"],
+        "summary": "Absent-minded creature of the feywild. Happy to be anywhere, even if he doesn't know where he is.",
+        "revealed": true
+    },
+    {
         "id": "bonnie",
         "name": "Bonnie the Doppelganger",
         "role": "Former Spy / Ally",
@@ -487,16 +567,6 @@
         "factions": ["The Unseen"],
         "summary": "Doppelganger crime lord formerly impersonating a Masked Lord. Escaped the party’s exposure and plots revenge.",
         "revealed": false
-    },
-    {
-        "id": "duncan",
-        "name": "Duncan",
-        "role": "Former Companion of Damocles",
-        "alignment": "Neutral",
-        "status": "alive",
-        "factions": ["Zhentarim (debtor)"],
-        "summary": "Once Damocles’ ally, now entangled in Zhentarim debts. His loyalty is uncertain.",
-        "revealed": true
     },
     {
         "id": "jack-rose",
@@ -549,33 +619,13 @@
         "revealed": true
     },
     {
-        "id": "bartholomew",
-        "name": "Bartholomew",
-        "role": "Feyphant",
+        "id": "naneatha-suaril",
+        "name": "Naneatha Suaril",
+        "role": "High Priestess of Selune",
         "alignment": "Chaotic Good",
         "status": "alive",
-        "factions": ["Feywild Court"],
-        "summary": "Absent-minded creature of the feywild. Happy to be anywhere, even if he doesn't know where he is.",
-        "revealed": true
-    },
-    {
-        "id": "belvarra-bowmantle",
-        "name": "Belvarra Bowmantle",
-        "role": "High Cultist of Orcus",
-        "alignment": "Neutral Evil",
-        "status": "alive",
-        "factions": ["Cult of Orcus"],
-        "summary": "Devoted follower of the cult of Orcus. Took part in the plot to murder all the masked lords and place Braethan Cazondur in charge, until she betrayed him.",
-        "revealed": true
-    },
-    {
-        "id": "braethan-cazondur",
-        "name": "Braethan Cazondur",
-        "role": "Investor and Masked Lord",
-        "alignment": "Lawful Evil",
-        "status": "dead",
-        "factions": ["Masked Lords"],
-        "summary": "Ambitious noble determined to claim power over the city of waterdeep. Assisted by Belvarra, Kaige, and Suthool, but ultimately betrayed and killed by Suthool.",
+        "factions": ["Selune"],
+        "summary": "Spiritual leader of the followers of Selune. Requested the party's help in recovering the Wand of Four Moons",
         "revealed": true
     },
     {
@@ -589,33 +639,13 @@
         "revealed": true
     },
     {
-        "id": "floon-blagmaar",
-        "name": "Floon Blagmaar",
-        "role": "Drunk Commoner",
+        "id": "quill",
+        "name": "The Quill",
+        "role": "Infamous Information Broker",
         "alignment": "Neutral",
         "status": "alive",
-        "factions": [],
-        "summary": "Frequently intoxicated commoner who was mistakenly kidnapped by the Xanathar Guild, then rescued by the party. Friend of Renear and Volo.",
-        "revealed": true
-    },
-    {
-        "id": "jhoadil-zulthind",
-        "name": "Jhoadil Zulthind",
-        "role": "High Seeker of Gond",
-        "alignment": "Lawful Neutral",
-        "status": "alive",
-        "factions": ["House of Inspired Hands"],
-        "summary": "Leader of the followers of Gond and the House of Inspired Hands. Opposed to the rising Automationist movement within the temple.",
-        "revealed": true
-    },
-    {
-        "id": "laeral-silverhand",
-        "name": "Laeral Silverhand",
-        "role": "Open Lord of Waterdeep",
-        "alignment": "Lawful Good",
-        "status": "alive",
-        "factions": ["Masked Lords"],
-        "summary": "Fair minded political leader of the city. Put in place following the ousting of Dagult Neverember for embezzlement.",
+        "factions": ["Deepwater Mercantile (former)", "Harpers"],
+        "summary": "Information broker with contacts throughout the city. Secretly the presumed-dead Celene Hearst, working to take down Deepwater Mercantile and her family.",
         "revealed": true
     },
     {
@@ -629,43 +659,23 @@
         "revealed": true
     },
     {
-        "id": "nuala-dalen",
-        "name": "Nuala Dalen",
-        "role": "Former City Watch",
-        "alignment": "Chaotic Good",
-        "status": "alive",
-        "factions": ["City Watch"],
-        "summary": "Wife of Salazar Dalen and mother of two.",
-        "revealed": true
-    },
-    {
-        "id": "quill",
-        "name": "The Quill",
-        "role": "Infamous Information Broker",
-        "alignment": "Neutral",
-        "status": "alive",
-        "factions": ["Deepwater Mercantile (former)", "Harpers"],
-        "summary": "Information broker with contacts throughout the city. Secretly the presumed-dead Celene Hearst, working to take down Deepwater Mercantile and her family.",
-        "revealed": true
-    },
-    {
-        "id": "renaer-neverember",
-        "name": "Renaer Neverember",
-        "role": "Noble",
-        "alignment": "Lawful Good",
+        "id": "thorn",
+        "name": "Thorn",
+        "role": "Talented Assassin",
+        "alignment": "Chaotic Neutral",
         "status": "alive",
         "factions": [],
-        "summary": "Estranged son of the former Open Lord of Waterdeep.",
+        "summary": "Skilled assassin and Daphne's mentor. Desires to take over the Deepwater Mercatile illegal business.",
         "revealed": true
     },
     {
-        "id": "soul-keeper",
-        "name": "Soul Keeper",
-        "role": "Member of Raven Queen's Court",
-        "alignment": "Neutral",
+        "id": "jhoadil-zulthind",
+        "name": "Jhoadil Zulthind",
+        "role": "High Seeker of Gond",
+        "alignment": "Lawful Neutral",
         "status": "alive",
-        "factions": ["Raven Queen"],
-        "summary": "Mysterious guardian of the planar anchor to the Shadowfell.",
+        "factions": ["House of Inspired Hands"],
+        "summary": "Leader of the followers of Gond and the House of Inspired Hands. Opposed to the rising Automationist movement within the temple.",
         "revealed": true
     },
     {
@@ -679,33 +689,33 @@
         "revealed": true
     },
     {
-        "id": "thorn",
-        "name": "Thorn",
-        "role": "Talented Assassin",
-        "alignment": "Chaotic Neutral",
+        "id": "soul-keeper",
+        "name": "Soul Keeper",
+        "role": "Member of Raven Queen's Court",
+        "alignment": "Neutral",
+        "status": "alive",
+        "factions": ["Raven Queen"],
+        "summary": "Mysterious guardian of the planar anchor to the Shadowfell.",
+        "revealed": true
+    },
+    {
+        "id": "winters-herald",
+        "name": "Winter's Herald",
+        "role": "Member of Raven Queen's Court",
+        "alignment": "Neutral",
+        "status": "alive",
+        "factions": ["Raven Queen"],
+        "summary": "Manifestion of the Queen's dominion over winter. Tested Damocles and the party in the first of the Raven Queen's trials through combat.",
+        "revealed": true
+    },
+    {
+        "id": "renaer-neverember",
+        "name": "Renaer Neverember",
+        "role": "Noble",
+        "alignment": "Lawful Good",
         "status": "alive",
         "factions": [],
-        "summary": "Skilled assassin and Daphne's mentor. Desires to take over the Deepwater Mercatile illegal business.",
-        "revealed": true
-    },
-    {
-        "id": "urstul-floxin",
-        "name": "Urstul Floxin",
-        "role": "Zhentarim Agent",
-        "alignment": "Neutral Evil",
-        "status": "imprisoned",
-        "factions": ["Zhentarim", "Kaige Omen Network"],
-        "summary": "Zhentarim double agent for Kaige Omen, working to keep the Zhentarim and Xanathar gangs at war. Face burnt in a fireball outside the party's tavern.",
-        "revealed": true
-    },
-    {
-        "id": "vajra-safahr",
-        "name": "Vajra Safahr",
-        "role": "Blackstaff of Force Gray",
-        "alignment": "Neutral Good",
-        "status": "alive",
-        "factions": ["Force Gray"],
-        "summary": "Leader of Force Gray, and wielder of the Blackstaff.",
+        "summary": "Estranged son of the former Open Lord of Waterdeep. Taken by the Zhentarim before being resuced by the party.",
         "revealed": true
     },
     {
@@ -719,13 +729,13 @@
         "revealed": true
     },
     {
-        "id": "winters-herald",
-        "name": "Winter's Herald",
-        "role": "Member of Raven Queen's Court",
+        "id": "floon-blagmaar",
+        "name": "Floon Blagmaar",
+        "role": "Drunk Commoner",
         "alignment": "Neutral",
         "status": "alive",
-        "factions": ["Raven Queen"],
-        "summary": "Manifestion of the Queen's dominion over winter. Tested Damocles and the party in the first of the Raven Queen's trials through combat.",
+        "factions": [],
+        "summary": "Frequently intoxicated commoner who was mistakenly kidnapped by the Xanathar Guild, then rescued by the party. Friend of Renear and Volo.",
         "revealed": true
     },
     {
