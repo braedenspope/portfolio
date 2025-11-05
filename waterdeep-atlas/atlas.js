@@ -17,7 +17,7 @@ function isRevealed(npc) { return DM_MODE || npc.revealed !== false; }
 // Where you'll put images: /waterdeep-atlas/img/npcs/<npc-id>.jpg (or .png)
 // Provide one generic placeholder image named _placeholder.jpg (or .png)
 function npcImageSrc(id) {
-  return `./characters/img/npcs/${id}.jpg`;
+  return `/waterdeep-atlas/characters/img/npcs/${id}.jpg`;
 }
 
 function renderNPC(npc, data) {
