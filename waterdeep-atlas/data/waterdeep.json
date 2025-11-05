@@ -443,9 +443,9 @@
         "name": "Kaelen Halosyne",
         "role": "Fallen Aasimar Necromancer",
         "alignment": "Lawful Evil",
-        "status": "at-large",
+        "status": "dead",
         "factions": ["Kaige Omen Network"],
-        "summary": "Vaelen’s twin and murderer of their mother. Obsessed with immortality; worked with Kaige.",
+        "summary": "Vaelen’s twin and murderer of their mother. Obsessed with immortality; worked with Kaige. Killed by Vaelan in the Halls of Justice",
         "revealed": true
     },
     {
