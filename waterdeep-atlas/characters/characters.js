@@ -15,7 +15,7 @@ window.fitNPCImage = function (img) {
 };
 
 function npcImageSrc(id) {
-  return `./characters/img/npcs/${id}.jpg`;
+  return `/waterdeep-atlas/characters/img/npcs/${id}.jpg`;
 }
 
 const grid = document.getElementById('grid');
