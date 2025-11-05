@@ -1,4 +1,4 @@
-const MAP_IMG = './img/waterdeep-map.jpg';
+const MAP_IMG = '/waterdeep-atlas/img/waterdeep-map.jpg';
 const DATA_URL = './data/waterdeep.json';
 
 const map = L.map('map', {
