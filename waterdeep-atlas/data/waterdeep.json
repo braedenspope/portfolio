@@ -259,16 +259,6 @@
 
   "npcs": [
     {
-        "id": "kaige-omen",
-        "name": "Kaige Omen",
-        "role": "Main Antagonist",
-        "alignment": "Chaotic Evil",
-        "status": "alive",
-        "factions": ["Kaige Omen Network"],
-        "summary": "Fallen wizard is determined to destroy Waterdeep for its corruption. Master manipulator of factions.",
-        "revealed": true
-    },
-    {
         "id": "damocles",
         "name": "Alaric Vane (Damocles)",
         "role": "Party Warlock / Agent of the Raven Queen",
@@ -299,13 +289,53 @@
         "revealed": true
     },
     {
+        "id": "vaelen-halosyne",
+        "name": "Vaelen Halosyne",
+        "role": "Paladin of Tyr",
+        "alignment": "Lawful Good",
+        "status": "alive",
+        "factions": ["Halls of Justice", "City Watch"],
+        "summary": "Twin brother to Kaelen Halosyne. Sworn to bring his fallen brother to justice after their mother’s murder.",
+        "revealed": true
+    },
+    {
+        "id": "william-zanos",
+        "name": "William Zanos",
+        "role": "Noble Sorcerer",
+        "alignment": "Chaotic Neutral",
+        "status": "alive",
+        "factions": ["City Watch"],
+        "summary": "Noble from a far-away name that has come to Waterdeep in search of his missing brother. Lover of Woman.",
+        "revealed": true
+    },
+    {
+        "id": "sprig-hammerstone",
+        "name": "Sprig Hammerstone",
+        "role": "Adopted Fey Archer",
+        "alignment": "Chaotic Good",
+        "status": "missing",
+        "factions": [],
+        "summary": "Elven archer with archfey blood coursing through his veins. Bears a similar resemeblence to his father the archfey Oberon.",
+        "revealed": true
+    },
+    {
+        "id": "apoch",
+        "name": "Apoch (Mark 68)",
+        "role": "Warforged Wizard",
+        "alignment": "Chaotic Good",
+        "status": "dead",
+        "factions": [],
+        "summary": "Warforged constructed by the infamous Meepo, designed to counter spellcasters. Destroyed by Verix of the Zhentarim during the warehouse battle.",
+        "revealed": true
+    },
+    {
         "id": "salazar-dalen",
         "name": "Salazar Dalen",
         "role": "Gray Hand Gunslinger",
         "alignment": "Lawful Neutral",
         "status": "alive",
         "factions": ["Force Gray"],
-        "summary": "Waterdeep’s top marksman. Family man and loyal ally, whose devotion to the city will be tested when Kaige threatens his loved ones.",
+        "summary": "Waterdeep’s top marksman. Father of two and loyal ally, whose devotion to the city will be tested when Kaige threatens his loved ones.",
         "revealed": true
     },
     {
@@ -329,13 +359,23 @@
         "revealed": true
     },
     {
-        "id": "vaelen-halosyne",
-        "name": "Vaelen Halosyne",
-        "role": "Paladin of Tyr",
+        "id": "captain-tyrus",
+        "name": "Captain Tyrus",
+        "role": "Captain of the Castle Ward",
         "alignment": "Lawful Good",
         "status": "alive",
-        "factions": ["Halls of Justice", "City Watch"],
-        "summary": "Twin brother to Kaelen Halosyne. Sworn to bring his fallen brother to justice after their mother’s murder.",
+        "factions": ["City Watch"],
+        "summary": "No-nonsense Warden of the Accounting House. Works closely with Daphne in taking down Deepwater Mercantile.",
+        "revealed": true
+    },
+    {
+        "id": "kaige-omen",
+        "name": "Kaige Omen",
+        "role": "Main Antagonist",
+        "alignment": "Chaotic Evil",
+        "status": "alive",
+        "factions": ["Kaige Omen Network"],
+        "summary": "Fallen wizard is determined to destroy Waterdeep for its corruption. Master manipulator of factions.",
         "revealed": true
     },
     {
@@ -446,6 +486,16 @@
         "status": "alive",
         "factions": ["Harpers"],
         "summary": "Head Harper in the city of Waterdeep. Daughter of the infamous Jack Rose.",
+        "revealed": true
+    },
+    {
+        "id": "alesea-moorfly",
+        "name": "Alesea Moorfly",
+        "role": "Druid of the Emerald Enclave",
+        "alignment": "Neutral Good",
+        "status": "alive",
+        "factions": ["Emerald Enclave"],
+        "summary": "Eccentric druid and contact for the party with the Emerald Enclave. Known to sleep in trees.",
         "revealed": true
     }
     ],
