@@ -57,6 +57,17 @@
             "npcs": ["salazar-dalen", "grand-civilar-stonefist"],
             "events": ["xarrai-confession"],
             "status": "active"
+        },
+        {
+            "id": "shadowfell-anchor",
+            "name": "Damocles' Home/Shadowfell Anchor",
+            "type": "planar-anchor",
+            "desc": "Former home of Alaric Vane, current planar anchor to the Shadowfell plane.",
+            "coords": [0.6486, 0.1424],
+            "factions": ["raven-queen"],
+            "npcs": ["soul-keeper"],
+            "events": ["anchor-defense", "soul-trial"],
+            "status": "active"
         }
       ]
     },
@@ -843,6 +854,12 @@
     "id": "moonstone_chalice",
     "title": "Moonstone Chalice Incident",
     "summary": "Kaelen stole the Moonstone Chalice and used it to attempt a necromantic ritual before escaping.",
+    "when": "Late Campaign"
+  },
+  {
+    "id": "anchor-defense",
+    "title": "Defense of the Shadowfell Anchor",
+    "summary": "Damocles and William defended the anchor from the Cult of Orcus",
     "when": "Late Campaign"
   },
   {
