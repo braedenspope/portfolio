@@ -305,7 +305,7 @@
         "alignment": "Chaotic Neutral",
         "status": "alive",
         "factions": ["City Watch"],
-        "summary": "Noble from a far-away name that has come to Waterdeep in search of his missing brother. Lover of Women.",
+        "summary": "Noble from a far-away land that has come to Waterdeep in search of his missing brother. Lover of Women.",
         "revealed": true
     },
     {
@@ -445,7 +445,7 @@
         "alignment": "Lawful Evil",
         "status": "dead",
         "factions": ["Kaige Omen Network"],
-        "summary": "Vaelen’s twin and murderer of their mother. Obsessed with immortality; worked with Kaige.",
+        "summary": "Vaelen’s twin and murderer of their mother. Obsessed with immortality; worked with Kaige. Killed by Vaelan in the Halls of Justice",
         "revealed": true
     },
     {
