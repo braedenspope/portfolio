@@ -271,7 +271,7 @@
           "desc": "Home to the Dalen family, Salazar, Nuala, Brynn and Arwen. Burned down by agents of Kaige Omen.",
           "coords": [0.794, 0.7956],
           "factions": [],
-          "npcs": [],
+          "npcs": ["salazar-dalen", "nuala-dalen"],
           "events": [],
           "status": "closed"
         }
