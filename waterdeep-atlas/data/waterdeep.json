@@ -353,9 +353,9 @@
         "name": "Vajra Safahr",
         "role": "Blackstaff of Force Gray",
         "alignment": "Neutral Good",
-        "status": "alive",
+        "status": "dead",
         "factions": ["Force Gray"],
-        "summary": "Leader of Force Gray, and wielder of the Blackstaff.",
+        "summary": "Leader of Force Gray, and wielder of the Blackstaff. Killed in the destruction of the Blackstaff Tower.",
         "revealed": true
     },
     {
@@ -423,7 +423,7 @@
         "name": "Duncan",
         "role": "Former Companion of Damocles",
         "alignment": "Neutral",
-        "status": "alive",
+        "status": "dead",
         "factions": ["Zhentarim (debtor)"],
         "summary": "Once Damocles’ ally, now entangled in Zhentarim debts. His loyalty is uncertain.",
         "revealed": true
@@ -443,7 +443,7 @@
         "name": "Kaelen Halosyne",
         "role": "Fallen Aasimar Necromancer",
         "alignment": "Lawful Evil",
-        "status": "at-large",
+        "status": "dead",
         "factions": ["Kaige Omen Network"],
         "summary": "Vaelen’s twin and murderer of their mother. Obsessed with immortality; worked with Kaige.",
         "revealed": true
@@ -496,7 +496,7 @@
         "status": "alive",
         "factions": ["Malar’s Hunt"],
         "summary": "Sent by Malar to hunt Xarrai, she performed the Sun Ritual using Selûne’s artifact to walk in daylight.",
-        "revealed": false
+        "revealed": true
     },
     {
         "id": "arthur-morlin",
@@ -695,7 +695,7 @@
         "alignment": "Neutral",
         "status": "alive",
         "factions": ["Raven Queen"],
-        "summary": "Mysterious guardian of the planar anchor to the Shadowfell.",
+        "summary": "Mysterious guardian of the planar anchor to the Shadowfell. Tested Damocles and the party in the second of the Raven Queen's trials.",
         "revealed": true
     },
     {
@@ -816,6 +816,12 @@
     "when": "Mid Campaign"
   },
   {
+    "id": "tower-destruction",
+    "title": "Destruction of Blackstaff Tower",
+    "summary": "The tower was destroyed by Kaige Omen, killing the Blackstaff as well as much of Force Gray.",
+    "when": "Late Campaign"
+  },
+  {
     "id": "golden_night_gala",
     "title": "Golden Night Gala",
     "summary": "At Merrick Wolfram’s casino, the party are introduced to Merrick Wolfram as well as William Zanos over gambling and drinks.",
@@ -876,9 +882,15 @@
     "when": "Current Crisis"
   },
   {
-    "id": "raven_queen_trial",
-    "title": "Trial of the Raven Queen",
+    "id": "winter_trial",
+    "title": "Winter's Herald's Trial",
     "summary": "Damocles faced the Winter’s Herald in the City of the Dead and was marked as her servant.",
+    "when": "Ongoing Arc"
+  },
+  {
+    "id": "soul_trial",
+    "title": "Soul Keeper's Trial",
+    "summary": "The party was tested in the planar anchor of the Shadowfell as a part of the second trial of the raven queen.",
     "when": "Ongoing Arc"
   }
 ],
