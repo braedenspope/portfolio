@@ -66,7 +66,7 @@
             "coords": [0.6486, 0.1424],
             "factions": ["raven-queen"],
             "npcs": ["soul-keeper"],
-            "events": ["anchor-defense", "soul-trial"],
+            "events": ["anchor-defense", "soul_trial"],
             "status": "active"
         }
       ]
@@ -86,7 +86,7 @@
           "factions": ["city-watch"],
           "npcs": ["vaelen-halosyne"],
           "events": ["kaelen_attack_temple"],
-          "status": "under-threat"
+          "status": "active"
         },
         {
           "id": "castle-waterdeep",
@@ -114,10 +114,10 @@
           "id": "blackstaff-tower",
           "name": "Blackstaff Tower",
           "type": "stronghold",
-          "desc": "Arcane Tower home to the Blackstaff, the prominent magical influence in the city and leader of Force Gray. Main headquarters for the organization.",
+          "desc": "Arcane Tower home to the Blackstaff, the prominent magical influence in the city and leader of Force Gray. Main headquarters for the organization. Destroyed by Kaige Omen.",
           "coords": [0.2776, 0.3919],
           "factions": ["force-gray"],
-          "events": ["force-gray-recruitment", "salazar-reconnection"],
+          "events": ["force-gray-recruitment", "salazar-reconnection", "tower-destruction"],
           "status": "open"
         },
         {
@@ -260,6 +260,17 @@
           "desc": "A noble estate home to the Phaulkon Family, most notably the former Chosen of Mielikki, Jereth Phaulkon. Also acted as the planar anchor to Mount Celestia, until corrupted by the Cult of Orcus.",
           "coords": [0.7465, 0.7392],
           "factions": ["emerald-enclave"],
+          "npcs": [],
+          "events": [],
+          "status": "closed"
+        },
+        {
+          "id": "salazar-home",
+          "name": "Dalen Family Home",
+          "type": "estate",
+          "desc": "Home to the Dalen family, Salazar, Nuala, Brynn and Arwen. Burned down by agents of Kaige Omen.",
+          "coords": [0.794, 0.7956],
+          "factions": [],
           "npcs": [],
           "events": [],
           "status": "closed"
