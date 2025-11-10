@@ -66,7 +66,7 @@ export default async function handler(req, res) {
     ];
 
     // --- Try multiple models (fallbacks included) ---
-    const models = ["gpt-4o-mini", "gpt-4o", "gpt-3.5-turbo"];
+    const models = ["gpt-5", "gpt-4o-mini", "gpt-4o", "gpt-3.5-turbo"];
     let answer = null;
     let lastErr = "";
 
