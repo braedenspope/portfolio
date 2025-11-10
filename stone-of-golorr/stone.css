@@ -1,0 +1,15 @@
+:root { --bg:#0a0e12; --fg:#e7f2ff; --muted:#9fb3c8; --accent:#6ee7ff; }
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--fg); font:16px/1.4 system-ui, sans-serif; }
+.wrap { max-width:620px; margin:0 auto; padding:20px; }
+.title { text-align:center; margin:8px 0 18px; font-weight:700; letter-spacing:.5px; }
+.panel { background:#0e141b; border:1px solid #1c2733; border-radius:14px; padding:14px; }
+.label { display:block; margin-bottom:6px; color:var(--muted); font-size:.9rem; }
+textarea { width:100%; background:#0a0f15; border:1px solid #1b2633; color:var(--fg); padding:12px; border-radius:10px; resize:vertical; }
+button { margin-top:10px; width:100%; padding:12px; font-weight:600; border-radius:12px; background:var(--accent); color:#001018; border:0; }
+button:active { transform:translateY(1px); }
+.muted { color:var(--muted); font-size:.9rem; margin:8px 0 0; }
+.log { margin-top:16px; display:grid; gap:10px; }
+.bubble { background:#0e141b; border:1px solid #1c2733; padding:12px; border-radius:14px; }
+.stone { width:120px; height:120px; margin:18px auto 10px; border-radius:50%; background:radial-gradient(circle at 30% 30%, #7dd3fc 0, #4b6a81 40%, #0b1117 70%); box-shadow:0 0 18px #4fd1ff77; animation:pulse 3s ease-in-out infinite; }
+@keyframes pulse { 0%,100% { box-shadow:0 0 16px #4fd1ff55; } 50% { box-shadow:0 0 26px #6ee7ff99; } }

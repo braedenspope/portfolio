@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Stone of Golorr</title>
+  <link rel="stylesheet" href="stone.css" />
+</head>
+<body>
+  <main class="wrap">
+    <div class="stone" aria-hidden="true"></div>
+    <h1 class="title">The Stone of Golorr</h1>
+
+    <div class="panel">
+      <label for="q" class="label">Ask your whisper</label>
+      <textarea id="q" rows="3" placeholder="One question, seeker…"></textarea>
+      <button id="askBtn">Whisper</button>
+      <p id="limitMsg" class="muted" hidden></p>
+    </div>
+
+    <section id="log" class="log" aria-live="polite"></section>
+  </main>
+
+  <script src="stone.js" defer></script>
+</body>
+</html>
