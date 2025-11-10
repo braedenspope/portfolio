@@ -9,6 +9,7 @@ export default async function handler(req, res) {
     const apiKey = process.env.OPENAI_API_KEY;
     if (!apiKey) return res.status(500).json({ error: 'Missing OPENAI_API_KEY' });
 
+    // one whisper per day per player (in-memory)
     const today = new Date().toISOString().slice(0,10);
     const key = `${playerId}:${today}`;
     globalThis.__STONE_LIMIT__ = globalThis.__STONE_LIMIT__ || new Map();
@@ -25,7 +26,7 @@ export default async function handler(req, res) {
       "Tone: eerie, calm, a touch condescending. Never give exact directions; give nudges."
     ].join('\n');
 
-    // Load lore safely
+    // Load lore safely (won't crash if missing)
     let lore = [];
     try {
       const fs = await import('node:fs/promises');
@@ -33,7 +34,7 @@ export default async function handler(req, res) {
       const filePath = path.join(process.cwd(), 'stone-knowledge', 'lore.json');
       lore = JSON.parse(await fs.readFile(filePath, 'utf8'));
     } catch (e) {
-      console.error('Lore load skipped:', e.message);
+      console.error('Lore load skipped:', e?.message || e);
     }
 
     const messages = [
@@ -41,25 +42,43 @@ export default async function handler(req, res) {
       { role: "user", content: `Question: ${question}\n\nContext (lore snippets): ${JSON.stringify(lore).slice(0, 12000)}` }
     ];
 
-    const resp = await fetch('https://api.openai.com/v1/chat/completions', {
-      method: 'POST',
-      headers: { 'Authorization': `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: "gpt-4o-mini",          // <— valid chat model
-        messages,
-        temperature: 0.7,
-        max_tokens: 180
-      })
-    });
+    // Try preferred model, then fallbacks
+    const models = ["gpt-4o-mini", "gpt-4o"]; // add "gpt-3.5-turbo" if needed for testing
+    let answer = null;
+    let lastErrText = "";
 
-    const text = await resp.text();
-    if (!resp.ok) {
-      console.error('OpenAI error:', text);
-      return res.status(500).json({ error: 'OpenAI error', detail: text });
+    for (const model of models) {
+      const resp = await fetch("https://api.openai.com/v1/chat/completions", {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${apiKey}`,
+          "Content-Type": "application/json",
+          // If your key is *user* scoped and your account requires an org header, uncomment:
+          // "OpenAI-Organization": process.env.OPENAI_ORG_ID || ""
+          // If you generated a *project* key, you don't need extra headers.
+        },
+        body: JSON.stringify({ model, messages, temperature: 0.7, max_tokens: 180 })
+      });
+
+      const text = await resp.text(); // capture raw for debugging
+      if (!resp.ok) {
+        console.error(`OpenAI error (${model}):`, text);
+        lastErrText = `status=${resp.status} model=${model} body=${text}`;
+        continue; // try next model
+      }
+
+      const data = JSON.parse(text);
+      answer = data.choices?.[0]?.message?.content?.trim();
+      if (answer) break;
     }
 
-    const data = JSON.parse(text);
-    const answer = data.choices?.[0]?.message?.content?.trim() || "…the memory slips between currents…";
+    if (!answer) {
+      // Surface the exact OpenAI error so you can see it in the browser/network panel.
+      return res.status(500).json({
+        error: "OpenAI error",
+        detail: lastErrText || "Unknown error"
+      });
+    }
 
     globalThis.__STONE_LIMIT__.set(key, true);
     return res.status(200).json({ answer });
