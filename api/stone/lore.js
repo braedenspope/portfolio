@@ -1,6 +1,6 @@
 export default [
   { "tag": "Stone of Golorr", "text": "A magical artifact that reveals the location of Dagult Neverember’s hidden treasure; currently in Kaige Omen’s possession." },
-  { "tag": "Kaige Omen", "text": "A human wizard whose family was murdered by Xanathar bugbears after Waterdeep’s corrupt systems failed him; he seeks to destroy the city’s corruption by any means and currently holds the Stone of Golorr." },
+  { "tag": "Kaige Omen", "text": "A human wizard whose family was murdered by Xanathar bugbears after Waterdeep’s corrupt systems failed him; he seeks to destroy the city’s corruption by any means." },
   { "tag": "Kaige: Manipulation", "text": "Kaige engineered the gang war by convincing both the Xanathar Guild and the Zhentarim that the other side had the Stone while he kept it himself." },
   { "tag": "Masked Lords Assassinations", "text": "Kaige orchestrated assassinations of multiple Masked Lords and backed a failed coup by one of them; the party saved the survivors." },
   { "tag": "Gang War Status", "text": "A temporary ceasefire was negotiated with both gangs while the party seeks to prove Kaige’s deception regarding the Stone." },
