@@ -528,7 +528,7 @@
         "status": "alive",
         "factions": [],
         "summary": "Ancient vampire ruling the city’s undead underworld. Seeks Dhussara’s destruction for trespassing on his territory.",
-        "revealed": false
+        "revealed": true
     },
     {
         "id": "zaphara",
